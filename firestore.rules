@@ -1,0 +1,116 @@
+rules_version = '2';
+
+/**
+ * Regras do Firestore da Teia SP.
+ *
+ * Até aqui as regras só existiam no console do Firebase, sem histórico de
+ * quem mudou o quê. Este arquivo passa a ser a fonte da verdade — publicar
+ * com `firebase deploy --only firestore:rules`.
+ *
+ * O que já valia e foi mantido (verificado em 18/08/2026 contra o banco em
+ * produção): `servicos` e `pontos` são de leitura pública; `pendentes`,
+ * `mensagens` e `lixeira` são invisíveis para quem não está logado.
+ *
+ * O que muda: a criação pública de sugestões e mensagens passa a ser
+ * validada. Sem isso, qualquer pessoa pode gravar documentos de qualquer
+ * formato e tamanho nessas coleções direto pela API, sem passar pelo site.
+ *
+ * Sobre contas: qualquer usuário autenticado no projeto é moderador — foi a
+ * decisão do projeto. Se um dia isso mudar, o ponto de ajuste é a função
+ * `moderador()` abaixo.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function moderador() {
+      return request.auth != null;
+    }
+
+    function texto(campo, maximo) {
+      return campo is string && campo.size() <= maximo;
+    }
+
+    function textoOpcional(dados, nome, maximo) {
+      return !(nome in dados) || texto(dados[nome], maximo);
+    }
+
+    function coordenadaValida(dados) {
+      return !('lat' in dados) || (
+        dados.lat is number && dados.lng is number
+        && dados.lat >= -24.1 && dados.lat <= -23.3
+        && dados.lng >= -46.9 && dados.lng <= -46.3
+      );
+    }
+
+    // Conteúdo publicado: qualquer pessoa lê, só a equipe altera.
+    match /servicos/{id} {
+      allow read: if true;
+      allow write: if moderador();
+    }
+
+    match /pontos/{id} {
+      allow read: if true;
+      allow write: if moderador();
+    }
+
+    // Fila de moderação: o público só pode criar, e dentro do formato.
+    match /pendentes/{id} {
+      allow read, update, delete: if moderador();
+
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          'tipo', 'sigla', 'nome', 'area', 'territorio', 'publico', 'desc',
+          'funcao', 'endereco', 'telefone', 'secretaria', 'ong', 'tags',
+          'site', 'autor', 'data', 'status', 'lat', 'lng',
+          'enviadoPorAdmin', 'enviadoPorEmail'
+        ])
+        && request.resource.data.tipo in ['servico', 'ponto']
+        && request.resource.data.status == 'pendente'
+        && texto(request.resource.data.sigla, 200)
+        && request.resource.data.sigla.size() > 0
+        && texto(request.resource.data.area, 100)
+        && textoOpcional(request.resource.data, 'nome', 300)
+        && textoOpcional(request.resource.data, 'desc', 20000)
+        && textoOpcional(request.resource.data, 'funcao', 5000)
+        && textoOpcional(request.resource.data, 'endereco', 400)
+        && textoOpcional(request.resource.data, 'telefone', 60)
+        && textoOpcional(request.resource.data, 'publico', 500)
+        && textoOpcional(request.resource.data, 'secretaria', 300)
+        && textoOpcional(request.resource.data, 'site', 500)
+        && textoOpcional(request.resource.data, 'autor', 200)
+        && (!('tags' in request.resource.data)
+            || (request.resource.data.tags is list && request.resource.data.tags.size() <= 20))
+        && coordenadaValida(request.resource.data);
+    }
+
+    // Chat com a equipe: mesma ideia — só criação, validada.
+    match /mensagens/{id} {
+      allow read, update, delete: if moderador();
+
+      allow create: if
+        request.resource.data.keys().hasOnly(['nome', 'contato', 'mensagem', 'data', 'lida'])
+        && texto(request.resource.data.mensagem, 5000)
+        && request.resource.data.mensagem.size() > 0
+        && textoOpcional(request.resource.data, 'nome', 200)
+        && textoOpcional(request.resource.data, 'contato', 200)
+        && textoOpcional(request.resource.data, 'data', 40)
+        && (!('lida' in request.resource.data) || request.resource.data.lida == false);
+    }
+
+    // Lixeira: só a equipe, em tudo.
+    match /lixeira/{id} {
+      allow read, write: if moderador();
+    }
+
+    // Cache de geocodificação: escrito apenas pelo servidor, que usa o Admin
+    // SDK e não passa por estas regras. Nenhum cliente precisa de acesso.
+    match /geocache/{id} {
+      allow read, write: if false;
+    }
+
+    // Qualquer coleção nova nasce fechada.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
