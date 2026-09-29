@@ -11,19 +11,7 @@ export function Rodape({ atualizadoEm }: { atualizadoEm?: string }) {
     <footer className="mt-auto border-t border-black/10 bg-sur/85 backdrop-blur-sm">
       <div className="mx-auto w-full max-w-5xl space-y-1 px-4 py-6 text-center text-[11px] text-tx-3">
         {atualizadoEm && <p>Atualizado pela última vez em: {atualizadoEm}</p>}
-        <p>{CREDITOS.logo}</p>
-        <p>
-          {CREDITOS.arte.rotulo}{" "}
-          <a
-            href={CREDITOS.arte.url}
-            target="_blank"
-            rel="noopener"
-            className="underline hover:text-marca-700"
-          >
-            {CREDITOS.arte.nome}
-          </a>
-        </p>
-        <p className="pt-1">{CREDITOS.direitos}</p>
+        <p>{CREDITOS.direitos}</p>
       </div>
     </footer>
   );
