@@ -23,32 +23,49 @@ export function Cabecalho() {
             src="/img/header-bg.jpg"
             alt=""
             aria-hidden="true"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
           />
         </picture>
         <div className="absolute inset-0 bg-white/91" />
       </div>
 
-      <div className="mx-auto flex w-full max-w-5xl items-center gap-4 px-4 py-4 sm:gap-6 sm:py-6">
-        <Image
-          src="/img/logo-teiasp.png"
-          alt="Teia SP"
-          width={594}
-          height={385}
-          priority
-          className="h-16 w-auto shrink-0 sm:h-24"
-        />
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-4 sm:gap-6 sm:py-6">
+        <div className="flex items-center gap-4 sm:gap-6">
+          <Image
+            src="/img/logo-teiasp.png"
+            alt="Teia SP"
+            width={594}
+            height={385}
+            priority
+            className="h-16 w-auto shrink-0 sm:h-24"
+          />
 
-        <div className="min-w-0 flex-1">
-          <p className="font-display text-base leading-tight font-bold text-marca-800 sm:text-xl">
-            {CREDITOS.subtitulo}
-          </p>
-          <p className="mt-1.5 text-[11px] leading-relaxed text-tx-2 sm:text-xs">
-            {CREDITOS.idealizacao} <BotoesEquipe />
-          </p>
+          <div className="min-w-0 flex-1">
+            <p className="font-display text-base leading-tight font-bold text-marca-800 sm:text-xl">
+              {CREDITOS.subtitulo}
+            </p>
+            <p className="mt-1.5 text-[11px] leading-relaxed text-tx-2 sm:text-xs">
+              {CREDITOS.idealizacao} <BotoesEquipe />
+            </p>
+          </div>
+
+          <MenuLateral />
         </div>
 
-        <MenuLateral />
+        <div className="space-y-0.5 text-[10px] leading-relaxed text-tx-2 sm:text-[11px]">
+          <p>{CREDITOS.logo}</p>
+          <p>
+            {CREDITOS.arte.rotulo}{" "}
+            <a
+              href={CREDITOS.arte.url}
+              target="_blank"
+              rel="noopener"
+              className="underline hover:text-marca-700"
+            >
+              {CREDITOS.arte.nome}
+            </a>
+          </p>
+        </div>
       </div>
     </header>
   );
