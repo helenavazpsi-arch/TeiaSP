@@ -19,9 +19,8 @@ export default async function PaginaMapa() {
       <div className="mb-4 flex items-start gap-2.5 rounded-teia-lg border border-info/20 bg-info-bg px-4 py-3 text-[13px] text-info">
         <Map size={17} className="mt-0.5 shrink-0" aria-hidden />
         <p>
-          <strong>Mapa da Teia SP.</strong> Os pinos próximos se agrupam; aproxime para
-          abrir cada unidade. Use a busca e os filtros para procurar por bairro, área ou
-          região.
+          <strong>Mapa da Teia SP.</strong> Encontre a unidade do serviço mais próxima de
+          você. Use a busca e os filtros para procurar por bairro, área ou região.
         </p>
       </div>
 
