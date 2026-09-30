@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Suspense } from "react";
 import { Cabecalho } from "@/components/layout/cabecalho";
-import { FundoArte } from "@/components/layout/fundo-arte";
 import {
   BarraInferiorBase,
   NavegacaoTopoBase,
@@ -77,7 +76,6 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       className={`${corpo.variable} ${titulo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <FundoArte />
         <Cabecalho />
         <SobreProjeto />
 
@@ -87,9 +85,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           <NavegacaoTopo />
         </Suspense>
 
-        {/* faixa central clara sobre a aquarela, como no site atual: a arte
-            emoldura, o conteúdo fica legível */}
-        <div className="mx-auto w-full max-w-5xl flex-1 bg-sur/92 pb-16 shadow-[0_0_60px_rgba(60,52,137,0.10)] backdrop-blur-[2px] sm:pb-0">
+        <div className="mx-auto w-full max-w-5xl flex-1 bg-white pb-16 sm:pb-0">
           {children}
         </div>
 
