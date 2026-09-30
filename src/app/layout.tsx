@@ -106,9 +106,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           <RodapeComData />
         </Suspense>
 
-        <Suspense>
-          <BarraInferior />
-        </Suspense>
+        <BarraInferior />
 
         {modal}
       </body>

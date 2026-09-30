@@ -33,19 +33,19 @@ export function Cabecalho() {
             width={594}
             height={385}
             priority
-            className="h-14 w-auto shrink-0 sm:h-24"
+            className="h-16 w-auto shrink-0 sm:h-24"
           />
 
           <div className="min-w-0 flex-1">
-            <p className="font-display text-sm leading-tight font-bold text-marca-800 sm:text-xl">
+            <p className="font-display text-xs leading-tight font-bold text-marca-800 sm:text-xl">
               {CREDITOS.subtitulo}
             </p>
-            <div className="mt-1.5 space-y-0.5 text-xs leading-relaxed text-tx-2 sm:text-base">
-              <p>
+            <div className="mt-1 space-y-0.5 text-xs leading-snug text-tx-2 sm:text-base">
+              <p className="line-clamp-2">
                 {CREDITOS.idealizacao} <BotoesEquipe />
               </p>
-              <p>{CREDITOS.logo}</p>
-              <p>
+              <p className="line-clamp-1">{CREDITOS.logo}</p>
+              <p className="line-clamp-1">
                 {CREDITOS.arte.rotulo}{" "}
                 <a
                   href={CREDITOS.arte.url}
