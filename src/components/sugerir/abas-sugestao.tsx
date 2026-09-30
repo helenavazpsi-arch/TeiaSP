@@ -68,26 +68,25 @@ function Opcao({
           : "border-black/12 bg-sur hover:border-marca-200",
       )}
     >
-      <span
-        className={cn(
-          "text-sm font-semibold",
-          ativo
-            ? "text-marca-800 bg-marca-50 rounded-teia px-2 py-1 inline-block"
-            : "block text-tx",
-        )}
-      >
-        {titulo}
-      </span>
-      <span
-        className={cn(
-          "text-[12px] leading-snug",
-          ativo
-            ? "text-tx-2 bg-marca-50 rounded-teia px-2 py-1 inline-block mt-0.5 ml-0.5"
-            : "block text-tx-2 mt-0.5",
-        )}
-      >
-        {descricao}
-      </span>
+      {ativo ? (
+        <>
+          <span className="inline-block bg-marca-50 rounded-teia px-2 py-1 text-sm font-semibold text-marca-800">
+            {titulo}
+          </span>
+          <span className="block mt-0.5 text-[12px] leading-snug text-tx-2">
+            <span className="inline-block bg-marca-50 rounded-teia px-2 py-1">
+              {descricao}
+            </span>
+          </span>
+        </>
+      ) : (
+        <>
+          <span className="block text-sm font-semibold text-tx">
+            {titulo}
+          </span>
+          <span className="mt-0.5 block text-[12px] leading-snug text-tx-2">{descricao}</span>
+        </>
+      )}
     </button>
   );
 }
