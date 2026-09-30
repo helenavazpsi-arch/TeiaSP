@@ -71,9 +71,9 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
     <html
       lang="pt-BR"
       translate="no"
-      className={`${corpo.variable} ${titulo.variable} h-full antialiased`}
+      className={`${corpo.variable} ${titulo.variable}`}
     >
-      <body className="min-h-full">
+      <body>
         <FundoArte />
         <Cabecalho />
         <SobreProjeto />
@@ -81,12 +81,12 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
         {/* wrapper fixed que envolve a navegação */}
         <div
           style={{
-            position: "fixed",
-            top: "0px",
-            left: "0px",
-            right: "0px",
+            position: "fixed" as const,
+            top: 0,
+            left: 0,
+            right: 0,
+            width: "100vw",
             zIndex: 9999,
-            width: "100%",
             pointerEvents: "none",
           }}
         >
