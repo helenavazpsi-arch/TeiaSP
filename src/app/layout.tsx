@@ -73,7 +73,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       translate="no"
       className={`${corpo.variable} ${titulo.variable}`}
     >
-      <body>
+      <body className="overflow-x-hidden">
         <FundoArte />
         <Cabecalho />
         <SobreProjeto />
