@@ -95,7 +95,7 @@ export async function listarServicosResumo(): Promise<ServicoResumo[]> {
  */
 export async function dataUltimaAtualizacao(): Promise<string | undefined> {
   "use cache";
-  cacheLife({ hours: 24 });
+  cacheLife("hours");
 
   const hoje = new Date();
   const dia = String(hoje.getDate()).padStart(2, "0");
