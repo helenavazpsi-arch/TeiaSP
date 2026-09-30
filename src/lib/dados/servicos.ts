@@ -94,6 +94,9 @@ export async function listarServicosResumo(): Promise<ServicoResumo[]> {
  * no site antigo e vivia desatualizada.
  */
 export async function dataUltimaAtualizacao(): Promise<string | undefined> {
+  "use cache";
+  cacheLife({ hours: 24 });
+
   const hoje = new Date();
   const dia = String(hoje.getDate()).padStart(2, "0");
   const mes = String(hoje.getMonth() + 1).padStart(2, "0");
