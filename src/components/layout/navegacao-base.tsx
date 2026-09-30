@@ -38,7 +38,7 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
                 href={secao.href}
                 aria-current={ativo ? "page" : undefined}
                 className={cn(
-                  "flex items-center gap-1 sm:gap-2 border-b-2 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium transition-colors rounded-lg whitespace-nowrap shrink-0",
+                  "flex items-center gap-1 sm:gap-2 border-b-2 px-2 sm:px-4 py-2 sm:py-3 text-[10px] sm:text-sm font-medium transition-colors rounded-lg whitespace-nowrap shrink-0",
                   ativo
                     ? "border-marca-600 text-marca-800 bg-[#f5e5e8]"
                     : "border-transparent text-marca-700 hover:bg-[#f5e5e8]",
