@@ -27,11 +27,13 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
       className="hidden sm:block py-2"
       style={{
         position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
+        top: "0px",
+        left: "0px",
+        right: "0px",
         zIndex: 9999,
         width: "100%",
+        transform: "translateZ(0)",
+        backfaceVisibility: "hidden",
       }}
     >
       <div className="mx-auto flex w-full max-w-5xl px-4 justify-center">
