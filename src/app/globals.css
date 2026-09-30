@@ -142,19 +142,13 @@
   border-radius: var(--radius-teia-lg);
 }
 
-/* Navegação fixa — garante que position: fixed funcione */
+/* Navegação sticky — gruda no topo quando scrollar */
 @layer components {
   nav[aria-label="Seções do site"] {
-    position: fixed !important;
+    position: sticky !important;
+    top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-  }
-
-  /* Navegação desktop — posicionada abaixo do cabeçalho */
-  @media (min-width: 640px) {
-    nav[aria-label="Seções do site"]:not(.sm\:hidden) {
-      top: 192px !important;
-      z-index: 50 !important;
-    }
+    z-index: 50 !important;
   }
 }
