@@ -74,7 +74,6 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       className={`${corpo.variable} ${titulo.variable}`}
     >
       <body style={{ position: "relative" }}>
-        <FundoArte />
         <Cabecalho />
         <SobreProjeto />
 
@@ -88,7 +87,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
 
         {modal}
 
-        {/* Portal para a navegação fixa */}
+        {/* Navegação fixa */}
         <div
           className="pointer-events-none py-2"
           style={{
@@ -105,6 +104,9 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
             </Suspense>
           </div>
         </div>
+
+        {/* Fundo de arte */}
+        <FundoArte />
       </body>
     </html>
   );
