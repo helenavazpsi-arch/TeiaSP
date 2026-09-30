@@ -64,19 +64,21 @@ function Opcao({
       className={cn(
         "rounded-teia-lg border px-4 py-3 text-left transition-all",
         ativo
-          ? "border-marca-600 bg-marca-50 ring-1 ring-marca-600"
+          ? "border-marca-600 bg-white ring-1 ring-marca-600"
           : "border-black/12 bg-sur hover:border-marca-200",
       )}
     >
-      <span
-        className={cn(
-          "block text-sm font-semibold",
-          ativo ? "text-marca-800" : "text-tx",
-        )}
-      >
-        {titulo}
-      </span>
-      <span className="mt-0.5 block text-[12px] leading-snug text-tx-2">{descricao}</span>
+      <div className={cn("rounded-teia px-3 py-2.5", ativo ? "bg-marca-50" : "")}>
+        <span
+          className={cn(
+            "block text-sm font-semibold",
+            ativo ? "text-marca-800" : "text-tx",
+          )}
+        >
+          {titulo}
+        </span>
+        <span className="mt-0.5 block text-[12px] leading-snug text-tx-2">{descricao}</span>
+      </div>
     </button>
   );
 }
