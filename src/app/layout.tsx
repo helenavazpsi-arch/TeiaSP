@@ -78,11 +78,24 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
         <Cabecalho />
         <SobreProjeto />
 
-        {/* o fallback é a própria navegação sem destaque: nada pisca, só o
-            item ativo acende quando o cliente assume */}
-        <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
-          <NavegacaoTopo />
-        </Suspense>
+        {/* wrapper fixed que envolve a navegação */}
+        <div
+          style={{
+            position: "fixed",
+            top: "0px",
+            left: "0px",
+            right: "0px",
+            zIndex: 9999,
+            width: "100%",
+            pointerEvents: "none",
+          }}
+        >
+          <div style={{ pointerEvents: "auto" }}>
+            <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
+              <NavegacaoTopo />
+            </Suspense>
+          </div>
+        </div>
 
         <div className="h-32" />
 
