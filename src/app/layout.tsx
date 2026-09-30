@@ -79,6 +79,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         <FundoArte />
         <Cabecalho />
+        <div className="h-16" />
         <SobreProjeto />
 
         {/* o fallback é a própria navegação sem destaque: nada pisca, só o
