@@ -73,7 +73,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       translate="no"
       className={`${corpo.variable} ${titulo.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <body className="min-h-full">
         <FundoArte />
         <Cabecalho />
         <SobreProjeto />
@@ -84,7 +84,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           <NavegacaoTopo />
         </Suspense>
 
-        <div className="mx-auto w-full max-w-5xl flex-1 pb-16 sm:pb-0 pt-20">
+        <div className="mx-auto w-full max-w-5xl pb-16 sm:pb-0">
           {children}
         </div>
 
