@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Suspense } from "react";
 import { Cabecalho } from "@/components/layout/cabecalho";
