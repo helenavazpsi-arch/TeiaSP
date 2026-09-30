@@ -140,10 +140,3 @@
   border-radius: var(--radius-teia-lg);
 }
 
-/* Navegação sticky — gruda no topo quando passa */
-nav[aria-label="Seções do site"] {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 9999 !important;
-  display: block !important;
-}

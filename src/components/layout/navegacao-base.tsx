@@ -30,7 +30,8 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
         top: "0px",
         zIndex: 9999,
         width: "100%",
-      }}
+        display: "block",
+      } as React.CSSProperties}
     >
       <div className="mx-auto flex w-full max-w-5xl px-4 justify-center">
         <div className="flex gap-6 rounded-2xl bg-marca-50 p-2">
