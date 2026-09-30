@@ -3,11 +3,8 @@ import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Suspense } from "react";
 import { Cabecalho } from "@/components/layout/cabecalho";
 import { FundoArte } from "@/components/layout/fundo-arte";
-import {
-  BarraInferiorBase,
-  NavegacaoTopoBase,
-} from "@/components/layout/navegacao-base";
-import { BarraInferior, NavegacaoTopo } from "@/components/layout/navegacao";
+import { NavegacaoTopoBase } from "@/components/layout/navegacao-base";
+import { NavegacaoTopo } from "@/components/layout/navegacao";
 import { Rodape } from "@/components/layout/rodape";
 import { SobreProjeto } from "@/components/layout/sobre-projeto";
 import { dataUltimaAtualizacao } from "@/lib/dados/servicos";
@@ -95,9 +92,6 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           <RodapeComData />
         </Suspense>
 
-        <Suspense fallback={<BarraInferiorBase caminho={null} />}>
-          <BarraInferior />
-        </Suspense>
         {modal}
       </body>
     </html>
