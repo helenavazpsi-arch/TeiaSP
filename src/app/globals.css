@@ -140,3 +140,12 @@
   border-radius: var(--radius-teia-lg);
 }
 
+/* Força a navegação ficar fixed */
+[data-nav-fixa="true"] {
+  position: fixed !important;
+  top: 200px !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 9999 !important;
+}
+

@@ -89,17 +89,22 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
 
         {/* Navegação fixa */}
         <div
+          data-nav-fixa="true"
           style={{
-            position: "fixed",
+            position: "fixed" as const,
             top: "200px",
             left: "0",
             right: "0",
-            zIndex: 40,
+            width: "100%",
+            zIndex: 9999,
             pointerEvents: "none",
             padding: "8px 0",
+            display: "block",
+            margin: "0",
+            border: "none",
           }}
         >
-          <div style={{ pointerEvents: "auto" }}>
+          <div style={{ pointerEvents: "auto", width: "100%", display: "block" }}>
             <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
               <NavegacaoTopo />
             </Suspense>
