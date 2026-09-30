@@ -79,7 +79,6 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         <FundoArte />
         <Cabecalho />
-        <div className="h-16" />
         <SobreProjeto />
 
         {/* o fallback é a própria navegação sem destaque: nada pisca, só o
@@ -87,6 +86,8 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
         <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
           <NavegacaoTopo />
         </Suspense>
+
+        <div className="h-16 sm:h-20" />
 
         <div className="mx-auto w-full max-w-5xl flex-1 pb-16 sm:pb-0">
           {children}
