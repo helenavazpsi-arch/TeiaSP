@@ -15,7 +15,7 @@ export function Cabecalho() {
   return (
     <header className="relative isolate border-b border-black/5">
       {/* a arte de fundo, sob um véu branco para o texto ter contraste */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
         <picture>
           <source type="image/avif" srcSet="/img/header-bg-600.avif" />
           <source type="image/webp" srcSet="/img/header-bg-600.webp" />
@@ -23,13 +23,13 @@ export function Cabecalho() {
             src="/img/header-bg.jpg"
             alt=""
             aria-hidden="true"
-            className="h-full w-full object-contain"
+            className="h-full w-full object-cover"
           />
         </picture>
         <div className="absolute inset-0 bg-white/91" />
       </div>
 
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-4 sm:gap-6 sm:py-6">
+      <div className="mx-auto w-full max-w-5xl px-4 py-4 sm:py-6">
         <div className="flex items-center gap-4 sm:gap-6">
           <Image
             src="/img/logo-teiasp.png"
@@ -52,7 +52,7 @@ export function Cabecalho() {
           <MenuLateral />
         </div>
 
-        <div className="space-y-0.5 text-[10px] leading-relaxed text-tx-2 sm:text-[11px]">
+        <div className="mt-3 space-y-0.5 text-[10px] leading-relaxed text-tx-2 sm:text-[11px]">
           <p>{CREDITOS.logo}</p>
           <p>
             {CREDITOS.arte.rotulo}{" "}
