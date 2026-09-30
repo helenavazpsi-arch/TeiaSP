@@ -74,6 +74,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       className={`${corpo.variable} ${titulo.variable}`}
     >
       <body>
+        <FundoArte />
         <Cabecalho />
         <SobreProjeto />
 
@@ -83,21 +84,14 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           style={{
             position: "sticky" as const,
             top: "0",
-            left: "0",
-            right: "0",
-            width: "100%",
             zIndex: 9999,
             pointerEvents: "none",
             padding: "8px 0",
-            display: "block",
-            margin: "0",
-            border: "none",
             transform: "none",
             willChange: "auto",
-            perspective: "none",
           }}
         >
-          <div style={{ pointerEvents: "auto", width: "100%", display: "block" }}>
+          <div style={{ pointerEvents: "auto" }}>
             <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
               <NavegacaoTopo />
             </Suspense>
