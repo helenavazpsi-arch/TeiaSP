@@ -30,8 +30,8 @@ export function BotoesEquipe() {
 
       <Dialog.Root open={aberto !== null} onOpenChange={(v) => !v && setAberto(null)}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]" />
-          <Dialog.Content className="fixed top-1/2 left-1/2 z-50 w-[min(24rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-teia-lg bg-sur p-6 shadow-xl">
+          <Dialog.Overlay className="fixed inset-0 z-[10000] bg-black/40 backdrop-blur-[2px]" />
+          <Dialog.Content className="fixed top-1/2 left-1/2 z-[10001] w-[min(24rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 rounded-teia-lg bg-sur p-6 shadow-xl">
             {aberto && (
               <>
                 <Dialog.Title className="pr-8 font-display text-lg font-bold text-tx">
