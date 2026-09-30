@@ -18,7 +18,7 @@ export default async function PaginaSugerir() {
   ];
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 py-5 bg-marca-50 rounded-teia-lg">
+    <main className="mx-auto w-full max-w-3xl px-4 py-5">
       <div className="mb-4 flex items-start gap-2.5 rounded-teia-lg border border-marca-100 bg-marca-50/95 px-4 py-3 text-[13px] text-marca-900">
         <HeartHandshake size={17} className="mt-0.5 shrink-0" aria-hidden />
         <p>
@@ -28,14 +28,15 @@ export default async function PaginaSugerir() {
         </p>
       </div>
 
-      <h1 className="font-display text-xl font-bold text-tx">O que você quer sugerir?</h1>
-      <p className="mt-1 mb-5 text-sm text-tx-2">
-        Escolha abaixo. Leva poucos minutos, e você não precisa de cadastro.
-      </p>
+      <div className="mb-5 rounded-teia-lg bg-marca-50 px-4 py-4">
+        <h1 className="font-display text-xl font-bold text-tx">O que você quer sugerir?</h1>
+      </div>
 
-      <Suspense fallback={<div className="h-96 rounded-teia-lg bg-sur-2" />}>
-        <AbasSugestao siglasExistentes={siglasExistentes} />
-      </Suspense>
+      <div className="rounded-teia-lg bg-marca-50 px-4 py-5">
+        <Suspense fallback={<div className="h-96 rounded-teia-lg bg-sur-2" />}>
+          <AbasSugestao siglasExistentes={siglasExistentes} />
+        </Suspense>
+      </div>
     </main>
   );
 }
