@@ -40,7 +40,7 @@ export const EQUIPE: readonly Contato[] = [
   {
     id: "barbara",
     nome: "Bárbara Albertini Silva",
-    crp: "Psicóloga e Redutora de Danos - CRP 06/213277",
+    crp: "Redutora de Danos e Psicóloga - CRP 06/213277",
     email: "barbara.albertini.psi@gmail.com",
     whatsapp: "5511993258403",
     whatsappFormatado: "(11) 99325-8403",
