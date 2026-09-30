@@ -87,12 +87,12 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
 
         {modal}
 
-        {/* Navegação fixa */}
+        {/* Navegação sticky - volta pra sticky com garantias */}
         <div
           data-nav-fixa="true"
           style={{
-            position: "fixed" as const,
-            top: "200px",
+            position: "sticky" as const,
+            top: "0",
             left: "0",
             right: "0",
             width: "100%",
@@ -102,6 +102,9 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
             display: "block",
             margin: "0",
             border: "none",
+            transform: "none",
+            willChange: "auto",
+            perspective: "none",
           }}
         >
           <div style={{ pointerEvents: "auto", width: "100%", display: "block" }}>
