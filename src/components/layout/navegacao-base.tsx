@@ -26,8 +26,10 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
       aria-label="Seções do site"
       className="hidden sm:block py-2"
       style={{
-        position: "sticky",
+        position: "fixed",
         top: "0px",
+        left: "0px",
+        right: "0px",
         zIndex: 9999,
         width: "100%",
         display: "block",
