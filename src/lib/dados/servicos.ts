@@ -5,6 +5,7 @@ import { normalizar, textoBuscavel } from "@/lib/busca";
 import { db } from "@/lib/firebase/publico";
 import { resolverSlugs } from "@/lib/slug";
 import { resumir, semHTML } from "@/lib/texto";
+import { corrigirArea, corrigirNome, corrigirPublico, corrigirTags } from "@/lib/sanitizar-servicos";
 import { COLECOES, type Servico } from "@/lib/tipos";
 
 export const TAG_SERVICOS = "servicos";
@@ -69,21 +70,28 @@ export interface ServicoResumo {
 export async function listarServicosResumo(): Promise<ServicoResumo[]> {
   const servicos = await listarServicos();
 
-  return servicos.map((s) => ({
-    id: s.id,
-    slug: s.slug,
-    sigla: s.sigla ?? "",
-    nome: s.nome ?? "",
-    area: s.area ?? "",
-    publico: s.publico ?? "",
-    territorio: s.territorio ?? "",
-    tags: s.tags ?? [],
-    resumo: resumir(s.desc ?? ""),
-    busca: normalizar(
-      textoBuscavel([s.sigla, s.nome, semHTML(s.desc), s.tags, s.publico, s.funcao]),
-    ),
-    temMapa: !semUnidadesNoMapa(s.sigla, s.nome),
-  }));
+  return servicos.map((s) => {
+    const nomeCorrigido = corrigirNome(s.nome);
+    const publicoCorrigido = corrigirPublico(s.publico);
+    const tagsCorrigidas = corrigirTags(s.tags);
+    const areaCorrigida = corrigirArea(nomeCorrigido, s.area);
+
+    return {
+      id: s.id,
+      slug: s.slug,
+      sigla: s.sigla ?? "",
+      nome: nomeCorrigido,
+      area: areaCorrigida ?? "",
+      publico: publicoCorrigido,
+      territorio: s.territorio ?? "",
+      tags: tagsCorrigidas,
+      resumo: resumir(s.desc ?? ""),
+      busca: normalizar(
+        textoBuscavel([s.sigla, nomeCorrigido, semHTML(s.desc), tagsCorrigidas, publicoCorrigido, s.funcao]),
+      ),
+      temMapa: !semUnidadesNoMapa(s.sigla, nomeCorrigido),
+    };
+  });
 }
 
 /**

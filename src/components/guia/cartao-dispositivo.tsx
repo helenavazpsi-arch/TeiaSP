@@ -1,9 +1,10 @@
-import { MapPin, Users } from "lucide-react";
+import { AlertCircle, MapPin, Users } from "lucide-react";
 import Link from "next/link";
 import { BadgeArea } from "@/components/ui/badge-area";
 import { Etiqueta } from "@/components/ui/etiqueta";
 import { area } from "@/lib/areas";
 import type { ServicoResumo } from "@/lib/dados/servicos";
+import { normalizar } from "@/lib/busca";
 
 /**
  * Cartão de um dispositivo na listagem.
@@ -14,6 +15,8 @@ import type { ServicoResumo } from "@/lib/dados/servicos";
 export function CartaoDispositivo({ servico }: { servico: ServicoResumo }) {
   const { cor } = area(servico.area);
   const primeiroPublico = servico.publico.split(",")[0]?.trim();
+  // Esconder sigla se for igual ao nome (após normalização)
+  const siglaDiferente = servico.sigla && servico.nome && normalizar(servico.sigla) !== normalizar(servico.nome);
 
   return (
     <li className="list-none min-w-0">
@@ -29,7 +32,7 @@ export function CartaoDispositivo({ servico }: { servico: ServicoResumo }) {
           <h3 className="mt-2.5 font-display text-base leading-tight font-bold text-tx group-hover:text-marca-800">
             {servico.sigla || servico.nome}
           </h3>
-          {servico.sigla && servico.nome && (
+          {siglaDiferente && (
             <p className="mt-0.5 text-xs leading-snug text-tx-2">{servico.nome}</p>
           )}
 
@@ -46,6 +49,16 @@ export function CartaoDispositivo({ servico }: { servico: ServicoResumo }) {
               <Etiqueta key={tag}>{tag}</Etiqueta>
             ))}
           </div>
+
+          <a
+            href={`mailto:helenavaz.psi@gmail.com?subject=Erro%20no%20card%3A%20${encodeURIComponent(servico.nome)}&body=${encodeURIComponent(`Encontrei um erro no card de: ${servico.nome}\n\nDescreva o erro:\n\n`)}`}
+            onClick={(e) => e.stopPropagation()}
+            className="mt-4 inline-flex items-center gap-1.5 text-[11px] text-tx-3 hover:text-marca-700 transition-colors"
+            title="Reportar erro neste card"
+          >
+            <AlertCircle size={12} />
+            Reportar erro
+          </a>
         </div>
       </Link>
     </li>
