@@ -12,21 +12,29 @@ export function NavegacaoFixa() {
 
   useEffect(() => {
     function updatePosition() {
-      // Encontra o elemento "Sobre o projeto" (último div/section antes desta nav)
-      const sobreProjeto = document.querySelector('[class*="sobre"]');
+      // Encontra o elemento "Sobre o projeto" pelo ID
+      const sobreProjeto = document.getElementById("sobre");
 
-      if (sobreProjeto && wrapperRef.current) {
-        // Calcula a posição do elemento
+      if (sobreProjeto) {
+        // Calcula a posição: distância do topo da página até o final do "Sobre o projeto"
         const rect = sobreProjeto.getBoundingClientRect();
-        // A nav fica logo após "Sobre o projeto"
-        const offsetFromViewport = rect.bottom;
-        setTopOffset(Math.max(0, offsetFromViewport));
+        const offsetFromTop = rect.bottom + window.scrollY;
+        setTopOffset(Math.max(0, offsetFromTop));
       }
     }
 
+    // Executa logo após render
     updatePosition();
+
+    // Atualiza ao fazer resize
     window.addEventListener("resize", updatePosition);
-    return () => window.removeEventListener("resize", updatePosition);
+    // Também atualiza durante scroll para manter sincronizado
+    window.addEventListener("scroll", updatePosition);
+
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition);
+    };
   }, []);
 
   return (
