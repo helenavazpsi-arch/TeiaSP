@@ -107,19 +107,6 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
         </Suspense>
 
         {modal}
-
-        {/* Teste sticky no final */}
-        <div
-          style={{
-            position: "sticky",
-            top: "300px",
-            background: "red",
-            padding: "20px",
-            zIndex: 50,
-          }}
-        >
-          TESTE STICKY NO FINAL
-        </div>
       </body>
     </html>
   );
