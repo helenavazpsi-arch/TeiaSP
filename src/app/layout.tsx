@@ -84,7 +84,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           <NavegacaoTopo />
         </Suspense>
 
-        <div className="mx-auto w-full max-w-5xl flex-1 pb-16 sm:pb-0">
+        <div className="mx-auto w-full max-w-5xl flex-1 pb-16 sm:pb-0 pt-20">
           {children}
         </div>
 
