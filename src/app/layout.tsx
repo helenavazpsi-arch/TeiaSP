@@ -73,7 +73,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       translate="no"
       className={`${corpo.variable} ${titulo.variable} h-full antialiased`}
     >
-      <body className="min-h-full" style={{ display: "contents" }}>
+      <body className="min-h-full">
         <FundoArte />
         <Cabecalho />
         <SobreProjeto />

@@ -140,13 +140,10 @@
   border-radius: var(--radius-teia-lg);
 }
 
-/* Navegação fixed — parada no topo */
+/* Navegação sticky — gruda no topo quando passa */
 nav[aria-label="Seções do site"] {
-  position: fixed !important;
+  position: sticky !important;
   top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
   z-index: 9999 !important;
   display: block !important;
-  width: 100% !important;
 }
