@@ -88,9 +88,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
         </Suspense>
 
         <div className="mx-auto w-full max-w-5xl flex-1 pb-16 sm:pb-0">
-          <div className="bg-white">
-            {children}
-          </div>
+          {children}
         </div>
 
         <Suspense fallback={null}>
