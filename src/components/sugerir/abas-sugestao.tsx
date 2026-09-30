@@ -64,7 +64,7 @@ function Opcao({
       className={cn(
         "rounded-teia-lg border px-4 py-3 text-left transition-all",
         ativo
-          ? "border-marca-600 bg-white ring-1 ring-marca-600"
+          ? "border-marca-600 bg-marca-100 ring-2 ring-marca-600 shadow-md"
           : "border-black/12 bg-sur hover:border-marca-200",
       )}
     >
