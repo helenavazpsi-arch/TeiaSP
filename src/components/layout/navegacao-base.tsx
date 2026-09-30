@@ -24,7 +24,8 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
   return (
     <nav
       aria-label="Seções do site"
-      className="sticky top-0 z-40 hidden sm:block py-2"
+      className="fixed left-0 right-0 z-40 hidden sm:block py-2"
+      style={{ top: "280px" }}
     >
       <div className="mx-auto flex w-full max-w-5xl px-4 justify-center">
         <div className="flex gap-6 rounded-2xl bg-marca-50 p-2">
