@@ -45,7 +45,7 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
                 )}
               >
                 <Icone size={17} aria-hidden />
-                <span className="hidden sm:inline">{secao.rotulo}</span>
+                <span>{secao.rotulo}</span>
               </Link>
             );
           })}
