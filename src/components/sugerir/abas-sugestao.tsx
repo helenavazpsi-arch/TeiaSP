@@ -70,16 +70,24 @@ function Opcao({
     >
       <span
         className={cn(
-          "block text-sm font-semibold px-2 py-1",
-          ativo ? "text-marca-800 bg-marca-50 rounded-teia inline-block" : "text-tx",
+          "text-sm font-semibold",
+          ativo
+            ? "text-marca-800 bg-marca-50 rounded-teia px-2 py-1 inline-block"
+            : "block text-tx",
         )}
       >
         {titulo}
       </span>
-      <span className={cn(
-        "mt-0.5 block text-[12px] leading-snug px-2 py-1",
-        ativo ? "text-tx-2 bg-marca-50 rounded-teia inline-block" : "text-tx-2",
-      )}>{descricao}</span>
+      <span
+        className={cn(
+          "text-[12px] leading-snug",
+          ativo
+            ? "text-tx-2 bg-marca-50 rounded-teia px-2 py-1 inline-block mt-0.5 ml-0.5"
+            : "block text-tx-2 mt-0.5",
+        )}
+      >
+        {descricao}
+      </span>
     </button>
   );
 }
