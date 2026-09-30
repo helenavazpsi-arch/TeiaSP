@@ -140,3 +140,10 @@
   border-radius: var(--radius-teia-lg);
 }
 
+/* Garante que a navegação fica sticky */
+@layer components {
+  .sticky {
+    position: sticky !important;
+  }
+}
+
