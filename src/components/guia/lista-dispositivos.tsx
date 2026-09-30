@@ -56,10 +56,10 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
 
   return (
     <>
-      {/* chips de área: rolam no celular, quebram em linha nas telas maiores */}
-      <div className="sem-barra -mx-4 mb-4 overflow-x-auto px-4 pb-1 sm:mx-0 sm:overflow-visible sm:px-0">
+      {/* chips de área: quebram em linhas no celular e desktop */}
+      <div className="mb-4 sm:mx-0 sm:px-0">
         <div
-          className="flex gap-2 sm:flex-wrap"
+          className="flex flex-wrap gap-2"
           role="group"
           aria-label="Filtrar por área"
         >
