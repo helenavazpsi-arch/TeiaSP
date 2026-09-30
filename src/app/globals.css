@@ -93,6 +93,8 @@
     font-size: 15px;
     line-height: 1.6;
     text-rendering: optimizeLegibility;
+    transform: none;
+    will-change: auto;
   }
 
   h1,
