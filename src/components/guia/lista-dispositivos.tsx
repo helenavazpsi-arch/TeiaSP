@@ -140,7 +140,7 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
 
       {/* resultados */}
       {filtrados.length > 0 ? (
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 overflow-hidden">
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full">
           {filtrados.map((servico) => (
             <CartaoDispositivo key={servico.id} servico={servico} />
           ))}

@@ -16,10 +16,10 @@ export function CartaoDispositivo({ servico }: { servico: ServicoResumo }) {
   const primeiroPublico = servico.publico.split(",")[0]?.trim();
 
   return (
-    <li className="list-none w-full">
+    <li className="list-none min-w-0">
       <Link
         href={`/dispositivo/${servico.slug}`}
-        className="group block h-full w-full overflow-hidden rounded-teia-lg border border-black/8 bg-sur/95 transition-all hover:-translate-y-0.5 hover:border-marca-200 hover:shadow-lg"
+        className="group block h-full overflow-hidden rounded-teia-lg border border-black/8 bg-sur/95 transition-all hover:-translate-y-0.5 hover:border-marca-200 hover:shadow-lg"
       >
         <div className="h-1.5" style={{ background: cor }} aria-hidden />
 
