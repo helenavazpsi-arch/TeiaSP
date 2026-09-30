@@ -27,7 +27,7 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
       className="sticky top-0 z-30 hidden border-b border-black/5 backdrop-blur-md sm:block"
       style={{ backgroundColor: "#f5e5e8" }}
     >
-      <div className="mx-auto flex w-full max-w-5xl gap-1 px-4 justify-center">
+      <div className="mx-auto flex w-full max-w-5xl gap-6 px-4 justify-center">
         {SECOES.map((secao) => {
           const Icone = ICONES[secao.icone];
           const ativo = ehAtivo(secao.href, caminho);
