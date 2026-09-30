@@ -114,7 +114,6 @@ export function FormularioDispositivo({ siglasExistentes }: { siglasExistentes: 
         id="desc"
         rotulo="O que é e para que serve"
         obrigatorio
-        dica="Explique o serviço, quem pode acessar e como funciona o atendimento."
         erro={resultado?.erros?.desc}
       >
         <textarea
