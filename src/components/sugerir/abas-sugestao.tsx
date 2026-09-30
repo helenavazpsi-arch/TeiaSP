@@ -20,7 +20,7 @@ export function AbasSugestao({ siglasExistentes }: { siglasExistentes: string[] 
 
   return (
     <>
-      <div className="mb-5 grid gap-2 sm:grid-cols-2" role="tablist">
+      <div className="mb-5 grid gap-2 sm:grid-cols-2 bg-marca-50 rounded-teia-lg p-4" role="tablist">
         <Opcao
           ativo={tipo === "dispositivo"}
           onClick={() => setTipo("dispositivo")}
@@ -69,12 +69,12 @@ function Opcao({
       )}
     >
       <span className={cn(
-        "block text-sm font-semibold bg-marca-50",
+        "block text-sm font-semibold",
         ativo ? "text-marca-800" : "text-tx",
       )}>
         {titulo}
       </span>
-      <span className="mt-0.5 block text-[12px] leading-snug text-tx-2 bg-marca-50">{descricao}</span>
+      <span className="mt-0.5 block text-[12px] leading-snug text-tx-2">{descricao}</span>
     </button>
   );
 }
