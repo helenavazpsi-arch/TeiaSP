@@ -70,14 +70,16 @@ function Opcao({
     >
       {ativo ? (
         <>
-          <span className="text-sm font-semibold text-marca-800 bg-marca-50 px-1">
-            {titulo}
-          </span>
-          <span className="mt-0.5 block text-[12px] leading-snug text-tx-2">
-            <span className="bg-marca-50 px-1">
+          <div className="bg-marca-50 rounded-teia px-2 py-1.5 mb-2">
+            <span className="text-sm font-semibold text-marca-800">
+              {titulo}
+            </span>
+          </div>
+          <div className="bg-marca-50 rounded-teia px-2 py-1.5">
+            <span className="text-[12px] leading-snug text-tx-2">
               {descricao}
             </span>
-          </span>
+          </div>
         </>
       ) : (
         <>
