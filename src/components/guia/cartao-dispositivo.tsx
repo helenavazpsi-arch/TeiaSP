@@ -1,4 +1,4 @@
-import { AlertCircle, MapPin, Users } from "lucide-react";
+import { MapPin, Users } from "lucide-react";
 import Link from "next/link";
 import { BadgeArea } from "@/components/ui/badge-area";
 import { Etiqueta } from "@/components/ui/etiqueta";
@@ -49,16 +49,6 @@ export function CartaoDispositivo({ servico }: { servico: ServicoResumo }) {
               <Etiqueta key={tag}>{tag}</Etiqueta>
             ))}
           </div>
-
-          <a
-            href={`mailto:helenavaz.psi@gmail.com?subject=Erro%20no%20card%3A%20${encodeURIComponent(servico.nome)}&body=${encodeURIComponent(`Encontrei um erro no card de: ${servico.nome}\n\nDescreva o erro:\n\n`)}`}
-            onClick={(e) => e.stopPropagation()}
-            className="mt-4 inline-flex items-center gap-1.5 text-[11px] text-tx-3 hover:text-marca-700 transition-colors"
-            title="Reportar erro neste card"
-          >
-            <AlertCircle size={12} />
-            Reportar erro
-          </a>
         </div>
       </Link>
     </li>
