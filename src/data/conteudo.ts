@@ -68,24 +68,38 @@ export const SOBRE = {
   referencias: [
     {
       texto:
-        "Society for the Protection of Underground Networks (SPUN). A Hidden Infrastructure: Mapping the World's Underground Fungal Networks. Disponível em: ",
-      link: { rotulo: "spun.earth", url: "https://spun.earth" },
+        "BRASIL. Ministério da Saúde. Sistema Único de Saúde (SUS). Disponível em: ",
+      link: { rotulo: "https://www.gov.br/saude/pt-br/sus", url: "https://www.gov.br/saude/pt-br/sus" },
+    },
+    {
+      texto: "BASAGLIA, Franco. A instituição negada: relato de um hospital psiquiátrico. Rio de Janeiro: Graal, 1985.",
     },
     {
       texto:
-        "Revista Aventuras na História. Redes subterrâneas de fungos somam mais de 100 quatrilhões de quilômetros. Disponível em: ",
+        "REVISTA AVENTURAS NA HISTÓRIA. Redes subterrâneas de fungos somam mais de 100 quatrilhões de quilômetros. Disponível em: ",
       link: {
         rotulo: "aventurasnahistoria.com.br",
-        url: "https://aventurasnahistoria.com.br",
+        url: "https://aventurasnahistoria.com.br/noticias/historia-hoje/redes-subterraneas-de-fungos-somam-mais-de-100-quatrilhoes-de-quilometros.phtml",
       },
     },
     {
-      texto:
-        "Smith, S. E.; Read, D. J. Mycorrhizal Symbiosis. 3. ed. London: Academic Press, 2008.",
+      texto: "SMITH, S. E.; READ, D. J. Mycorrhizal Symbiosis. 3. ed. London: Academic Press, 2008.",
     },
     {
       texto:
-        "Paul Stamets. Mycelium Running: How Mushrooms Can Help Save the World. Berkeley: Ten Speed Press, 2005.",
+        "SOCIETY FOR THE PROTECTION OF UNDERGROUND NETWORKS (SPUN). A Hidden Infrastructure: Mapping the World's Underground Fungal Networks. Disponível em: ",
+      link: { rotulo: "spun.earth", url: "https://www.spun.earth/mapping/a-hidden-infrastructure" },
+    },
+    {
+      texto: "STAMETS, Paul. Mycelium Running: How Mushrooms Can Help Save the World. Berkeley: Ten Speed Press, 2005.",
+    },
+    {
+      texto:
+        "SUMAÚMA. A força do invisível que alimenta a vida visível das florestas: isto é micélio. Disponível em: ",
+      link: { rotulo: "sumauma.com", url: "https://sumauma.com/a-forca-do-invisivel-que-alimenta-a-vida-visivel-das-florestas-isto-e-micelio/" },
+    },
+    {
+      texto: "TODOS PELA EDUCAÇÃO. Financiamento da educação. Anuário Brasileiro da Educação Básica 2026. [S. l.]: Todos Pela Educação, 2026.",
     },
   ],
 } as const;
