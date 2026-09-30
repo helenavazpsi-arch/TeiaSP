@@ -8,7 +8,7 @@
 
 export const CREDITOS = {
   subtitulo: "Guia colaborativo de dispositivos de São Paulo",
-  idealizacao: "Projeto idealizado e desenvolvido pelas psicólogas:",
+  idealizacao: "Projeto idealizado e desenvolvido por:",
   logo: "Logo e composição visual do cabeçalho: Lilla Cirenza Lescher",
   arte: {
     rotulo: "Arte - Corpo do site:",
