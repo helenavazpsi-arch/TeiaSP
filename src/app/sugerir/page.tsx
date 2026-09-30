@@ -28,14 +28,15 @@ export default async function PaginaSugerir() {
         </p>
       </div>
 
-      <h1 className="font-display text-xl font-bold text-tx">O que você quer sugerir?</h1>
-      <p className="mt-1 mb-5 text-sm text-tx-2">
-        Escolha abaixo. Leva poucos minutos, e você não precisa de cadastro.
-      </p>
+      <div className="mb-5 rounded-teia-lg bg-marca-50 px-4 py-4">
+        <h1 className="font-display text-xl font-bold text-tx">O que você quer sugerir?</h1>
+      </div>
 
-      <Suspense fallback={<div className="h-96 rounded-teia-lg bg-sur-2" />}>
-        <AbasSugestao siglasExistentes={siglasExistentes} />
-      </Suspense>
+      <div className="mb-5 rounded-teia-lg bg-marca-50 px-4 py-5">
+        <Suspense fallback={<div className="h-96 rounded-teia-lg bg-sur-2" />}>
+          <AbasSugestao siglasExistentes={siglasExistentes} />
+        </Suspense>
+      </div>
     </main>
   );
 }

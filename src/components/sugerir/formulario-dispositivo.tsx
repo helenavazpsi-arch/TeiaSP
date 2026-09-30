@@ -63,7 +63,7 @@ export function FormularioDispositivo({ siglasExistentes }: { siglasExistentes: 
         nomeEnviado.current = String(dados.get("sigla") ?? "");
         enviar(dados);
       }}
-      className="relative space-y-4"
+      className="relative space-y-4 rounded-teia-lg bg-marca-50 px-4 py-5"
     >
       <Isca />
 
@@ -114,7 +114,6 @@ export function FormularioDispositivo({ siglasExistentes }: { siglasExistentes: 
         id="desc"
         rotulo="O que é e para que serve"
         obrigatorio
-        dica="Explique o serviço, quem pode acessar e como funciona o atendimento."
         erro={resultado?.erros?.desc}
       >
         <textarea
@@ -127,7 +126,7 @@ export function FormularioDispositivo({ siglasExistentes }: { siglasExistentes: 
 
       <fieldset>
         <legend className="text-xs font-medium text-tx-2">Público atendido</legend>
-        <div className="mt-2 grid gap-x-4 gap-y-1.5 rounded-teia bg-sur-2 p-3 sm:grid-cols-2">
+        <div className="mt-2 grid gap-x-4 gap-y-1.5 rounded-teia bg-white p-3 sm:grid-cols-2">
           {PUBLICOS.map((publico) => (
             <label key={publico} className="flex items-center gap-2 text-[13px] text-tx">
               <input
