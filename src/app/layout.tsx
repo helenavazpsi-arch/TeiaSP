@@ -78,7 +78,16 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
         <Cabecalho />
         <SobreProjeto />
 
-        <div className="sticky top-0 left-0 right-0 z-40 pointer-events-none py-2">
+        <div
+          className="pointer-events-none py-2"
+          style={{
+            position: "fixed",
+            top: "200px",
+            left: 0,
+            right: 0,
+            zIndex: 40,
+          }}
+        >
           <div className="pointer-events-auto">
             <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
               <NavegacaoTopo />
