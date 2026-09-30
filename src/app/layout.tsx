@@ -73,11 +73,22 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       translate="no"
       className={`${corpo.variable} ${titulo.variable}`}
     >
-      <body>
-        {/* <FundoArte /> */}
+      <body style={{ position: "relative" }}>
+        <FundoArte />
         <Cabecalho />
         <SobreProjeto />
 
+        <div className="mx-auto w-full max-w-5xl pb-16 sm:pb-0">
+          {children}
+        </div>
+
+        <Suspense fallback={null}>
+          <RodapeComData />
+        </Suspense>
+
+        {modal}
+
+        {/* Portal para a navegação fixa */}
         <div
           className="pointer-events-none py-2"
           style={{
@@ -94,16 +105,6 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
             </Suspense>
           </div>
         </div>
-
-        <div className="mx-auto w-full max-w-5xl pb-16 sm:pb-0">
-          {children}
-        </div>
-
-        <Suspense fallback={null}>
-          <RodapeComData />
-        </Suspense>
-
-        {modal}
       </body>
     </html>
   );
