@@ -33,7 +33,7 @@ export function Cabecalho() {
             width={594}
             height={385}
             priority
-            className="h-24 w-auto shrink-0"
+            className="h-32 w-auto shrink-0 sm:h-24"
           />
 
           <div className="min-w-0 flex-1 text-center sm:text-left">
