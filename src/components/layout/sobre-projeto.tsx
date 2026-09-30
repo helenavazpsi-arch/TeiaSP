@@ -12,7 +12,7 @@ export function SobreProjeto() {
   return (
     <details
       id="sobre"
-      className="group border-b border-marca-100 scroll-mt-16"
+      className="group border-b border-marca-100 bg-marca-50 scroll-mt-16"
     >
       <summary className="mx-auto flex w-full max-w-5xl cursor-pointer list-none items-center gap-2 px-4 py-3 text-sm font-medium text-marca-800 marker:content-none hover:text-marca-900">
         <Info size={16} className="shrink-0" />

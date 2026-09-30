@@ -24,7 +24,7 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
   return (
     <nav
       aria-label="Seções do site"
-      className="sticky top-0 z-30 hidden border-b border-black/5 backdrop-blur-md sm:block"
+      className="sticky top-0 z-30 hidden border-b border-black/5 bg-marca-50 backdrop-blur-md sm:block"
     >
       <div className="mx-auto flex w-full max-w-5xl gap-1 px-4">
         {SECOES.map((secao) => {
@@ -57,7 +57,7 @@ export function BarraInferiorBase({ caminho }: { caminho: string | null }) {
   return (
     <nav
       aria-label="Seções do site"
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-black/10 pb-[env(safe-area-inset-bottom)] backdrop-blur-md sm:hidden"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-black/10 bg-marca-50 pb-[env(safe-area-inset-bottom)] backdrop-blur-md sm:hidden"
     >
       <div className="flex">
         {SECOES.map((secao) => {
