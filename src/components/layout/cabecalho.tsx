@@ -26,21 +26,21 @@ export function Cabecalho() {
       <div className="absolute inset-0 -z-10 bg-white/85" />
 
       <div className="mx-auto w-full max-w-5xl px-4 py-4 sm:py-6 relative z-10">
-        <div className="flex items-center gap-4 sm:gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
           <Image
             src="/img/logo-teiasp.png"
             alt="Teia SP"
             width={594}
             height={385}
             priority
-            className="h-16 w-auto shrink-0 sm:h-24"
+            className="h-12 w-auto shrink-0 sm:h-24"
           />
 
           <div className="min-w-0 flex-1">
-            <p className="font-display text-base leading-tight font-bold text-marca-800 sm:text-xl">
+            <p className="font-display text-sm leading-tight font-bold text-marca-800 sm:text-xl">
               {CREDITOS.subtitulo}
             </p>
-            <div className="mt-1.5 space-y-0.5 text-sm leading-relaxed text-tx-2 sm:text-base">
+            <div className="mt-1.5 space-y-0.5 text-xs leading-relaxed text-tx-2 sm:text-base">
               <p>
                 {CREDITOS.idealizacao} <BotoesEquipe />
               </p>
@@ -59,7 +59,9 @@ export function Cabecalho() {
             </div>
           </div>
 
-          <MenuLateral />
+          <div className="hidden sm:block">
+            <MenuLateral />
+          </div>
         </div>
       </div>
     </header>
