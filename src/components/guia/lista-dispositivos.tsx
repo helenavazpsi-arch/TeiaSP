@@ -59,7 +59,7 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
       {/* chips de área: quebram em linhas no celular e desktop */}
       <div className="mb-4 sm:mx-0 sm:px-0">
         <div
-          className="flex flex-wrap gap-2"
+          className="flex flex-wrap justify-center gap-2"
           role="group"
           aria-label="Filtrar por área"
         >
