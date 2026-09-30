@@ -8,7 +8,7 @@
  */
 export function FundoArte() {
   return (
-    <picture className="pointer-events-none fixed inset-0 -z-10 block overflow-hidden">
+    <picture className="pointer-events-none fixed inset-0 -z-10 block">
       <source media="(max-width: 600px)" type="image/avif" srcSet="/img/bg-mobile-412.avif" />
       <source media="(max-width: 600px)" type="image/webp" srcSet="/img/bg-mobile-412.webp" />
       <source
