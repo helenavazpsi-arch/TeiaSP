@@ -77,17 +77,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
         <Cabecalho />
         <SobreProjeto />
 
-        <div className="mx-auto w-full max-w-5xl pb-16 sm:pb-0">
-          {children}
-        </div>
-
-        <Suspense fallback={null}>
-          <RodapeComData />
-        </Suspense>
-
-        {modal}
-
-        {/* Navegação sticky - volta pra sticky com garantias */}
+        {/* Navegação sticky */}
         <div
           data-nav-fixa="true"
           style={{
@@ -113,6 +103,16 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
             </Suspense>
           </div>
         </div>
+
+        <div className="mx-auto w-full max-w-5xl pb-16 sm:pb-0">
+          {children}
+        </div>
+
+        <Suspense fallback={null}>
+          <RodapeComData />
+        </Suspense>
+
+        {modal}
       </body>
     </html>
   );
