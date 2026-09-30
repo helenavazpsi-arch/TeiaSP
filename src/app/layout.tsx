@@ -78,15 +78,14 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
         <Cabecalho />
         <SobreProjeto />
 
-        {/* wrapper fixed que envolve a navegação */}
+        {/* wrapper sticky que envolve a navegação */}
         <div
           style={{
-            position: "fixed" as const,
+            position: "sticky" as const,
             top: 0,
             left: 0,
             right: 0,
-            width: "100vw",
-            zIndex: 9999,
+            zIndex: 50,
             pointerEvents: "none",
           }}
         >
@@ -96,8 +95,6 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
             </Suspense>
           </div>
         </div>
-
-        <div className="h-32" />
 
         <div className="mx-auto w-full max-w-5xl pb-16 sm:pb-0">
           {children}
