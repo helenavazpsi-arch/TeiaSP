@@ -127,7 +127,7 @@ export function FormularioDispositivo({ siglasExistentes }: { siglasExistentes: 
 
       <fieldset>
         <legend className="text-xs font-medium text-tx-2">Público atendido</legend>
-        <div className="mt-2 grid gap-x-4 gap-y-1.5 rounded-teia bg-sur-2 p-3 sm:grid-cols-2">
+        <div className="mt-2 grid gap-x-4 gap-y-1.5 rounded-teia bg-white p-3 sm:grid-cols-2">
           {PUBLICOS.map((publico) => (
             <label key={publico} className="flex items-center gap-2 text-[13px] text-tx">
               <input
