@@ -90,16 +90,17 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
 
         {/* Navegação fixa */}
         <div
-          className="pointer-events-none py-2"
           style={{
             position: "fixed",
             top: "200px",
-            left: 0,
-            right: 0,
+            left: "0",
+            right: "0",
             zIndex: 40,
+            pointerEvents: "none",
+            padding: "8px 0",
           }}
         >
-          <div className="pointer-events-auto">
+          <div style={{ pointerEvents: "auto" }}>
             <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
               <NavegacaoTopo />
             </Suspense>
