@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { Cabecalho } from "@/components/layout/cabecalho";
 import { FundoArte } from "@/components/layout/fundo-arte";
 import { NavegacaoTopoBase } from "@/components/layout/navegacao-base";
-import { NavegacaoTopo, BarraInferior } from "@/components/layout/navegacao";
+import { NavegacaoTopo } from "@/components/layout/navegacao";
 import { Rodape } from "@/components/layout/rodape";
 import { SobreProjeto } from "@/components/layout/sobre-projeto";
 import { dataUltimaAtualizacao } from "@/lib/dados/servicos";
@@ -98,15 +98,13 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-5xl px-4 pb-24 sm:pb-0">
+        <div className="mx-auto w-full max-w-5xl px-4 pb-16 sm:pb-0">
           {children}
         </div>
 
         <Suspense fallback={null}>
           <RodapeComData />
         </Suspense>
-
-        <BarraInferior />
 
         {modal}
       </body>

@@ -24,10 +24,10 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
   return (
     <nav
       aria-label="Seções do site"
-      className="hidden sm:block py-2"
+      className="py-2"
     >
       <div className="mx-auto flex w-full max-w-5xl px-4 justify-center">
-        <div className="flex gap-6 rounded-2xl bg-marca-50 p-2">
+        <div className="flex gap-2 sm:gap-6 rounded-2xl bg-marca-50 p-2 overflow-x-auto sem-barra">
           {SECOES.map((secao) => {
             const Icone = ICONES[secao.icone];
             const ativo = ehAtivo(secao.href, caminho);
@@ -38,14 +38,14 @@ export function NavegacaoTopoBase({ caminho }: { caminho: string | null }) {
                 href={secao.href}
                 aria-current={ativo ? "page" : undefined}
                 className={cn(
-                  "flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition-colors rounded-lg",
+                  "flex items-center gap-1 sm:gap-2 border-b-2 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium transition-colors rounded-lg whitespace-nowrap shrink-0",
                   ativo
                     ? "border-marca-600 text-marca-800 bg-[#f5e5e8]"
                     : "border-transparent text-marca-700 hover:bg-[#f5e5e8]",
                 )}
               >
                 <Icone size={17} aria-hidden />
-                {secao.rotulo}
+                <span className="hidden sm:inline">{secao.rotulo}</span>
               </Link>
             );
           })}
