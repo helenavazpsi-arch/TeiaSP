@@ -26,26 +26,26 @@ export function Cabecalho() {
       <div className="absolute inset-0 -z-10 bg-white/85" />
 
       <div className="mx-auto w-full max-w-5xl px-4 py-4 sm:py-6 relative z-10">
-        <div className="flex items-center gap-4 sm:gap-6">
+        <div className="flex flex-col items-center sm:flex-row sm:items-center gap-4 sm:gap-6">
           <Image
             src="/img/logo-teiasp.png"
             alt="Teia SP"
             width={594}
             height={385}
             priority
-            className="h-16 w-auto shrink-0 sm:h-24"
+            className="h-32 w-auto shrink-0 sm:h-24"
           />
 
-          <div className="min-w-0 flex-1">
-            <p className="font-display text-base leading-tight font-bold text-marca-800 sm:text-xl">
+          <div className="min-w-0 flex-1 text-center sm:text-left">
+            <p className="font-display text-xs leading-tight font-bold text-marca-800 sm:text-xl">
               {CREDITOS.subtitulo}
             </p>
-            <div className="mt-1.5 space-y-0.5 text-sm leading-relaxed text-tx-2 sm:text-base">
-              <p>
+            <div className="mt-1 space-y-0.5 text-xs leading-snug text-tx-2 sm:text-base">
+              <p className="line-clamp-2">
                 {CREDITOS.idealizacao} <BotoesEquipe />
               </p>
-              <p>{CREDITOS.logo}</p>
-              <p>
+              <p className="line-clamp-1">{CREDITOS.logo}</p>
+              <p className="line-clamp-1">
                 {CREDITOS.arte.rotulo}{" "}
                 <a
                   href={CREDITOS.arte.url}
@@ -59,7 +59,9 @@ export function Cabecalho() {
             </div>
           </div>
 
-          <MenuLateral />
+          <div className="hidden sm:block">
+            <MenuLateral />
+          </div>
         </div>
       </div>
     </header>

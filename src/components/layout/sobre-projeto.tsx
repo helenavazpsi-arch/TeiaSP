@@ -26,7 +26,7 @@ export function SobreProjeto() {
       <div className="mx-auto w-full max-w-5xl px-4 pb-5">
         <h2 className="font-display text-base font-bold text-marca-900">{SOBRE.titulo}</h2>
 
-        <div className="mt-2 space-y-2 text-[13px] leading-relaxed text-tx-2">
+        <div className="mt-2 space-y-2 text-[13px] leading-relaxed text-tx-2 text-justify">
           {SOBRE.paragrafos.map((paragrafo) => (
             <p key={paragrafo.slice(0, 40)}>{paragrafo}</p>
           ))}

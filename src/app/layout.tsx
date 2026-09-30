@@ -73,7 +73,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       translate="no"
       className={`${corpo.variable} ${titulo.variable}`}
     >
-      <body>
+      <body className="overflow-x-hidden">
         <FundoArte />
         <Cabecalho />
         <SobreProjeto />
@@ -98,7 +98,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-5xl pb-16 sm:pb-0">
+        <div className="mx-auto w-full max-w-5xl px-4 pb-16 sm:pb-0">
           {children}
         </div>
 

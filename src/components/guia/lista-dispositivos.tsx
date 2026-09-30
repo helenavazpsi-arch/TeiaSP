@@ -97,9 +97,9 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
               type="search"
               value={termo}
               onChange={(e) => setTermo(e.target.value)}
-              placeholder="Buscar por nome, sigla ou palavra-chave..."
+              placeholder="Buscar por nome, sigla..."
               aria-label="Buscar dispositivos"
-              className="w-full rounded-teia border border-black/10 bg-sur py-2.5 pr-3 pl-9 text-sm placeholder:text-tx-3 focus:border-marca-400 focus:outline-none"
+              className="w-full rounded-teia border border-black/10 bg-sur py-2.5 pr-3 pl-9 text-xs sm:text-sm placeholder:text-tx-3 focus:border-marca-400 focus:outline-none"
             />
           </div>
 
@@ -140,7 +140,7 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
 
       {/* resultados */}
       {filtrados.length > 0 ? (
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full">
           {filtrados.map((servico) => (
             <CartaoDispositivo key={servico.id} servico={servico} />
           ))}
