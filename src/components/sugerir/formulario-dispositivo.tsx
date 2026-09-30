@@ -63,7 +63,7 @@ export function FormularioDispositivo({ siglasExistentes }: { siglasExistentes: 
         nomeEnviado.current = String(dados.get("sigla") ?? "");
         enviar(dados);
       }}
-      className="relative space-y-4"
+      className="relative space-y-4 rounded-teia-lg bg-marca-50 px-4 py-5"
     >
       <Isca />
 
