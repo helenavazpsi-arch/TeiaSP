@@ -93,11 +93,6 @@
     font-size: 15px;
     line-height: 1.6;
     text-rendering: optimizeLegibility;
-    overflow-y: visible !important;
-  }
-
-  html {
-    overflow-y: visible !important;
   }
 
   h1,
@@ -151,5 +146,4 @@ nav[aria-label="Seções do site"] {
   top: 0 !important;
   z-index: 9999 !important;
   display: block !important;
-  overflow: visible !important;
 }
