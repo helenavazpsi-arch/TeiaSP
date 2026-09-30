@@ -37,11 +37,11 @@ export function Cabecalho() {
           />
 
           <div className="min-w-0 flex-1 text-center sm:text-left">
-            <p className="font-display text-xs leading-tight font-bold text-marca-800 sm:text-xl">
+            <p className="font-display text-sm leading-tight font-bold text-marca-800 sm:text-xl">
               {CREDITOS.subtitulo}
             </p>
-            <div className="mt-1 space-y-0.5 text-xs leading-snug text-tx-2 sm:text-base">
-              <p className="line-clamp-2">
+            <div className="mt-4 space-y-0.5 text-xs leading-snug text-tx-2 sm:text-base">
+              <p className="line-clamp-3">
                 {CREDITOS.idealizacao} <BotoesEquipe />
               </p>
               <p className="line-clamp-1">{CREDITOS.logo}</p>
