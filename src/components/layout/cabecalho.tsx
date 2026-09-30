@@ -43,7 +43,7 @@ export function Cabecalho() {
             <p className="mt-1.5 text-xs leading-relaxed text-tx-2 sm:text-sm">
               {CREDITOS.idealizacao} <BotoesEquipe />
             </p>
-            <div className="mt-2 space-y-0.5 text-[11px] leading-relaxed text-tx-2 sm:text-xs">
+            <div className="mt-2 space-y-0.5 text-sm leading-relaxed text-tx-2 sm:text-base">
               <p>{CREDITOS.logo}</p>
               <p>
                 {CREDITOS.arte.rotulo}{" "}
