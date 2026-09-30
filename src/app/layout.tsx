@@ -3,8 +3,7 @@ import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Suspense } from "react";
 import { Cabecalho } from "@/components/layout/cabecalho";
 import { FundoArte } from "@/components/layout/fundo-arte";
-import { NavegacaoTopoBase } from "@/components/layout/navegacao-base";
-import { NavegacaoTopo } from "@/components/layout/navegacao";
+import { NavegacaoFixa } from "@/components/layout/navegacao-fixa";
 import { Rodape } from "@/components/layout/rodape";
 import { SobreProjeto } from "@/components/layout/sobre-projeto";
 import { dataUltimaAtualizacao } from "@/lib/dados/servicos";
@@ -72,28 +71,13 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       lang="pt-BR"
       translate="no"
       className={`${corpo.variable} ${titulo.variable}`}
-      style={{ overflowY: "scroll" }}
     >
       <body>
         <FundoArte />
         <Cabecalho />
         <SobreProjeto />
 
-        <div
-          className="z-50 pointer-events-none py-2"
-          style={{
-            position: "sticky",
-            top: 0,
-            left: 0,
-            right: 0,
-          }}
-        >
-          <div className="pointer-events-auto">
-            <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
-              <NavegacaoTopo />
-            </Suspense>
-          </div>
-        </div>
+        <NavegacaoFixa />
 
         <div className="mx-auto w-full max-w-5xl pb-16 sm:pb-0">
           {children}
