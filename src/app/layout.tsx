@@ -84,7 +84,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           style={{
             position: "sticky" as const,
             top: "0",
-            zIndex: 9999,
+            zIndex: 50,
             pointerEvents: "none",
             padding: "8px 0",
             transform: "none",
