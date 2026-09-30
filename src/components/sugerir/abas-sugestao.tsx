@@ -70,11 +70,11 @@ function Opcao({
     >
       {ativo ? (
         <>
-          <span className="inline-block bg-marca-50 rounded-teia px-2 py-1 text-sm font-semibold text-marca-800">
+          <span className="text-sm font-semibold text-marca-800 bg-marca-50 px-1">
             {titulo}
           </span>
-          <span className="block mt-0.5 text-[12px] leading-snug text-tx-2">
-            <span className="inline-block bg-marca-50 rounded-teia px-2 py-1">
+          <span className="mt-0.5 block text-[12px] leading-snug text-tx-2">
+            <span className="bg-marca-50 px-1">
               {descricao}
             </span>
           </span>
