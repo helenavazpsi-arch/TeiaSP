@@ -14,17 +14,16 @@ import { MenuLateral } from "@/components/layout/menu-lateral";
 export function Cabecalho() {
   return (
     <header
-      className="relative isolate border-b border-black/5"
+      className="relative isolate"
       style={{
         backgroundImage: "url('/img/header-bg.jpg')",
-        backgroundSize: "100% auto",
-        backgroundRepeat: "repeat-y",
-        backgroundPosition: "center top",
-        backgroundAttachment: "scroll",
+        backgroundSize: "auto auto",
+        backgroundRepeat: "repeat",
+        backgroundPosition: "0 0",
       }}
     >
       {/* véu branco sobre a arte para o texto ter contraste */}
-      <div className="absolute inset-0 -z-10 bg-white/91" />
+      <div className="absolute inset-0 -z-10 bg-white/85" />
 
       <div className="mx-auto w-full max-w-5xl px-4 py-4 sm:py-6 relative z-10">
         <div className="flex items-center gap-4 sm:gap-6">
