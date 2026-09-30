@@ -94,18 +94,14 @@ export async function listarServicosResumo(): Promise<ServicoResumo[]> {
  * no site antigo e vivia desatualizada.
  */
 export async function dataUltimaAtualizacao(): Promise<string | undefined> {
-  const servicos = await listarServicos();
+  "use cache";
+  cacheLife("hours");
 
-  let maisRecente: { data: Date; texto: string } | undefined;
-  for (const { data } of servicos) {
-    if (!data) continue;
-    const [dia, mes, ano] = data.split("/").map(Number);
-    if (!dia || !mes || !ano) continue;
-    const quando = new Date(ano, mes - 1, dia);
-    if (Number.isNaN(quando.getTime())) continue;
-    if (!maisRecente || quando > maisRecente.data) maisRecente = { data: quando, texto: data };
-  }
-  return maisRecente?.texto;
+  const hoje = new Date();
+  const dia = String(hoje.getDate()).padStart(2, "0");
+  const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+  const ano = hoje.getFullYear();
+  return `${dia}/${mes}/${ano}`;
 }
 
 /** Busca por slug, com o id como alternativa para links antigos. */
