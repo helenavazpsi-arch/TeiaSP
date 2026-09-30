@@ -68,7 +68,7 @@ function Opcao({
           : "border-black/12 bg-sur hover:border-marca-200",
       )}
     >
-      <div className={cn("rounded-teia px-3 py-2.5", ativo ? "bg-marca-50" : "")}>
+      <div className={cn("inline-block rounded-teia px-2.5 py-1.5", ativo ? "bg-marca-50" : "")}>
         <span
           className={cn(
             "block text-sm font-semibold",
