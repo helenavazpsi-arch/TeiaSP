@@ -72,24 +72,23 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       lang="pt-BR"
       translate="no"
       className={`${corpo.variable} ${titulo.variable}`}
+      style={{ overflowY: "scroll" }}
     >
       <body>
         <FundoArte />
         <Cabecalho />
         <SobreProjeto />
 
-        {/* wrapper sticky que envolve a navegação */}
         <div
+          className="z-50 pointer-events-none py-2"
           style={{
-            position: "sticky" as const,
+            position: "sticky",
             top: 0,
             left: 0,
             right: 0,
-            zIndex: 50,
-            pointerEvents: "none",
           }}
         >
-          <div style={{ pointerEvents: "auto" }}>
+          <div className="pointer-events-auto">
             <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
               <NavegacaoTopo />
             </Suspense>
