@@ -18,7 +18,7 @@ export default async function PaginaSugerir() {
   ];
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 py-5">
+    <main className="mx-auto w-full max-w-3xl px-4 py-5 bg-marca-50 rounded-teia-lg">
       <div className="mb-4 flex items-start gap-2.5 rounded-teia-lg border border-marca-100 bg-marca-50/95 px-4 py-3 text-[13px] text-marca-900">
         <HeartHandshake size={17} className="mt-0.5 shrink-0" aria-hidden />
         <p>

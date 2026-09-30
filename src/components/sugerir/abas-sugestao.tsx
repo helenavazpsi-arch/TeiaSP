@@ -20,7 +20,7 @@ export function AbasSugestao({ siglasExistentes }: { siglasExistentes: string[] 
 
   return (
     <>
-      <div className="mb-5 grid gap-2 sm:grid-cols-2 bg-marca-50 rounded-teia-lg p-4" role="tablist">
+      <div className="mb-5 grid gap-2 sm:grid-cols-2" role="tablist">
         <Opcao
           ativo={tipo === "dispositivo"}
           onClick={() => setTipo("dispositivo")}
