@@ -26,19 +26,17 @@ export function Cabecalho() {
       <div className="absolute inset-0 -z-10 bg-white/85" />
 
       <div className="mx-auto w-full max-w-5xl px-4 py-4 sm:py-6 relative z-10">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">
-          <div className="flex sm:block justify-center sm:justify-start">
-            <Image
-              src="/img/logo-teiasp.png"
-              alt="Teia SP"
-              width={594}
-              height={385}
-              priority
-              className="h-14 w-auto shrink-0 sm:h-24"
-            />
-          </div>
+        <div className="flex flex-col items-center sm:flex-row sm:items-center gap-4 sm:gap-6">
+          <Image
+            src="/img/logo-teiasp.png"
+            alt="Teia SP"
+            width={594}
+            height={385}
+            priority
+            className="h-24 w-auto shrink-0"
+          />
 
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0 flex-1 text-center sm:text-left">
             <p className="font-display text-xs leading-tight font-bold text-marca-800 sm:text-xl">
               {CREDITOS.subtitulo}
             </p>
