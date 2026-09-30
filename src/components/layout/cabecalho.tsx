@@ -41,7 +41,7 @@ export function Cabecalho() {
               {CREDITOS.subtitulo}
             </p>
             <div className="mt-4 space-y-0.5 text-xs leading-snug text-tx-2 sm:text-base">
-              <p className="line-clamp-3">
+              <p className="line-clamp-3 mb-2">
                 {CREDITOS.idealizacao} <BotoesEquipe />
               </p>
               <p className="line-clamp-1">{CREDITOS.logo}</p>
