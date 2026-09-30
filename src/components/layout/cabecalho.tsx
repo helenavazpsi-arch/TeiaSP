@@ -17,9 +17,10 @@ export function Cabecalho() {
       className="relative isolate border-b border-black/5"
       style={{
         backgroundImage: "url('/img/header-bg.jpg')",
-        backgroundSize: "600px auto",
-        backgroundRepeat: "repeat-x repeat-y",
-        backgroundPosition: "0 0",
+        backgroundSize: "100% auto",
+        backgroundRepeat: "repeat-y",
+        backgroundPosition: "center top",
+        backgroundAttachment: "scroll",
       }}
     >
       {/* véu branco sobre a arte para o texto ter contraste */}

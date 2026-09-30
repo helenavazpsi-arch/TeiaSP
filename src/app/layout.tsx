@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Suspense } from "react";
 import { Cabecalho } from "@/components/layout/cabecalho";
+import { FundoArte } from "@/components/layout/fundo-arte";
 import {
   BarraInferiorBase,
   NavegacaoTopoBase,
@@ -76,6 +77,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       className={`${corpo.variable} ${titulo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <FundoArte />
         <Cabecalho />
         <SobreProjeto />
 
@@ -85,8 +87,10 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           <NavegacaoTopo />
         </Suspense>
 
-        <div className="mx-auto w-full max-w-5xl flex-1 bg-white pb-16 sm:pb-0">
-          {children}
+        <div className="mx-auto w-full max-w-5xl flex-1 pb-16 sm:pb-0">
+          <div className="bg-white">
+            {children}
+          </div>
         </div>
 
         <Suspense fallback={null}>
