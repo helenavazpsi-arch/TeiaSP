@@ -40,10 +40,10 @@ export function Cabecalho() {
             <p className="font-display text-base leading-tight font-bold text-marca-800 sm:text-xl">
               {CREDITOS.subtitulo}
             </p>
-            <p className="mt-1.5 text-xs leading-relaxed text-tx-2 sm:text-sm">
-              {CREDITOS.idealizacao} <BotoesEquipe />
-            </p>
-            <div className="mt-2 space-y-0.5 text-sm leading-relaxed text-tx-2 sm:text-base">
+            <div className="mt-1.5 space-y-0.5 text-sm leading-relaxed text-tx-2 sm:text-base">
+              <p>
+                {CREDITOS.idealizacao} <BotoesEquipe />
+              </p>
               <p>{CREDITOS.logo}</p>
               <p>
                 {CREDITOS.arte.rotulo}{" "}
