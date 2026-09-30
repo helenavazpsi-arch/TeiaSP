@@ -73,7 +73,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
       translate="no"
       className={`${corpo.variable} ${titulo.variable}`}
     >
-      <body style={{ position: "relative" }}>
+      <body>
         <Cabecalho />
         <SobreProjeto />
 
