@@ -62,8 +62,18 @@ export function sanitizar(html: string): string {
 export function paragrafos(desc: string | undefined | null): string[] {
   const texto = (desc || "");
 
+  // Converte linhas que começam com </ul> em items de lista válidos
+  // Isso recupera listas que foram salvas com estrutura HTML corrompida
+  const comListasRecuperadas = texto.replace(
+    /^<\/ul>/gm,
+    "<li>",
+  ).replace(
+    /<\/ul>$/gm,
+    "</li>",
+  );
+
   // Remove closing tags de listas orphaned (sem abertura correspondente)
-  const semTagsOrfas = texto
+  const semTagsOrfas = comListasRecuperadas
     .replace(/^<\/(?:ul|ol)>/gm, "")
     .replace(/\n<\/(?:ul|ol)>/g, "\n")
     .replace(/<\/(?:ul|ol)>(?![\n])/g, "");
