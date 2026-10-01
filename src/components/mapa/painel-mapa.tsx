@@ -147,6 +147,24 @@ export function PainelMapa({
       <div className="h-[68vh] min-h-[420px] overflow-hidden rounded-teia-lg border border-black/10">
         <MapaView marcadores={filtrados} />
       </div>
+
+      <div className="mt-4">
+        <p className="mb-2.5 text-xs font-semibold text-tx-2 uppercase tracking-wide">
+          Legenda das áreas
+        </p>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          {AREAS.map(({ chave, cor }) => (
+            <div key={chave} className="flex items-center gap-2">
+              <div
+                className="h-4 w-4 rounded-full border-2 border-white shadow-sm"
+                style={{ backgroundColor: cor }}
+                aria-hidden
+              />
+              <span className="text-[12px] text-tx-2">{chave}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 }
