@@ -30,7 +30,7 @@ export default async function PaginaMapa() {
         <PainelMapa marcadores={marcadores} zonas={[...NOMES_ZONAS]} />
       </Suspense>
 
-      <div className="mt-4 rounded-teia-lg border border-warning/20 bg-warning-bg px-4 py-3 text-[13px] text-warning">
+      <div className="mt-4 rounded-teia-lg border border-magenta/20 bg-marca-50-rosa px-4 py-3 text-[13px] text-magenta">
         <p>
           <strong>Observação:</strong> Os dispositivos de moradia não serão identificados no mapa
           por questões de segurança e proteção dos usuários.
