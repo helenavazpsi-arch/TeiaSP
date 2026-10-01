@@ -14,6 +14,7 @@ const CORRECOES_PUBLICO: Record<string, string> = {
   // Públicos com formato incorreto
   "LGBTQIAPN+": "População LGBTQIAPN+",
   "Outro": "", // Remover público inválido
+  "Usuários de substâncias": "Pessoas usuárias de substâncias", // Linguagem inclusiva
 };
 
 const CORRECOES_TAGS: Record<string, string> = {
