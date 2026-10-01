@@ -29,6 +29,13 @@ export default async function PaginaMapa() {
       <Suspense fallback={<div className="h-[68vh] min-h-[420px] rounded-teia-lg bg-sur-2" />}>
         <PainelMapa marcadores={marcadores} zonas={[...NOMES_ZONAS]} />
       </Suspense>
+
+      <div className="mt-4 rounded-teia-lg border border-warning/20 bg-warning-bg px-4 py-3 text-[13px] text-warning">
+        <p>
+          <strong>Observação:</strong> Os dispositivos de moradia não serão identificados no mapa
+          por questões de segurança e proteção dos usuários.
+        </p>
+      </div>
     </main>
   );
 }
