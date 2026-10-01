@@ -37,7 +37,7 @@ function escapar(texto: string): string {
 }
 
 /**
- * Deixa passar só negrito, itálico e sublinhado.
+ * Deixa passar só negrito, itálico, sublinhado e listas.
  *
  * A estratégia é escapar o texto inteiro primeiro e só então devolver as tags
  * da lista branca — o contrário (tentar remover o que é perigoso) é o caminho
@@ -50,7 +50,7 @@ function escapar(texto: string): string {
  */
 export function sanitizar(html: string): string {
   return escapar(html).replace(
-    /&lt;(\/?)(b|strong|i|em|u)(?:\s[^&]*?)?\/?&gt;/gi,
+    /&lt;(\/?)(b|strong|i|em|u|ul|ol|li)(?:\s[^&]*?)?\/?&gt;/gi,
     (_, barra: string, tag: string) => `<${barra}${tag.toLowerCase()}>`,
   );
 }
