@@ -152,9 +152,9 @@ export function PainelMapa({
         <p className="mb-3 text-xs font-semibold text-tx-2 uppercase tracking-wide">
           Legenda das áreas
         </p>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:flex lg:flex-wrap lg:justify-center">
           {AREAS.map(({ chave, cor }) => (
-            <div key={chave} className="flex items-center gap-2">
+            <div key={chave} className="flex items-center gap-2 lg:mr-6">
               <div
                 className="h-4 w-4 rounded-full border-2 border-white shadow-sm"
                 style={{ backgroundColor: cor }}
