@@ -2,12 +2,15 @@
 
 import { Mail } from "lucide-react";
 import { useActionState } from "react";
-import { enviarMensagem } from "@/acoes/sugestoes";
+import { enviarMensagem, type Resultado } from "@/acoes/sugestoes";
 
-const INICIAL = { ok: false, mensagem: "" };
+const INICIAL: Resultado = { ok: false, mensagem: "" };
 
 export function FormularioMensagem() {
-  const [resultado, submitAction, pendente] = useActionState(enviarMensagem, INICIAL);
+  const [resultado, submitAction, pendente] = useActionState<Resultado, FormData>(
+    enviarMensagem,
+    INICIAL,
+  );
 
   return (
     <form action={submitAction} className="space-y-4">
