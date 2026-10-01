@@ -1,0 +1,380 @@
+[
+  {
+    "sigla": "CT Centro",
+    "nome": "Conselho Tutelar Centro",
+    "endereco": "R. Sete de Abril, 165 - Centro, São Paulo, SP 01043-020",
+    "telefone": "(11) 3397-8900",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Bom Retiro",
+    "nome": "Conselho Tutelar Bom Retiro",
+    "endereco": "R. Barão de Jaceguai, 185 - Bom Retiro, São Paulo, SP 01310-200",
+    "telefone": "(11) 2223-6900",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Brás",
+    "nome": "Conselho Tutelar Brás",
+    "endereco": "Av. Rangel Pestana, 1050 - Brás, São Paulo, SP 03502-000",
+    "telefone": "(11) 2092-3400",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Belém",
+    "nome": "Conselho Tutelar Belém",
+    "endereco": "R. Apa, 131 - Belém, São Paulo, SP 03041-000",
+    "telefone": "(11) 2088-7700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Cambuci",
+    "nome": "Conselho Tutelar Cambuci",
+    "endereco": "R. Alenquer, 100 - Cambuci, São Paulo, SP 01315-030",
+    "telefone": "(11) 3119-7700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Pari",
+    "nome": "Conselho Tutelar Pari",
+    "endereco": "R. Miquelina, 48 - Pari, São Paulo, SP 03020-000",
+    "telefone": "(11) 2031-3300",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Santa Cecília",
+    "nome": "Conselho Tutelar Santa Cecília",
+    "endereco": "R. Mato Grosso, 400 - Santa Cecília, São Paulo, SP 01239-040",
+    "telefone": "(11) 3231-9500",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Sé",
+    "nome": "Conselho Tutelar Sé",
+    "endereco": "Av. Senador Queirós, 154 - Sé, São Paulo, SP 01015-020",
+    "telefone": "(11) 3323-9400",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Aricanduva",
+    "nome": "Conselho Tutelar Aricanduva",
+    "endereco": "Av. Aricanduva, 1651 - Aricanduva, São Paulo, SP 03370-000",
+    "telefone": "(11) 2512-5600",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Cangaíba",
+    "nome": "Conselho Tutelar Cangaíba",
+    "endereco": "R. Jamil Nassif Abib, 100 - Cangaíba, São Paulo, SP 03610-000",
+    "telefone": "(11) 2028-7800",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Carrão",
+    "nome": "Conselho Tutelar Carrão",
+    "endereco": "R. Colibri, 200 - Carrão, São Paulo, SP 03470-000",
+    "telefone": "(11) 2639-8700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Cidade Líder",
+    "nome": "Conselho Tutelar Cidade Líder",
+    "endereco": "R. Viena, 400 - Cidade Líder, São Paulo, SP 03680-000",
+    "telefone": "(11) 2052-4500",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Colina",
+    "nome": "Conselho Tutelar Colina",
+    "endereco": "R. Açucena, 150 - Colina, São Paulo, SP 03790-000",
+    "telefone": "(11) 2546-3200",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Ermelino Matarazzo",
+    "nome": "Conselho Tutelar Ermelino Matarazzo",
+    "endereco": "Av. Salim Farah Maluf, 1800 - Ermelino Matarazzo, São Paulo, SP 03824-000",
+    "telefone": "(11) 2546-6700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Guaianazes",
+    "nome": "Conselho Tutelar Guaianazes",
+    "endereco": "R. Guaraúna, 500 - Guaianazes, São Paulo, SP 08530-000",
+    "telefone": "(11) 2028-7900",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Itaim Paulista",
+    "nome": "Conselho Tutelar Itaim Paulista",
+    "endereco": "R. Cairu, 50 - Itaim Paulista, São Paulo, SP 08230-000",
+    "telefone": "(11) 2028-8100",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Itaquera",
+    "nome": "Conselho Tutelar Itaquera",
+    "endereco": "R. Padre Manoel de Paiva, 300 - Itaquera, São Paulo, SP 08220-030",
+    "telefone": "(11) 2028-7700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Lajeado",
+    "nome": "Conselho Tutelar Lajeado",
+    "endereco": "Av. Dr. Assis Ribeiro, 600 - Lajeado, São Paulo, SP 03820-000",
+    "telefone": "(11) 2546-6800",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Miguel Couto",
+    "nome": "Conselho Tutelar Miguel Couto",
+    "endereco": "R. Comendador Ermelindo Matarazzo, 280 - Miguel Couto, São Paulo, SP 08640-000",
+    "telefone": "(11) 2546-5900",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Mooca",
+    "nome": "Conselho Tutelar Mooca",
+    "endereco": "R. Vergueiro, 2000 - Mooca, São Paulo, SP 03164-000",
+    "telefone": "(11) 3018-1100",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Parque do Carmo",
+    "nome": "Conselho Tutelar Parque do Carmo",
+    "endereco": "R. Aracuaia, 100 - Parque do Carmo, São Paulo, SP 03548-020",
+    "telefone": "(11) 2546-0400",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Penha",
+    "nome": "Conselho Tutelar Penha",
+    "endereco": "R. Belém, 500 - Penha, São Paulo, SP 03100-120",
+    "telefone": "(11) 2088-7800",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Ponte Rasa",
+    "nome": "Conselho Tutelar Ponte Rasa",
+    "endereco": "Av. João Paulo I, 1500 - Ponte Rasa, São Paulo, SP 03304-000",
+    "telefone": "(11) 2087-9000",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT São Mateus",
+    "nome": "Conselho Tutelar São Mateus",
+    "endereco": "R. Ituiutaba, 350 - São Mateus, São Paulo, SP 04210-000",
+    "telefone": "(11) 5541-2600",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Sapopemba",
+    "nome": "Conselho Tutelar Sapopemba",
+    "endereco": "R. Ilhas Marquisas, 300 - Sapopemba, São Paulo, SP 03285-000",
+    "telefone": "(11) 2619-3600",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Tatuapé",
+    "nome": "Conselho Tutelar Tatuapé",
+    "endereco": "R. São Bento, 850 - Tatuapé, São Paulo, SP 03319-900",
+    "telefone": "(11) 2032-8500",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Vila Curuçá",
+    "nome": "Conselho Tutelar Vila Curuçá",
+    "endereco": "R. Dos Bandeirantes, 300 - Vila Curuçá, São Paulo, SP 03525-000",
+    "telefone": "(11) 2546-1700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Vila Formosa",
+    "nome": "Conselho Tutelar Vila Formosa",
+    "endereco": "R. Canindé, 500 - Vila Formosa, São Paulo, SP 03041-120",
+    "telefone": "(11) 2088-5900",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Vila Jacuí",
+    "nome": "Conselho Tutelar Vila Jacuí",
+    "endereco": "Av. Jacuí, 500 - Vila Jacuí, São Paulo, SP 03280-000",
+    "telefone": "(11) 2619-0300",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Cecap",
+    "nome": "Conselho Tutelar Cecap",
+    "endereco": "R. Serra de Paracatu, 200 - Cecap, São Paulo, SP 02780-000",
+    "telefone": "(11) 2931-7900",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Itaberaba",
+    "nome": "Conselho Tutelar Itaberaba",
+    "endereco": "R. Borba Gato, 250 - Itaberaba, São Paulo, SP 02710-000",
+    "telefone": "(11) 2923-3200",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Jaçanã",
+    "nome": "Conselho Tutelar Jaçanã",
+    "endereco": "Av. Maranhão, 600 - Jaçanã, São Paulo, SP 02142-000",
+    "telefone": "(11) 2942-8200",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Mandaqui",
+    "nome": "Conselho Tutelar Mandaqui",
+    "endereco": "R. Cel. Falcão, 150 - Mandaqui, São Paulo, SP 02177-030",
+    "telefone": "(11) 2953-3700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Perus",
+    "nome": "Conselho Tutelar Perus",
+    "endereco": "R. São João, 800 - Perus, São Paulo, SP 02791-000",
+    "telefone": "(11) 3914-5400",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Pirituba",
+    "nome": "Conselho Tutelar Pirituba",
+    "endereco": "R. Cipotânea, 100 - Pirituba, São Paulo, SP 05165-000",
+    "telefone": "(11) 3913-9300",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT São Domingos",
+    "nome": "Conselho Tutelar São Domingos",
+    "endereco": "R. São Domingos, 300 - São Domingos, São Paulo, SP 02742-010",
+    "telefone": "(11) 3913-4700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Vila Brasilândia",
+    "nome": "Conselho Tutelar Vila Brasilândia",
+    "endereco": "Av. Rio de Janeiro, 400 - Vila Brasilândia, São Paulo, SP 02893-000",
+    "telefone": "(11) 3913-6800",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Vila Guilherme",
+    "nome": "Conselho Tutelar Vila Guilherme",
+    "endereco": "R. Cel. Firmo Dias, 200 - Vila Guilherme, São Paulo, SP 02084-020",
+    "telefone": "(11) 2953-0700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Vila Maria",
+    "nome": "Conselho Tutelar Vila Maria",
+    "endereco": "R. Comendador Assis, 150 - Vila Maria, São Paulo, SP 02131-320",
+    "telefone": "(11) 2942-0900",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Bela Vista",
+    "nome": "Conselho Tutelar Bela Vista",
+    "endereco": "R. Consolação, 500 - Bela Vista, São Paulo, SP 01301-100",
+    "telefone": "(11) 3253-8600",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Pinheiros",
+    "nome": "Conselho Tutelar Pinheiros",
+    "endereco": "R. Fradique Coutinho, 500 - Pinheiros, São Paulo, SP 05416-011",
+    "telefone": "(11) 3097-4600",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Perdizes",
+    "nome": "Conselho Tutelar Perdizes",
+    "endereco": "Av. Paulista, 1578 - Cerqueira César, São Paulo, SP 01311-200",
+    "telefone": "(11) 3288-8600",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Vila Madalena",
+    "nome": "Conselho Tutelar Vila Madalena",
+    "endereco": "R. Inambú, 150 - Vila Madalena, São Paulo, SP 05428-010",
+    "telefone": "(11) 3097-5900",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Sumaré",
+    "nome": "Conselho Tutelar Sumaré",
+    "endereco": "R. Alves Guimarães, 400 - Sumaré, São Paulo, SP 05432-010",
+    "telefone": "(11) 3214-9100",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Butantã",
+    "nome": "Conselho Tutelar Butantã",
+    "endereco": "Av. Corifeu de Oliveira, 1000 - Butantã, São Paulo, SP 05424-000",
+    "telefone": "(11) 3098-5600",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Lapa",
+    "nome": "Conselho Tutelar Lapa",
+    "endereco": "R. Santa Cruz, 500 - Lapa, São Paulo, SP 05070-020",
+    "telefone": "(11) 3832-3600",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Campo Limpo",
+    "nome": "Conselho Tutelar Campo Limpo",
+    "endereco": "R. Itanhaém, 500 - Campo Limpo, São Paulo, SP 05740-130",
+    "telefone": "(11) 5830-8700",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Capão Redondo",
+    "nome": "Conselho Tutelar Capão Redondo",
+    "endereco": "R. Tatuira, 300 - Capão Redondo, São Paulo, SP 05846-000",
+    "telefone": "(11) 5830-9400",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Jardim Ângela",
+    "nome": "Conselho Tutelar Jardim Ângela",
+    "endereco": "R. Francisca Rocha, 400 - Jardim Ângela, São Paulo, SP 04708-000",
+    "telefone": "(11) 5840-1100",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Parelheiros",
+    "nome": "Conselho Tutelar Parelheiros",
+    "endereco": "R. Intendente Camargo, 200 - Parelheiros, São Paulo, SP 04858-070",
+    "telefone": "(11) 5844-7300",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Ipiranga",
+    "nome": "Conselho Tutelar Ipiranga",
+    "endereco": "R. Vereda da Paz, 100 - Ipiranga, São Paulo, SP 04205-070",
+    "telefone": "(11) 5070-5600",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Jabaquara",
+    "nome": "Conselho Tutelar Jabaquara",
+    "endereco": "R. Capanema, 300 - Jabaquara, São Paulo, SP 04304-120",
+    "telefone": "(11) 5070-6800",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Santo Amaro",
+    "nome": "Conselho Tutelar Santo Amaro",
+    "endereco": "Av. Adolfo Pinheiro, 900 - Santo Amaro, São Paulo, SP 04735-005",
+    "telefone": "(11) 5070-7900",
+    "area": "assistencia-social"
+  },
+  {
+    "sigla": "CT Socorro",
+    "nome": "Conselho Tutelar Socorro",
+    "endereco": "R. Gago Coutinho, 200 - Socorro, São Paulo, SP 04750-020",
+    "telefone": "(11) 5070-4400",
+    "area": "assistencia-social"
+  }
+]

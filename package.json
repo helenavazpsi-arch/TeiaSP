@@ -9,7 +9,10 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "imagens": "node scripts/otimizar-imagens.mjs"
+    "imagens": "node scripts/otimizar-imagens.mjs",
+    "geocode": "node scripts/importar-conselhos.js",
+    "firestore-batch": "node scripts/firestore-batch-import.js",
+    "csv-import": "node scripts/csv-para-firestore.js"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",
