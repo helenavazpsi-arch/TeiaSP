@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CREDITOS } from "@/data/conteudo";
 
 /**
@@ -9,8 +10,14 @@ import { CREDITOS } from "@/data/conteudo";
 export function Rodape({ atualizadoEm }: { atualizadoEm?: string }) {
   return (
     <footer className="mt-auto border-t border-black/10 bg-sur/85 backdrop-blur-sm">
-      <div className="mx-auto w-full max-w-5xl space-y-1 px-4 py-6 text-center text-[11px] text-tx-3">
+      <div className="mx-auto w-full max-w-5xl space-y-3 px-4 py-6 text-center text-[11px] text-tx-3">
         {atualizadoEm && <p>Atualizado pela última vez em: {atualizadoEm}</p>}
+        <Link
+          href="/sugerir?tipo=mensagem"
+          className="inline-block rounded-teia bg-marca-700 px-3 py-1.5 text-[11px] font-medium text-white transition-colors hover:bg-marca-800"
+        >
+          Enviar feedback
+        </Link>
         <p>{CREDITOS.direitos}</p>
       </div>
     </footer>

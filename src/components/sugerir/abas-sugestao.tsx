@@ -3,24 +3,28 @@
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FormularioDispositivo } from "@/components/sugerir/formulario-dispositivo";
+import { FormularioMensagem } from "@/components/sugerir/formulario-mensagem";
 import { FormularioPonto } from "@/components/sugerir/formulario-ponto";
 import { cn } from "@/lib/utils";
 
-type Tipo = "dispositivo" | "ponto";
+type Tipo = "dispositivo" | "ponto" | "mensagem";
 
 /**
- * As duas formas de contribuir. O "Adicionar ponto" do mapa chega aqui com
- * ?tipo=ponto e já abre na aba certa.
+ * Três formas de contribuir. O "Adicionar ponto" do mapa chega aqui com
+ * ?tipo=ponto e já abre na aba certa. O botão de feedback no footer abre
+ * com ?tipo=mensagem.
  */
 export function AbasSugestao({ siglasExistentes }: { siglasExistentes: string[] }) {
   const parametros = useSearchParams();
-  const [tipo, setTipo] = useState<Tipo>(() =>
-    parametros.get("tipo") === "ponto" ? "ponto" : "dispositivo",
-  );
+  const [tipo, setTipo] = useState<Tipo>(() => {
+    const param = parametros.get("tipo");
+    if (param === "ponto" || param === "mensagem") return param;
+    return "dispositivo";
+  });
 
   return (
     <>
-      <div className="mb-5 grid gap-2 sm:grid-cols-2" role="tablist">
+      <div className="mb-5 grid gap-2 sm:grid-cols-3" role="tablist">
         <Opcao
           ativo={tipo === "dispositivo"}
           onClick={() => setTipo("dispositivo")}
@@ -33,12 +37,20 @@ export function AbasSugestao({ siglasExistentes }: { siglasExistentes: string[] 
           titulo="O endereço de uma unidade"
           descricao="Uma unidade de algo que já existe no guia, para aparecer no mapa."
         />
+        <Opcao
+          ativo={tipo === "mensagem"}
+          onClick={() => setTipo("mensagem")}
+          titulo="Mandar mensagem"
+          descricao="Feedback, dúvidas ou sugestões para quem desenvolveu o site."
+        />
       </div>
 
       {tipo === "dispositivo" ? (
         <FormularioDispositivo siglasExistentes={siglasExistentes} />
-      ) : (
+      ) : tipo === "ponto" ? (
         <FormularioPonto />
+      ) : (
+        <FormularioMensagem />
       )}
     </>
   );
