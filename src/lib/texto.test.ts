@@ -64,6 +64,24 @@ describe("paragrafos", () => {
   it("preserva formatação dentro do parágrafo", () => {
     expect(paragrafos("<p>o <b>CAPS</b> atende</p>")).toEqual(["o <b>CAPS</b> atende"]);
   });
+
+  it("recupera listas corrompidas com </ul> orphaned", () => {
+    const texto = "são:\nitem 1\nitem 2\n</ul>";
+    const resultado = paragrafos(texto);
+    const saida = resultado.join("");
+    expect(saida).toContain("<li>item 1</li>");
+    expect(saida).toContain("<li>item 2</li>");
+    expect(saida).toContain("<ul>");
+    expect(saida).toContain("</ul>");
+  });
+
+  it("preserva listas válidas com ul e li", () => {
+    const texto = "<ul><li>item 1</li><li>item 2</li></ul>";
+    const resultado = paragrafos(texto);
+    expect(resultado.length).toBeGreaterThan(0);
+    expect(resultado.join("")).toContain("<li>item 1</li>");
+    expect(resultado.join("")).toContain("<li>item 2</li>");
+  });
 });
 
 describe("semHTML", () => {
