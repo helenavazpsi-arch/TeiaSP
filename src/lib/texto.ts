@@ -71,10 +71,10 @@ export function paragrafos(desc: string | undefined | null): string[] {
     // e embrulha em <ul><li>
     texto = texto.replace(
       /(são:\s*\n)((?:[^\n]*\n)*?)(?=\n|$)/gi,
-      (match, prefix, items) => {
-        const linhas = items.split("\n").filter((l) => l.trim().length > 0);
+      (match: string, prefix: string, items: string) => {
+        const linhas = items.split("\n").filter((l: string) => l.trim().length > 0);
         if (linhas.length > 0) {
-          const listaHtml = `<ul>${linhas.map((l) => `<li>${l}</li>`).join("")}</ul>`;
+          const listaHtml = `<ul>${linhas.map((l: string) => `<li>${l}</li>`).join("")}</ul>`;
           return prefix + listaHtml + "\n";
         }
         return match;
