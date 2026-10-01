@@ -60,7 +60,15 @@ export function sanitizar(html: string): string {
  * que a equipe aplicou no painel.
  */
 export function paragrafos(desc: string | undefined | null): string[] {
-  return (desc || "")
+  const texto = (desc || "");
+
+  // Remove newlines dentro de listas para manter a estrutura HTML intacta
+  const semNewlinesDasListas = texto.replace(
+    /(<(?:ul|ol)[\s\S]*?<\/(?:ul|ol)>)/gi,
+    (match) => match.replace(/\n/g, " "),
+  );
+
+  return semNewlinesDasListas
     .replace(/<\/(p|div)>/gi, "\n")
     .replace(/<br\s*\/?>/gi, "\n")
     // as tags de abertura de bloco somem: a quebra já virou \n acima.
