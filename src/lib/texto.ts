@@ -61,11 +61,12 @@ export function sanitizar(html: string): string {
  */
 export function paragrafos(desc: string | undefined | null): string[] {
   return (desc || "")
-    .replace(/<\/(p|div|li|ul|ol)>/gi, "\n")
+    .replace(/<\/(p|div|li)>/gi, "\n")
     .replace(/<br\s*\/?>/gi, "\n")
     // as tags de abertura de bloco somem: a quebra já virou \n acima.
     // O que sobrar de marcação passa por `sanitizar` e é escapado.
-    .replace(/<(p|div|li|ul|ol)(\s[^>]*)?>/gi, "")
+    // Preserva <ul> e <ol> para que listas render com bullets.
+    .replace(/<(p|div|li)(\s[^>]*)?>/gi, "")
     .split(/\n+/)
     .map((linha) => sanitizar(linha).trim())
     .filter((linha) => semHTML(linha).length > 0);
