@@ -152,15 +152,15 @@ export function PainelMapa({
         <p className="mb-3 text-xs font-semibold text-tx-2 uppercase tracking-wide">
           Legenda das áreas
         </p>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:flex lg:flex-nowrap lg:justify-center lg:overflow-x-auto">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {AREAS.map(({ chave, cor }) => (
-            <div key={chave} className="flex items-center gap-1.5 lg:mr-4 flex-shrink-0">
+            <div key={chave} className="flex items-center gap-2">
               <div
-                className="h-4 w-4 rounded-full border-2 border-white shadow-sm flex-shrink-0"
+                className="h-4 w-4 rounded-full border-2 border-white shadow-sm"
                 style={{ backgroundColor: cor }}
                 aria-hidden
               />
-              <span className="text-[11px] text-tx-2 whitespace-nowrap">{chave}</span>
+              <span className="text-[12px] text-tx-2">{chave}</span>
             </div>
           ))}
         </div>
