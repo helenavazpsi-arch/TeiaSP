@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Suspense } from "react";
-import { BotaoFeedbackFlutuante } from "@/components/layout/botao-feedback-flutuante";
+import { ModalFeedback } from "@/components/layout/modal-feedback";
 import { Cabecalho } from "@/components/layout/cabecalho";
 import { FundoArte } from "@/components/layout/fundo-arte";
 import { NavegacaoTopoBase } from "@/components/layout/navegacao-base";
@@ -109,7 +109,7 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
 
         {modal}
 
-        <BotaoFeedbackFlutuante />
+        <ModalFeedback />
       </body>
     </html>
   );
