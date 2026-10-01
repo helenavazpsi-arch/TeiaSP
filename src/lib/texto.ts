@@ -60,26 +60,30 @@ export function sanitizar(html: string): string {
  * que a equipe aplicou no painel.
  */
 export function paragrafos(desc: string | undefined | null): string[] {
-  const texto = (desc || "");
+  let texto = (desc || "");
 
-  // Converte linhas que começam com </ul> em items de lista válidos
-  // Isso recupera listas que foram salvas com estrutura HTML corrompida
-  const comListasRecuperadas = texto.replace(
-    /^<\/ul>/gm,
-    "<li>",
-  ).replace(
-    /<\/ul>$/gm,
-    "</li>",
-  );
+  // Recupera listas corrompidas: se há </ul> orphaned, reconstrói a lista
+  if (texto.includes("</ul>")) {
+    // Remove todos os </ul> orphaned
+    texto = texto.replace(/<\/ul>/g, "");
 
-  // Remove closing tags de listas orphaned (sem abertura correspondente)
-  const semTagsOrfas = comListasRecuperadas
-    .replace(/^<\/(?:ul|ol)>/gm, "")
-    .replace(/\n<\/(?:ul|ol)>/g, "\n")
-    .replace(/<\/(?:ul|ol)>(?![\n])/g, "");
+    // Detecta grupos de linhas que parecem items de lista (depois de "são:" ou "são")
+    // e embrulha em <ul><li>
+    texto = texto.replace(
+      /(são:\s*\n)((?:[^\n]*\n)*?)(?=\n|$)/gi,
+      (match, prefix, items) => {
+        const linhas = items.split("\n").filter((l) => l.trim().length > 0);
+        if (linhas.length > 0) {
+          const listaHtml = `<ul>${linhas.map((l) => `<li>${l}</li>`).join("")}</ul>`;
+          return prefix + listaHtml + "\n";
+        }
+        return match;
+      },
+    );
+  }
 
   // Remove newlines dentro de listas para manter a estrutura HTML intacta
-  const semNewlinesDasListas = semTagsOrfas.replace(
+  const semNewlinesDasListas = texto.replace(
     /(<(?:ul|ol)[\s\S]*?<\/(?:ul|ol)>)/gi,
     (match) => match.replace(/\n/g, " "),
   );
