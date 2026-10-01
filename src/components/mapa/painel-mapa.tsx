@@ -148,11 +148,11 @@ export function PainelMapa({
         <MapaView marcadores={filtrados} />
       </div>
 
-      <div className="mt-4">
-        <p className="mb-2.5 text-xs font-semibold text-tx-2 uppercase tracking-wide">
+      <div className="mt-4 rounded-teia bg-marca-50 p-4">
+        <p className="mb-3 text-xs font-semibold text-tx-2 uppercase tracking-wide">
           Legenda das áreas
         </p>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {AREAS.map(({ chave, cor }) => (
             <div key={chave} className="flex items-center gap-2">
               <div
