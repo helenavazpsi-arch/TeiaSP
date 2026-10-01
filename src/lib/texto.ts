@@ -61,7 +61,7 @@ export function sanitizar(html: string): string {
  */
 export function paragrafos(desc: string | undefined | null): string[] {
   return (desc || "")
-    .replace(/<\/(p|div|li)>/gi, "\n")
+    .replace(/<\/(p|div|li|ul|ol)>/gi, "\n")
     .replace(/<br\s*\/?>/gi, "\n")
     // as tags de abertura de bloco somem: a quebra já virou \n acima.
     // O que sobrar de marcação passa por `sanitizar` e é escapado.
