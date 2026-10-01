@@ -171,5 +171,5 @@ export const PUBLICOS = [
   "PCD",
   "Imigrantes e refugiados",
   "Público geral",
-  "Usuários de substâncias",
+  "Pessoas usuárias de substâncias",
 ] as const;
