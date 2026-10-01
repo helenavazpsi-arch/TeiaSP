@@ -62,8 +62,14 @@ export function sanitizar(html: string): string {
 export function paragrafos(desc: string | undefined | null): string[] {
   const texto = (desc || "");
 
+  // Remove closing tags de listas orphaned (sem abertura correspondente)
+  const semTagsOrfas = texto
+    .replace(/^<\/(?:ul|ol)>/gm, "")
+    .replace(/\n<\/(?:ul|ol)>/g, "\n")
+    .replace(/<\/(?:ul|ol)>(?![\n])/g, "");
+
   // Remove newlines dentro de listas para manter a estrutura HTML intacta
-  const semNewlinesDasListas = texto.replace(
+  const semNewlinesDasListas = semTagsOrfas.replace(
     /(<(?:ul|ol)[\s\S]*?<\/(?:ul|ol)>)/gi,
     (match) => match.replace(/\n/g, " "),
   );
