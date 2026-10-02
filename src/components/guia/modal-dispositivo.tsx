@@ -2,8 +2,9 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { useState, type ReactNode } from "react";
+import { ModalContext } from "@/components/guia/modal-context";
 
 /**
  * Casca do dispositivo quando ele é aberto a partir da listagem: o conteúdo
@@ -13,21 +14,19 @@ import { useEffect, useState, type ReactNode } from "react";
  */
 export function ModalDispositivo({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const pathname = usePathname();
   const [aberto, setAberto] = useState(true);
 
-  useEffect(() => {
-    // Se a rota mudou para /mapa ou outra aba, fecha o modal
-    if (!pathname.startsWith("/dispositivo/")) {
-      setAberto(false);
-    }
-  }, [pathname]);
+  const fecharModal = () => {
+    setAberto(false);
+    router.back();
+  };
 
   return (
-    <Dialog.Root open={aberto} onOpenChange={(novoEstado) => {
-      setAberto(novoEstado);
-      if (!novoEstado) router.back();
-    }}>
+    <ModalContext.Provider value={{ fecharModal }}>
+      <Dialog.Root open={aberto} onOpenChange={(novoEstado) => {
+        setAberto(novoEstado);
+        if (!novoEstado) router.back();
+      }}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-[10000] bg-black/45 backdrop-blur-[2px]" />
         <Dialog.Content
@@ -47,6 +46,7 @@ export function ModalDispositivo({ children }: { children: ReactNode }) {
           {children}
         </Dialog.Content>
       </Dialog.Portal>
-    </Dialog.Root>
+      </Dialog.Root>
+    </ModalContext.Provider>
   );
 }

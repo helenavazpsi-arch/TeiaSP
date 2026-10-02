@@ -1,0 +1,21 @@
+"use client";
+
+import { MapPin } from "lucide-react";
+import Link from "next/link";
+import { useFecharModal } from "@/components/guia/modal-context";
+
+export function BotaoIrMapa({ sigla, nome }: { sigla?: string; nome?: string }) {
+  const fecharModal = useFecharModal();
+  const busca = encodeURIComponent(sigla || nome || "");
+
+  return (
+    <Link
+      href={`/mapa?busca=${busca}`}
+      onClick={fecharModal}
+      className="inline-flex flex-1 items-center justify-center gap-2 rounded-teia bg-marca-700 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-marca-800"
+    >
+      <MapPin size={16} />
+      Ver as unidades no mapa
+    </Link>
+  );
+}
