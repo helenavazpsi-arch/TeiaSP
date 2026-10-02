@@ -3,7 +3,7 @@
 import Underline from "@tiptap/extension-underline";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Bold, Italic, Underline as UnderlineIcon } from "lucide-react";
+import { Bold, Italic, Underline as UnderlineIcon, List, ListOrdered } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -69,6 +69,21 @@ export function EditorDescricao({
           onClick={() => editor.chain().focus().toggleUnderline().run()}
         >
           <UnderlineIcon size={15} />
+        </Botao>
+        <div className="w-px bg-black/10" />
+        <Botao
+          ativo={editor.isActive("bulletList")}
+          rotulo="Lista com bullets"
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+        >
+          <List size={15} />
+        </Botao>
+        <Botao
+          ativo={editor.isActive("orderedList")}
+          rotulo="Lista numerada"
+          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        >
+          <ListOrdered size={15} />
         </Botao>
       </div>
 

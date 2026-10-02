@@ -49,7 +49,10 @@ function escapar(texto: string): string {
  * navegador de quem estava no painel.
  */
 export function sanitizar(html: string): string {
-  return escapar(html)
+  // Remove TODAS as tags <div> ANTES de escapar
+  let cleaned = html.replace(/<\/?div[^>]*>/gi, "");
+
+  return escapar(cleaned)
     .replace(
       /&lt;(\/?)(b|strong|i|em|u|ul|ol|li)(?:\s[^&]*?)?\/?&gt;/gi,
       (_, barra: string, tag: string) => `<${barra}${tag.toLowerCase()}>`,
@@ -58,12 +61,12 @@ export function sanitizar(html: string): string {
     .replace(/&amp;nbsp;/g, "&nbsp;")
     .replace(/&amp;quot;/g, "&quot;")
     .replace(/&amp;#(\d+);/g, "&#$1;")
-    // Remove padrão malformado </div><div> que causa desalinhamento
-    .replace(/<\/div><div>/g, "")
     // Limpa espaços em branco em listas
     .replace(/\s+(<(?:ul|ol|li)>)/g, "$1")
     .replace(/(<(?:ul|ol)>)\s+/g, "$1")
     .replace(/(<li>)\s+/g, "$1")
+    // Remove espaço após abertura de <li> para alinhamento perfeito
+    .replace(/(<li>)(&nbsp;|\s)+/g, "$1")
     .replace(/\s+(<\/li>)/g, "$1")
     .replace(/\s+(<\/(?:ul|ol)>)/g, "$1");
 }
@@ -83,15 +86,14 @@ export function paragrafos(desc: string | undefined | null): string[] {
     texto = texto.replace(/<\/ul>/g, "");
   }
 
-  // Remove tags <div> e </div> dentro de listas (ficam malformadas e quebram a estrutura)
-  texto = texto.replace(/<\/?div[^>]*>/gi, (match) => {
-    // Se está dentro de uma lista, remove completamente
-    return "";
-  });
+  // Remove TODAS as tags <div> e </div> - ficam malformadas e quebram a estrutura
+  // Faz duas passagens para capturar padrões aninhados como </div><div>
+  texto = texto.replace(/<\/?div[^>]*>/gi, "");
+  texto = texto.replace(/<\/?div[^>]*>/gi, "");
 
-  // Remove tags <p> e <div> - converte fechamento em newline, depois remove abertura
+  // Remove tags <p> - converte fechamento em newline, depois remove abertura
   texto = texto.replace(/<\/p>/gi, "\n");
-  texto = texto.replace(/<(p|div)(\s[^>]*)>/g, "");
+  texto = texto.replace(/<p[^>]*>/gi, "");
 
   // Normaliza breaks em newlines
   texto = texto.replace(/<br\s*\/?>/gi, "\n");
@@ -107,12 +109,12 @@ export function paragrafos(desc: string | undefined | null): string[] {
   );
 
   return semNewlinesDasListas
-    .replace(/<\/(p|div)>/gi, "\n")
+    .replace(/<\/p>/gi, "\n")
     .replace(/<br\s*\/?>/gi, "\n")
     // as tags de abertura de bloco somem: a quebra já virou \n acima.
     // O que sobrar de marcação passa por `sanitizar` e é escapado.
     // Preserva listas (<ul>, <ol>, <li>) para que apareçam com bullets.
-    .replace(/<(p|div)(\s[^>]*)?>/gi, "")
+    .replace(/<p[^>]*>/gi, "")
     .split(/\n+/)
     .map((linha) => sanitizar(linha).trim())
     .filter((linha) => semHTML(linha).length > 0);
