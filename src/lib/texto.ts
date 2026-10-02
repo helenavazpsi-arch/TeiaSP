@@ -49,10 +49,15 @@ function escapar(texto: string): string {
  * navegador de quem estava no painel.
  */
 export function sanitizar(html: string): string {
-  return escapar(html).replace(
-    /&lt;(\/?)(b|strong|i|em|u|ul|ol|li)(?:\s[^&]*?)?\/?&gt;/gi,
-    (_, barra: string, tag: string) => `<${barra}${tag.toLowerCase()}>`,
-  );
+  return escapar(html)
+    .replace(
+      /&lt;(\/?)(b|strong|i|em|u|ul|ol|li)(?:\s[^&]*?)?\/?&gt;/gi,
+      (_, barra: string, tag: string) => `<${barra}${tag.toLowerCase()}>`,
+    )
+    // Restaura entidades HTML comuns escapadas
+    .replace(/&amp;nbsp;/g, "&nbsp;")
+    .replace(/&amp;quot;/g, "&quot;")
+    .replace(/&amp;#(\d+);/g, "&#$1;");
 }
 
 /**
@@ -85,21 +90,27 @@ export function paragrafos(desc: string | undefined | null): string[] {
     const temColon = linha.includes(":");
     const linhaValida = linha.trim().length > 0;
 
-    // Detecta itens de lista: linhas que têm ":" e pelo menos 2 caracteres
+    // Detecta itens de lista: linhas que têm ":" e começam com palavra-chave comum
     if (temColon && linhaValida && linha.trim().length > 2) {
+      // Extrai a primeira palavra antes do colon
+      const primeiraLinha = linhas[i];
+      const palavraChave = primeiraLinha.split(":")[0].trim();
+
       const itens: string[] = [];
-      // Coleta itens de lista contíguas (todas com ":")
+      // Coleta itens de lista contíguas que começam com a mesma palavra-chave
       while (i < linhas.length &&
              linhas[i].includes(":") &&
-             linhas[i].trim().length > 2) {
+             linhas[i].trim().length > 2 &&
+             linhas[i].split(":")[0].trim().startsWith(palavraChave.split(" ")[0])) {
         itens.push(linhas[i]);
         i++;
       }
-      // Se temos múltiplos itens, embrulha em <ul><li>
-      if (itens.length > 1) {
+      // Se temos 3+ itens do mesmo padrão, embrulha em <ul><li>
+      // (Ignora se há 1-2 itens - provavelmente é introdução ou metadados isolados)
+      if (itens.length >= 3) {
         resultado.push(`<ul>${itens.map((item) => `<li>${item}</li>`).join("")}</ul>`);
-      } else if (itens.length === 1) {
-        resultado.push(itens[0]);
+      } else {
+        resultado.push(...itens);
       }
     } else {
       resultado.push(linha);
