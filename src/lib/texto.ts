@@ -57,7 +57,13 @@ export function sanitizar(html: string): string {
     // Restaura entidades HTML comuns escapadas
     .replace(/&amp;nbsp;/g, "&nbsp;")
     .replace(/&amp;quot;/g, "&quot;")
-    .replace(/&amp;#(\d+);/g, "&#$1;");
+    .replace(/&amp;#(\d+);/g, "&#$1;")
+    // Limpa espaços em branco em listas
+    .replace(/\s+(<(?:ul|ol|li)>)/g, "$1")
+    .replace(/(<(?:ul|ol)>)\s+/g, "$1")
+    .replace(/(<li>)\s+/g, "$1")
+    .replace(/\s+(<\/li>)/g, "$1")
+    .replace(/\s+(<\/(?:ul|ol)>)/g, "$1");
 }
 
 /**
@@ -83,59 +89,9 @@ export function paragrafos(desc: string | undefined | null): string[] {
   // Normaliza breaks em newlines
   texto = texto.replace(/<br\s*\/?>/gi, "\n");
 
-  // Processa linhas para detectar padrão de lista (linhas com ":")
-  const linhas = texto.split("\n");
-  let i = 0;
-  const resultado: string[] = [];
-
-  while (i < linhas.length) {
-    const linha = linhas[i];
-    const temColon = linha.includes(":");
-    const linhaValida = linha.trim().length > 0;
-
-    // Detecta itens de lista: linhas contíguas que têm ":"
-    if (temColon && linhaValida && linha.trim().length > 2) {
-      const itens: string[] = [];
-
-      // Coleta todas as linhas contíguas com colons (pulando linhas vazias)
-      while (i < linhas.length) {
-        const linhaAtual = linhas[i];
-        if (linhaAtual.trim().length === 0) {
-          // Pula linhas vazias
-          i++;
-          continue;
-        }
-        if (linhaAtual.includes(":") && linhaAtual.trim().length > 2) {
-          itens.push(linhaAtual);
-          i++;
-        } else {
-          // Encontrou linha sem colon que não é vazia, para coleta
-          break;
-        }
-      }
-
-      // Se temos 3+ itens contígues com colons, embrulha em <ul><li>
-      // (Ignora se há 1-2 itens - provavelmente é introdução ou metadados isolados)
-      if (itens.length >= 3) {
-        // Filtra itens vazios antes de agrupar
-        const itensValidos = itens.filter((item) => item.trim().length > 0);
-        if (itensValidos.length >= 3) {
-          resultado.push(`<ul>${itensValidos.map((item) => `<li>${item}</li>`).join("")}</ul>`);
-        } else {
-          resultado.push(...itensValidos);
-        }
-      } else {
-        resultado.push(...itens);
-      }
-    } else if (linhaValida) {
-      resultado.push(linha);
-      i++;
-    } else {
-      // Pula linhas vazias quando não estão em coleta de lista
-      i++;
-    }
-  }
-  texto = resultado.join("\n");
+  // Divide por linhas e filtra vazias
+  const linhas = texto.split("\n").filter((linha) => linha.trim().length > 0);
+  texto = linhas.join("\n");
 
   // Remove newlines dentro de listas para manter a estrutura HTML intacta
   const semNewlinesDasListas = texto.replace(
