@@ -151,6 +151,11 @@ li {
   line-height: 1.6;
 }
 
+/* Garante que primeiro li não tem espaço acima */
+ul > li:first-child {
+  margin-top: 0 !important;
+}
+
 /* ==========================================================================
    Utilitários
    ========================================================================== */
