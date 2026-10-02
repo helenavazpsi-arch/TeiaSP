@@ -41,6 +41,11 @@ export function PainelMapa({
   const [areaSelecionada, setAreaSelecionada] = useState("");
   const [zona, setZona] = useState("");
 
+  // atualiza busca quando o query param muda
+  useEffect(() => {
+    setBusca(parametros.get("busca") ?? "");
+  }, [parametros]);
+
   // limpa filtros quando sai da aba do mapa
   useEffect(() => {
     if (pathnameAnterior.current === "/mapa" && pathname !== "/mapa") {
