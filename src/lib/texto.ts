@@ -105,12 +105,12 @@ export function paragrafos(desc: string | undefined | null): string[] {
         itens.push(linhas[i]);
         i++;
       }
-      // Se temos múltiplos itens do mesmo padrão, embrulha em <ul><li>
-      // (Ignora se há apenas um item - provavelmente é introdução)
-      if (itens.length > 1) {
+      // Se temos 3+ itens do mesmo padrão, embrulha em <ul><li>
+      // (Ignora se há 1-2 itens - provavelmente é introdução ou metadados isolados)
+      if (itens.length >= 3) {
         resultado.push(`<ul>${itens.map((item) => `<li>${item}</li>`).join("")}</ul>`);
-      } else if (itens.length === 1) {
-        resultado.push(itens[0]);
+      } else {
+        resultado.push(...itens);
       }
     } else {
       resultado.push(linha);
