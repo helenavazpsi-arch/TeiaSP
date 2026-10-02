@@ -49,7 +49,10 @@ function escapar(texto: string): string {
  * navegador de quem estava no painel.
  */
 export function sanitizar(html: string): string {
-  return escapar(html)
+  // Remove TODAS as tags <div> ANTES de escapar
+  let cleaned = html.replace(/<\/?div[^>]*>/gi, "");
+
+  return escapar(cleaned)
     .replace(
       /&lt;(\/?)(b|strong|i|em|u|ul|ol|li)(?:\s[^&]*?)?\/?&gt;/gi,
       (_, barra: string, tag: string) => `<${barra}${tag.toLowerCase()}>`,
@@ -58,9 +61,6 @@ export function sanitizar(html: string): string {
     .replace(/&amp;nbsp;/g, "&nbsp;")
     .replace(/&amp;quot;/g, "&quot;")
     .replace(/&amp;#(\d+);/g, "&#$1;")
-    // Remove padrão malformado </div><div> e quaisquer <div> livres que causa desalinhamento
-    .replace(/<\/div><div>/g, "")
-    .replace(/<\/?div[^>]*>/g, "")
     // Limpa espaços em branco em listas
     .replace(/\s+(<(?:ul|ol|li)>)/g, "$1")
     .replace(/(<(?:ul|ol)>)\s+/g, "$1")
