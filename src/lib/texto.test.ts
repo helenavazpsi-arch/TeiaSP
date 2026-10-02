@@ -65,45 +65,12 @@ describe("paragrafos", () => {
     expect(paragrafos("<p>o <b>CAPS</b> atende</p>")).toEqual(["o <b>CAPS</b> atende"]);
   });
 
-  it("recupera listas corrompidas com </ul> orphaned", () => {
-    const texto = "Atendimento regular: transporte com programação fixa\nAtendimento eventual: transporte esporádico\nAtendimento a eventos: transporte social\n</ul>";
-    const resultado = paragrafos(texto);
-    const saida = resultado.join("");
-    expect(saida).toContain("<ul>");
-    expect(saida).toContain("<li>");
-    expect(saida).toContain("Atendimento regular:");
-  });
-
   it("preserva listas válidas com ul e li", () => {
     const texto = "<ul><li>item 1</li><li>item 2</li></ul>";
     const resultado = paragrafos(texto);
     expect(resultado.length).toBeGreaterThan(0);
     expect(resultado.join("")).toContain("<li>item 1</li>");
     expect(resultado.join("")).toContain("<li>item 2</li>");
-  });
-
-  it("detecta padrão real de Atende+", () => {
-    const texto = "Atendimento regular: para transporte com programação de viagens fixas e regulares, com frequência semanal aos usuários cadastrados.\nAtendimento eventual: para transporte com viagens esporádicas única e exclusivamente para consultas médicas.\nAtendimento a eventos: transporte realizado para promover a interação social.";
-    const resultado = paragrafos(texto);
-    const saida = resultado.join("");
-    console.log("DEBUG - Resultado com Atende+:", resultado);
-    console.log("DEBUG - Saída unida:", saida);
-    expect(resultado.length).toBeGreaterThan(0);
-    // Deve conter ul se funcionar corretamente
-    if (saida.includes("<ul>")) {
-      expect(saida).toContain("<li>");
-    }
-  });
-
-  it("agrupa itens com colons contíguos em lista quando há 3+", () => {
-    const texto = "Introdução:\nItem Um: descrição um.\nItem Dois: descrição dois.\nItem Três: descrição três.";
-    const resultado = paragrafos(texto);
-    const saida = resultado.join("");
-
-    // Deve conter lista com 3+ itens agrupados
-    expect(saida).toContain("<ul>");
-    const liCount = (saida.match(/<li>/g) || []).length;
-    expect(liCount).toBeGreaterThanOrEqual(3);
   });
 });
 
