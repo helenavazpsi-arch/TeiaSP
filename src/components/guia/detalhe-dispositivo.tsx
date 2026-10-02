@@ -5,6 +5,7 @@ import { Etiqueta } from "@/components/ui/etiqueta";
 import { area } from "@/lib/areas";
 import type { ServicoComSlug } from "@/lib/dados/servicos";
 import { paragrafos } from "@/lib/texto";
+import { BotaoIrMapa } from "@/components/guia/botao-ir-mapa";
 
 /**
  * Conteúdo do dispositivo, usado tanto na página própria quanto no modal que
@@ -97,13 +98,7 @@ export function DetalheDispositivo({
           )}
 
           {temMapa && (
-            <Link
-              href={`/mapa?busca=${encodeURIComponent(servico.sigla || servico.nome || "")}`}
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-teia bg-marca-700 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-marca-800"
-            >
-              <MapPin size={16} />
-              Ver as unidades no mapa
-            </Link>
+            <BotaoIrMapa sigla={servico.sigla} nome={servico.nome} />
           )}
         </div>
 
