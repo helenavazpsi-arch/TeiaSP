@@ -1,4 +1,4 @@
-name: Publicar site no Firebase Hosting
+name: Deploy no Firebase App Hosting
 
 on:
   push:
@@ -14,5 +14,4 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
-          channelId: live
           projectId: teia-sp

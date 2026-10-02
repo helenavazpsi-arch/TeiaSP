@@ -1,0 +1,8 @@
+apiVersion: apphosting.googleapis.com/v1
+runConfig:
+  runtime: nodejs22
+  buildConfig:
+    steps:
+      - npm ci
+      - npm run build
+  environmentVariables: []
