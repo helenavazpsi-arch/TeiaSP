@@ -11,7 +11,6 @@ export function BotaoIrMapa({ sigla, nome }: { sigla?: string; nome?: string }) 
 
   const handleClick = () => {
     router.push(`/mapa?busca=${busca}`);
-    fecharModal();
   };
 
   return (
