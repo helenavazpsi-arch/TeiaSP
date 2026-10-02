@@ -58,6 +58,8 @@ export function sanitizar(html: string): string {
     .replace(/&amp;nbsp;/g, "&nbsp;")
     .replace(/&amp;quot;/g, "&quot;")
     .replace(/&amp;#(\d+);/g, "&#$1;")
+    // Remove padrão malformado </div><div> que causa desalinhamento
+    .replace(/<\/div><div>/g, "")
     // Limpa espaços em branco em listas
     .replace(/\s+(<(?:ul|ol|li)>)/g, "$1")
     .replace(/(<(?:ul|ol)>)\s+/g, "$1")
