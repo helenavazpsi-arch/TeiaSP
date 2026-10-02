@@ -3,8 +3,8 @@
 import { MapPin, Plus, Search, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useDeferredValue, useMemo, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { AREAS } from "@/lib/areas";
 import { normalizar } from "@/lib/busca";
 import type { Marcador } from "@/lib/dados/mapa";
@@ -30,6 +30,8 @@ export function PainelMapa({
   zonas: string[];
 }) {
   const parametros = useSearchParams();
+  const pathname = usePathname();
+  const pathnameAnterior = useRef("/mapa");
 
   /**
    * "Ver as unidades no mapa", na página do dispositivo, chega como ?busca=
@@ -38,6 +40,16 @@ export function PainelMapa({
   const [busca, setBusca] = useState(() => parametros.get("busca") ?? "");
   const [areaSelecionada, setAreaSelecionada] = useState("");
   const [zona, setZona] = useState("");
+
+  // limpa filtros quando sai da aba do mapa
+  useEffect(() => {
+    if (pathnameAnterior.current === "/mapa" && pathname !== "/mapa") {
+      setBusca("");
+      setAreaSelecionada("");
+      setZona("");
+    }
+    pathnameAnterior.current = pathname;
+  }, [pathname]);
 
   const buscaAdiada = useDeferredValue(busca);
 

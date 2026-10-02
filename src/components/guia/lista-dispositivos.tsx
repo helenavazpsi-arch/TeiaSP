@@ -3,7 +3,7 @@
 import { Search, SearchX, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { CartaoDispositivo } from "@/components/guia/cartao-dispositivo";
 import { AREAS, PUBLICOS } from "@/lib/areas";
 import { normalizar } from "@/lib/busca";
@@ -24,13 +24,16 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
   const [areaSelecionada, setAreaSelecionada] = useState("");
   const [publico, setPublico] = useState("");
 
-  // limpa filtros quando entra na aba de busca
+  const pathnameAnterior = useRef("/");
+
+  // limpa filtros quando sai da aba de busca
   useEffect(() => {
-    if (pathname === "/") {
+    if (pathnameAnterior.current === "/" && pathname !== "/") {
       setTermo("");
       setAreaSelecionada("");
       setPublico("");
     }
+    pathnameAnterior.current = pathname;
   }, [pathname]);
 
   // mantém a digitação fluida quando a lista é longa
