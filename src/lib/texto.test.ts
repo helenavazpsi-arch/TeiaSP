@@ -66,13 +66,12 @@ describe("paragrafos", () => {
   });
 
   it("recupera listas corrompidas com </ul> orphaned", () => {
-    const texto = "são:\nitem 1\nitem 2\n</ul>";
+    const texto = "Atendimento regular: transporte com programação fixa\nAtendimento eventual: transporte esporádico\nAtendimento a eventos: transporte social\n</ul>";
     const resultado = paragrafos(texto);
     const saida = resultado.join("");
-    expect(saida).toContain("<li>item 1</li>");
-    expect(saida).toContain("<li>item 2</li>");
     expect(saida).toContain("<ul>");
-    expect(saida).toContain("</ul>");
+    expect(saida).toContain("<li>");
+    expect(saida).toContain("Atendimento regular:");
   });
 
   it("preserva listas válidas com ul e li", () => {

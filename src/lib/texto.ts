@@ -67,19 +67,35 @@ export function paragrafos(desc: string | undefined | null): string[] {
     // Remove todos os </ul> orphaned
     texto = texto.replace(/<\/ul>/g, "");
 
-    // Detecta grupos de linhas que parecem items de lista (depois de "são:" ou "são")
-    // e embrulha em <ul><li>
-    texto = texto.replace(
-      /(são:\s*\n)((?:[^\n]*\n)*?)(?=\n|$)/gi,
-      (match: string, prefix: string, items: string) => {
-        const linhas = items.split("\n").filter((l: string) => l.trim().length > 0);
-        if (linhas.length > 0) {
-          const listaHtml = `<ul>${linhas.map((l: string) => `<li>${l}</li>`).join("")}</ul>`;
-          return prefix + listaHtml + "\n";
+    // Detecta grupos de linhas que parecem items de lista
+    // Padrão: linhas que contêm ":" (marcador de item)
+    // Agrupa sequências contíguas dessas linhas em <ul><li>
+    const linhas = texto.split("\n");
+    let i = 0;
+    const resultado: string[] = [];
+
+    while (i < linhas.length) {
+      const linha = linhas[i];
+      // Verifica se é uma linha que parece um item de lista (contém ":")
+      if (linha.includes(":") && linha.trim().length > 0) {
+        const itens: string[] = [];
+        // Coleta itens de lista contíguas
+        while (i < linhas.length && linhas[i].includes(":") && linhas[i].trim().length > 0) {
+          itens.push(linhas[i]);
+          i++;
         }
-        return match;
-      },
-    );
+        // Se temos múltiplos itens, embrulha em <ul><li>
+        if (itens.length > 1) {
+          resultado.push(`<ul>${itens.map((item) => `<li>${item}</li>`).join("")}</ul>`);
+        } else if (itens.length === 1) {
+          resultado.push(itens[0]);
+        }
+      } else {
+        resultado.push(linha);
+        i++;
+      }
+    }
+    texto = resultado.join("\n");
   }
 
   // Remove newlines dentro de listas para manter a estrutura HTML intacta
