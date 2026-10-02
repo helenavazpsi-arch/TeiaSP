@@ -47,7 +47,8 @@ export function DetalheDispositivo({
             <div className="mt-1.5 space-y-2.5 text-sm leading-relaxed text-tx">
               {corpo.map((paragrafo, i) => (
                 // a ordem é a identidade: parágrafos não têm id próprio
-                <p key={i} dangerouslySetInnerHTML={{ __html: paragrafo }} />
+                // Usa div em vez de <p> para permitir <ul><li> válido dentro
+                <div key={i} dangerouslySetInnerHTML={{ __html: paragrafo }} />
               ))}
             </div>
           </section>

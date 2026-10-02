@@ -37,7 +37,7 @@ function escapar(texto: string): string {
 }
 
 /**
- * Deixa passar só negrito, itálico e sublinhado.
+ * Deixa passar só negrito, itálico, sublinhado e listas.
  *
  * A estratégia é escapar o texto inteiro primeiro e só então devolver as tags
  * da lista branca — o contrário (tentar remover o que é perigoso) é o caminho
@@ -50,7 +50,7 @@ function escapar(texto: string): string {
  */
 export function sanitizar(html: string): string {
   return escapar(html).replace(
-    /&lt;(\/?)(b|strong|i|em|u)(?:\s[^&]*?)?\/?&gt;/gi,
+    /&lt;(\/?)(b|strong|i|em|u|ul|ol|li)(?:\s[^&]*?)?\/?&gt;/gi,
     (_, barra: string, tag: string) => `<${barra}${tag.toLowerCase()}>`,
   );
 }
@@ -60,12 +60,67 @@ export function sanitizar(html: string): string {
  * que a equipe aplicou no painel.
  */
 export function paragrafos(desc: string | undefined | null): string[] {
-  return (desc || "")
-    .replace(/<\/(p|div|li)>/gi, "\n")
+  let texto = (desc || "");
+
+  // Detecta e recupera listas (com </ul> orphaned OU plain text list patterns)
+  const temUlOrphaned = texto.includes("</ul>");
+
+  if (temUlOrphaned) {
+    // Remove todos os </ul> orphaned
+    texto = texto.replace(/<\/ul>/g, "");
+  }
+
+  // Normaliza quebras de parágrafo/linha em newlines para detectar padrões de lista
+  texto = texto.replace(/<\/p>/gi, "\n");
+  texto = texto.replace(/<br\s*\/?>/gi, "\n");
+  texto = texto.replace(/<\/(div)>/gi, "\n");
+
+  // Processa linhas para detectar padrão de lista (linhas com ":")
+  const linhas = texto.split("\n");
+  let i = 0;
+  const resultado: string[] = [];
+
+  while (i < linhas.length) {
+    const linha = linhas[i];
+    const temColon = linha.includes(":");
+    const linhaValida = linha.trim().length > 0;
+
+    // Detecta itens de lista: linhas que têm ":" e pelo menos 2 caracteres
+    if (temColon && linhaValida && linha.trim().length > 2) {
+      const itens: string[] = [];
+      // Coleta itens de lista contíguas (todas com ":")
+      while (i < linhas.length &&
+             linhas[i].includes(":") &&
+             linhas[i].trim().length > 2) {
+        itens.push(linhas[i]);
+        i++;
+      }
+      // Se temos múltiplos itens, embrulha em <ul><li>
+      if (itens.length > 1) {
+        resultado.push(`<ul>${itens.map((item) => `<li>${item}</li>`).join("")}</ul>`);
+      } else if (itens.length === 1) {
+        resultado.push(itens[0]);
+      }
+    } else {
+      resultado.push(linha);
+      i++;
+    }
+  }
+  texto = resultado.join("\n");
+
+  // Remove newlines dentro de listas para manter a estrutura HTML intacta
+  const semNewlinesDasListas = texto.replace(
+    /(<(?:ul|ol)[\s\S]*?<\/(?:ul|ol)>)/gi,
+    (match) => match.replace(/\n/g, " "),
+  );
+
+  return semNewlinesDasListas
+    .replace(/<\/(p|div)>/gi, "\n")
     .replace(/<br\s*\/?>/gi, "\n")
     // as tags de abertura de bloco somem: a quebra já virou \n acima.
     // O que sobrar de marcação passa por `sanitizar` e é escapado.
-    .replace(/<(p|div|li|ul|ol)(\s[^>]*)?>/gi, "")
+    // Preserva listas (<ul>, <ol>, <li>) para que apareçam com bullets.
+    .replace(/<(p|div)(\s[^>]*)?>/gi, "")
     .split(/\n+/)
     .map((linha) => sanitizar(linha).trim())
     .filter((linha) => semHTML(linha).length > 0);

@@ -121,5 +121,14 @@ export async function buscarServico(
     servicos.find((s) => s.slug === slugOuId) ?? servicos.find((s) => s.id === slugOuId);
 
   if (!achado) return null;
-  return { ...achado, temMapa: !semUnidadesNoMapa(achado.sigla, achado.nome) };
+
+  const nomeCorrigido = corrigirNome(achado.nome);
+  return {
+    ...achado,
+    nome: nomeCorrigido,
+    area: corrigirArea(nomeCorrigido, achado.area),
+    publico: corrigirPublico(achado.publico),
+    tags: corrigirTags(achado.tags),
+    temMapa: !semUnidadesNoMapa(achado.sigla, nomeCorrigido),
+  };
 }

@@ -130,6 +130,17 @@
   }
 }
 
+/* Lista de tópicos em descrições de dispositivos */
+ul {
+  list-style-type: disc;
+  list-style-position: outside;
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
 /* ==========================================================================
    Utilitários
    ========================================================================== */
