@@ -17,10 +17,10 @@ export function ModalDispositivo({ children }: { children: ReactNode }) {
   return (
     <Dialog.Root open onOpenChange={(aberto) => !aberto && router.back()}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/45 backdrop-blur-[2px]" />
+        <Dialog.Overlay className="fixed inset-0 z-[10000] bg-black/45 backdrop-blur-[2px]" />
         <Dialog.Content
           aria-describedby={undefined}
-          className="fixed top-1/2 left-1/2 z-50 max-h-[88vh] w-[min(42rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto overscroll-contain rounded-teia-lg bg-sur shadow-2xl"
+          className="fixed top-1/2 left-1/2 z-[10001] max-h-[88vh] w-[min(42rem,calc(100vw-1.5rem))] -translate-x-1/2 -translate-y-1/2 overflow-y-auto overscroll-contain rounded-teia-lg bg-sur shadow-2xl"
         >
           {/* o <h1> do conteúdo serve de título acessível do diálogo */}
           <Dialog.Title className="sr-only">Detalhes do dispositivo</Dialog.Title>
