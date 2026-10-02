@@ -62,41 +62,46 @@ export function sanitizar(html: string): string {
 export function paragrafos(desc: string | undefined | null): string[] {
   let texto = (desc || "");
 
-  // Recupera listas corrompidas: se há </ul> orphaned, reconstrói a lista
-  if (texto.includes("</ul>")) {
+  // Detecta e recupera listas (com </ul> orphaned OU plain text list patterns)
+  const temUlOrphaned = texto.includes("</ul>");
+
+  if (temUlOrphaned) {
     // Remove todos os </ul> orphaned
     texto = texto.replace(/<\/ul>/g, "");
+  }
 
-    // Detecta grupos de linhas que parecem items de lista
-    // Padrão: linhas que contêm ":" (marcador de item)
-    // Agrupa sequências contíguas dessas linhas em <ul><li>
-    const linhas = texto.split("\n");
-    let i = 0;
-    const resultado: string[] = [];
+  // Processa linhas para detectar padrão de lista (linhas com ":")
+  const linhas = texto.split("\n");
+  let i = 0;
+  const resultado: string[] = [];
 
-    while (i < linhas.length) {
-      const linha = linhas[i];
-      // Verifica se é uma linha que parece um item de lista (contém ":")
-      if (linha.includes(":") && linha.trim().length > 0) {
-        const itens: string[] = [];
-        // Coleta itens de lista contíguas
-        while (i < linhas.length && linhas[i].includes(":") && linhas[i].trim().length > 0) {
-          itens.push(linhas[i]);
-          i++;
-        }
-        // Se temos múltiplos itens, embrulha em <ul><li>
-        if (itens.length > 1) {
-          resultado.push(`<ul>${itens.map((item) => `<li>${item}</li>`).join("")}</ul>`);
-        } else if (itens.length === 1) {
-          resultado.push(itens[0]);
-        }
-      } else {
-        resultado.push(linha);
+  while (i < linhas.length) {
+    const linha = linhas[i];
+    const temColon = linha.includes(":");
+    const linhaValida = linha.trim().length > 0;
+
+    // Detecta itens de lista: linhas que têm ":" e pelo menos 2 caracteres
+    if (temColon && linhaValida && linha.trim().length > 2) {
+      const itens: string[] = [];
+      // Coleta itens de lista contíguas (todas com ":")
+      while (i < linhas.length &&
+             linhas[i].includes(":") &&
+             linhas[i].trim().length > 2) {
+        itens.push(linhas[i]);
         i++;
       }
+      // Se temos múltiplos itens, embrulha em <ul><li>
+      if (itens.length > 1) {
+        resultado.push(`<ul>${itens.map((item) => `<li>${item}</li>`).join("")}</ul>`);
+      } else if (itens.length === 1) {
+        resultado.push(itens[0]);
+      }
+    } else {
+      resultado.push(linha);
+      i++;
     }
-    texto = resultado.join("\n");
   }
+  texto = resultado.join("\n");
 
   // Remove newlines dentro de listas para manter a estrutura HTML intacta
   const semNewlinesDasListas = texto.replace(
