@@ -94,12 +94,21 @@ export function paragrafos(desc: string | undefined | null): string[] {
     if (temColon && linhaValida && linha.trim().length > 2) {
       const itens: string[] = [];
 
-      // Coleta todas as linhas contíguas com colons
-      while (i < linhas.length &&
-             linhas[i].includes(":") &&
-             linhas[i].trim().length > 2) {
-        itens.push(linhas[i]);
-        i++;
+      // Coleta todas as linhas contíguas com colons (pulando linhas vazias)
+      while (i < linhas.length) {
+        const linhaAtual = linhas[i];
+        if (linhaAtual.trim().length === 0) {
+          // Pula linhas vazias
+          i++;
+          continue;
+        }
+        if (linhaAtual.includes(":") && linhaAtual.trim().length > 2) {
+          itens.push(linhaAtual);
+          i++;
+        } else {
+          // Encontrou linha sem colon que não é vazia, para coleta
+          break;
+        }
       }
 
       // Se temos 3+ itens contígues com colons, embrulha em <ul><li>
@@ -109,8 +118,11 @@ export function paragrafos(desc: string | undefined | null): string[] {
       } else {
         resultado.push(...itens);
       }
-    } else {
+    } else if (linhaValida) {
       resultado.push(linha);
+      i++;
+    } else {
+      // Pula linhas vazias quando não estão em coleta de lista
       i++;
     }
   }
