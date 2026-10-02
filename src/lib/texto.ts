@@ -58,10 +58,10 @@ export function sanitizar(html: string): string {
     .replace(/&amp;nbsp;/g, "&nbsp;")
     .replace(/&amp;quot;/g, "&quot;")
     .replace(/&amp;#(\d+);/g, "&#$1;")
-    // Remove espaços em branco logo após abertura de <ul>/<ol> e antes de </li>
+    // Limpa espaços em branco em listas
     .replace(/(<(?:ul|ol)>)\s+/g, "$1")
+    .replace(/(<li>)\s+/g, "$1")
     .replace(/\s+(<\/li>)/g, "$1")
-    // Remove espaços em branco antes de </ul>/</ ol>
     .replace(/\s+(<\/(?:ul|ol)>)/g, "$1");
 }
 
