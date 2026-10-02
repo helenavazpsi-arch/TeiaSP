@@ -138,6 +138,11 @@ ul {
   margin: 0;
 }
 
+/* Compensa o espaçamento do space-y-2.5 do container pai */
+.space-y-2.5 > ul {
+  margin-top: -0.625rem;
+}
+
 li {
   margin-bottom: 0.5rem;
   margin-top: 0;
