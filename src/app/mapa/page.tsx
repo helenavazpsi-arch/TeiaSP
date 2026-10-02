@@ -19,9 +19,8 @@ export default async function PaginaMapa() {
       <div className="mb-4 flex items-start gap-2.5 rounded-teia-lg border border-info/20 bg-info-bg px-4 py-3 text-[13px] text-info">
         <Map size={17} className="mt-0.5 shrink-0" aria-hidden />
         <p>
-          <strong>Mapa da Teia SP.</strong> Os pinos próximos se agrupam; aproxime para
-          abrir cada unidade. Use a busca e os filtros para procurar por bairro, área ou
-          região.
+          <strong>Mapa da Teia SP.</strong> Encontre a unidade do serviço mais próxima de
+          você. Use a busca e os filtros para procurar por bairro, área ou região.
         </p>
       </div>
 
@@ -30,6 +29,13 @@ export default async function PaginaMapa() {
       <Suspense fallback={<div className="h-[68vh] min-h-[420px] rounded-teia-lg bg-sur-2" />}>
         <PainelMapa marcadores={marcadores} zonas={[...NOMES_ZONAS]} />
       </Suspense>
+
+      <div className="mt-4 rounded-teia-lg border border-magenta/20 bg-marca-50-rosa px-4 py-3 text-[13px] text-magenta">
+        <p>
+          <strong>Observação:</strong> Os dispositivos de moradia não serão identificados no mapa
+          por questões de segurança e proteção dos usuários.
+        </p>
+      </div>
     </main>
   );
 }

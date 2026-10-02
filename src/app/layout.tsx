@@ -1,13 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Suspense } from "react";
+import { ModalFeedback } from "@/components/layout/modal-feedback";
 import { Cabecalho } from "@/components/layout/cabecalho";
 import { FundoArte } from "@/components/layout/fundo-arte";
-import {
-  BarraInferiorBase,
-  NavegacaoTopoBase,
-} from "@/components/layout/navegacao-base";
-import { BarraInferior, NavegacaoTopo } from "@/components/layout/navegacao";
+import { NavegacaoTopoBase } from "@/components/layout/navegacao-base";
+import { NavegacaoTopo } from "@/components/layout/navegacao";
 import { Rodape } from "@/components/layout/rodape";
 import { SobreProjeto } from "@/components/layout/sobre-projeto";
 import { dataUltimaAtualizacao } from "@/lib/dados/servicos";
@@ -74,22 +72,34 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
     <html
       lang="pt-BR"
       translate="no"
-      className={`${corpo.variable} ${titulo.variable} h-full antialiased`}
+      className={`${corpo.variable} ${titulo.variable}`}
     >
-      <body className="flex min-h-full flex-col">
+      <body className="overflow-x-hidden">
         <FundoArte />
         <Cabecalho />
         <SobreProjeto />
 
-        {/* o fallback é a própria navegação sem destaque: nada pisca, só o
-            item ativo acende quando o cliente assume */}
-        <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
-          <NavegacaoTopo />
-        </Suspense>
+        {/* Navegação sticky */}
+        <div
+          data-nav-fixa="true"
+          style={{
+            position: "sticky" as const,
+            top: "0",
+            zIndex: 50,
+            pointerEvents: "none",
+            padding: "8px 0",
+            transform: "none",
+            willChange: "auto",
+          }}
+        >
+          <div style={{ pointerEvents: "auto" }}>
+            <Suspense fallback={<NavegacaoTopoBase caminho={null} />}>
+              <NavegacaoTopo />
+            </Suspense>
+          </div>
+        </div>
 
-        {/* faixa central clara sobre a aquarela, como no site atual: a arte
-            emoldura, o conteúdo fica legível */}
-        <div className="mx-auto w-full max-w-5xl flex-1 bg-sur/92 pb-16 shadow-[0_0_60px_rgba(60,52,137,0.10)] backdrop-blur-[2px] sm:pb-0">
+        <div className="mx-auto w-full max-w-5xl px-4 pb-16 sm:pb-0">
           {children}
         </div>
 
@@ -97,10 +107,9 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
           <RodapeComData />
         </Suspense>
 
-        <Suspense fallback={<BarraInferiorBase caminho={null} />}>
-          <BarraInferior />
-        </Suspense>
         {modal}
+
+        <ModalFeedback />
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-import { Building2, ExternalLink, HandHeart, MapPin, Users } from "lucide-react";
+import { AlertCircle, Building2, ExternalLink, HandHeart, MapPin, Users } from "lucide-react";
 import Link from "next/link";
 import { BadgeArea } from "@/components/ui/badge-area";
 import { Etiqueta } from "@/components/ui/etiqueta";
@@ -47,7 +47,8 @@ export function DetalheDispositivo({
             <div className="mt-1.5 space-y-2.5 text-sm leading-relaxed text-tx">
               {corpo.map((paragrafo, i) => (
                 // a ordem é a identidade: parágrafos não têm id próprio
-                <p key={i} dangerouslySetInnerHTML={{ __html: paragrafo }} />
+                // Usa div em vez de <p> para permitir <ul><li> válido dentro
+                <div key={i} dangerouslySetInnerHTML={{ __html: paragrafo }} />
               ))}
             </div>
           </section>
@@ -104,6 +105,17 @@ export function DetalheDispositivo({
               Ver as unidades no mapa
             </Link>
           )}
+        </div>
+
+        <div className="mt-6 border-t border-black/8 pt-6">
+          <p className="mb-3 text-xs text-tx-2">Encontrou um erro nesta informação?</p>
+          <a
+            href={`mailto:helenavaz.psi@gmail.com?subject=Erro%20no%20dispositivo%3A%20${encodeURIComponent(servico.nome || servico.sigla || "")}&body=${encodeURIComponent(`Encontrei um erro no dispositivo: ${servico.nome || servico.sigla}\n\nDescreva o erro:\n\n`)}`}
+            className="inline-flex items-center gap-2 rounded-teia border border-black/10 px-4 py-2 text-sm font-medium text-marca-700 transition-colors hover:bg-marca-50"
+          >
+            <AlertCircle size={16} />
+            Reportar erro
+          </a>
         </div>
       </div>
     </article>

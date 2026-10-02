@@ -13,42 +13,56 @@ import { MenuLateral } from "@/components/layout/menu-lateral";
  */
 export function Cabecalho() {
   return (
-    <header className="relative isolate border-b border-black/5">
-      {/* a arte de fundo, sob um véu branco para o texto ter contraste */}
-      <div className="absolute inset-0 -z-10">
-        <picture>
-          <source type="image/avif" srcSet="/img/header-bg-600.avif" />
-          <source type="image/webp" srcSet="/img/header-bg-600.webp" />
-          <img
-            src="/img/header-bg.jpg"
-            alt=""
-            aria-hidden="true"
-            className="h-full w-full object-cover"
+    <header
+      className="relative isolate"
+      style={{
+        backgroundImage: "url('/img/header-bg.jpg')",
+        backgroundSize: "auto auto",
+        backgroundRepeat: "repeat",
+        backgroundPosition: "0 0",
+      }}
+    >
+      {/* véu branco sobre a arte para o texto ter contraste */}
+      <div className="absolute inset-0 -z-10 bg-white/85" />
+
+      <div className="mx-auto w-full max-w-5xl px-4 py-4 sm:py-6 relative z-10">
+        <div className="flex flex-col items-center sm:flex-row sm:items-center gap-4 sm:gap-6">
+          <Image
+            src="/img/logo-teiasp.png"
+            alt="Teia SP"
+            width={594}
+            height={385}
+            priority
+            className="h-32 w-auto shrink-0 sm:h-24"
           />
-        </picture>
-        <div className="absolute inset-0 bg-white/91" />
-      </div>
 
-      <div className="mx-auto flex w-full max-w-5xl items-center gap-4 px-4 py-4 sm:gap-6 sm:py-6">
-        <Image
-          src="/img/logo-teiasp.png"
-          alt="Teia SP"
-          width={594}
-          height={385}
-          priority
-          className="h-16 w-auto shrink-0 sm:h-24"
-        />
+          <div className="min-w-0 flex-1 text-center sm:text-left">
+            <p className="font-display text-sm leading-tight font-bold text-marca-800 sm:text-xl">
+              {CREDITOS.subtitulo}
+            </p>
+            <div className="mt-4 space-y-0.5 text-xs leading-snug text-tx-2 sm:text-base">
+              <p className="line-clamp-3 mb-2">
+                {CREDITOS.idealizacao} <BotoesEquipe />
+              </p>
+              <p className="line-clamp-1">{CREDITOS.logo}</p>
+              <p className="line-clamp-1">
+                {CREDITOS.arte.rotulo}{" "}
+                <a
+                  href={CREDITOS.arte.url}
+                  target="_blank"
+                  rel="noopener"
+                  className="underline hover:text-marca-700"
+                >
+                  {CREDITOS.arte.nome}
+                </a>
+              </p>
+            </div>
+          </div>
 
-        <div className="min-w-0 flex-1">
-          <p className="font-display text-base leading-tight font-bold text-marca-800 sm:text-xl">
-            {CREDITOS.subtitulo}
-          </p>
-          <p className="mt-1.5 text-[11px] leading-relaxed text-tx-2 sm:text-xs">
-            {CREDITOS.idealizacao} <BotoesEquipe />
-          </p>
+          <div className="hidden sm:block">
+            <MenuLateral />
+          </div>
         </div>
-
-        <MenuLateral />
       </div>
     </header>
   );

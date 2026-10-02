@@ -3,7 +3,6 @@
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect, useRef } from "react";
-import Supercluster from "supercluster";
 import { area } from "@/lib/areas";
 import type { Marcador } from "@/lib/dados/mapa";
 
@@ -25,15 +24,10 @@ import type { Marcador } from "@/lib/dados/mapa";
 const CENTRO_SP: [number, number] = [-23.5505, -46.6333];
 const ZOOM_INICIAL = 11;
 
-interface Propriedades {
-  marcador: Marcador;
-}
-
 export function MapaView({ marcadores }: { marcadores: Marcador[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapaRef = useRef<L.Map | null>(null);
   const camadaRef = useRef<L.LayerGroup | null>(null);
-  const indiceRef = useRef<Supercluster<Propriedades> | null>(null);
 
   // cria o mapa uma vez, destrói ao sair
   useEffect(() => {
@@ -46,9 +40,9 @@ export function MapaView({ marcadores }: { marcadores: Marcador[] }) {
       zoomControl: true,
     }).setView(CENTRO_SP, ZOOM_INICIAL);
 
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 19,
     }).addTo(mapa);
 
@@ -57,7 +51,7 @@ export function MapaView({ marcadores }: { marcadores: Marcador[] }) {
     mapaRef.current = mapa;
     camadaRef.current = camada;
 
-    const redesenhar = () => desenhar(mapa, camada, indiceRef.current);
+    const redesenhar = () => {}; // sem clustering, não precisa redesenhar ao mover
     mapa.on("moveend", redesenhar);
     mapa.on("zoomend", redesenhar);
 
@@ -77,58 +71,26 @@ export function MapaView({ marcadores }: { marcadores: Marcador[] }) {
     };
   }, []);
 
-  // reindexa e redesenha quando os filtros mudam a lista
+  // redesenha quando os filtros mudam a lista
   useEffect(() => {
-    const indice = new Supercluster<Propriedades>({ radius: 70, maxZoom: 17 });
-    indice.load(
-      marcadores.map((marcador) => ({
-        type: "Feature" as const,
-        properties: { marcador },
-        geometry: { type: "Point" as const, coordinates: [marcador.lng, marcador.lat] },
-      })),
-    );
-    indiceRef.current = indice;
-
     if (mapaRef.current && camadaRef.current) {
-      desenhar(mapaRef.current, camadaRef.current, indice);
+      desenharSemCluster(mapaRef.current, camadaRef.current, marcadores);
     }
   }, [marcadores]);
 
   return <div ref={containerRef} className="h-full w-full" />;
 }
 
-/** Desenha só o que cabe na área visível, agrupado pelo zoom atual. */
-function desenhar(
+/** Desenha todos os marcadores sem clustering. */
+function desenharSemCluster(
   mapa: L.Map,
   camada: L.LayerGroup,
-  indice: Supercluster<Propriedades> | null,
+  marcadores: Marcador[],
 ) {
-  if (!indice) return;
-
   camada.clearLayers();
 
-  const limites = mapa.getBounds();
-  const grupos = indice.getClusters(
-    [limites.getWest(), limites.getSouth(), limites.getEast(), limites.getNorth()],
-    Math.round(mapa.getZoom()),
-  );
-
-  for (const item of grupos) {
-    const [lng, lat] = item.geometry.coordinates;
-
-    if ("cluster" in item.properties && item.properties.cluster) {
-      const quantidade = item.properties.point_count as number;
-      const idGrupo = item.properties.cluster_id as number;
-
-      L.marker([lat, lng], { icon: iconeDeGrupo(quantidade) })
-        .on("click", () => mapa.setView([lat, lng], indice.getClusterExpansionZoom(idGrupo)))
-        .addTo(camada);
-      continue;
-    }
-
-    const { marcador } = item.properties as Propriedades;
-
-    L.circleMarker([lat, lng], {
+  for (const marcador of marcadores) {
+    L.circleMarker([marcador.lat, marcador.lng], {
       radius: 7,
       fillColor: area(marcador.area).cor,
       color: "#fff",
@@ -196,20 +158,3 @@ function conteudoDoPopup(marcador: Marcador): string {
   return `<div style="min-width:190px">${partes.join("")}</div>`;
 }
 
-/** Bolha com a contagem; cresce um pouco conforme o grupo. */
-function iconeDeGrupo(quantidade: number) {
-  const tamanho = quantidade < 10 ? 34 : quantidade < 100 ? 42 : quantidade < 1000 ? 50 : 58;
-  const rotulo =
-    quantidade < 1000 ? String(quantidade) : `${Math.floor(quantidade / 1000)}mil+`;
-
-  return L.divIcon({
-    html:
-      `<div style="width:${tamanho}px;height:${tamanho}px;display:flex;align-items:center;` +
-      `justify-content:center;border-radius:50%;background:rgba(83,74,183,0.92);` +
-      `border:3px solid rgba(255,255,255,0.9);color:#fff;font-weight:700;` +
-      `font-size:${quantidade < 1000 ? 13 : 11}px;box-shadow:0 2px 8px rgba(0,0,0,0.25)">` +
-      `${rotulo}</div>`,
-    className: "",
-    iconSize: [tamanho, tamanho],
-  });
-}

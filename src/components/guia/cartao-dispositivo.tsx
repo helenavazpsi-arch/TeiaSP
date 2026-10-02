@@ -4,6 +4,7 @@ import { BadgeArea } from "@/components/ui/badge-area";
 import { Etiqueta } from "@/components/ui/etiqueta";
 import { area } from "@/lib/areas";
 import type { ServicoResumo } from "@/lib/dados/servicos";
+import { normalizar } from "@/lib/busca";
 
 /**
  * Cartão de um dispositivo na listagem.
@@ -14,9 +15,11 @@ import type { ServicoResumo } from "@/lib/dados/servicos";
 export function CartaoDispositivo({ servico }: { servico: ServicoResumo }) {
   const { cor } = area(servico.area);
   const primeiroPublico = servico.publico.split(",")[0]?.trim();
+  // Esconder sigla se for igual ao nome (após normalização)
+  const siglaDiferente = servico.sigla && servico.nome && normalizar(servico.sigla) !== normalizar(servico.nome);
 
   return (
-    <li className="list-none">
+    <li className="list-none min-w-0">
       <Link
         href={`/dispositivo/${servico.slug}`}
         className="group block h-full overflow-hidden rounded-teia-lg border border-black/8 bg-sur/95 transition-all hover:-translate-y-0.5 hover:border-marca-200 hover:shadow-lg"
@@ -29,7 +32,7 @@ export function CartaoDispositivo({ servico }: { servico: ServicoResumo }) {
           <h3 className="mt-2.5 font-display text-base leading-tight font-bold text-tx group-hover:text-marca-800">
             {servico.sigla || servico.nome}
           </h3>
-          {servico.sigla && servico.nome && (
+          {siglaDiferente && (
             <p className="mt-0.5 text-xs leading-snug text-tx-2">{servico.nome}</p>
           )}
 

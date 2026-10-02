@@ -5,6 +5,7 @@ import { normalizar, textoBuscavel } from "@/lib/busca";
 import { db } from "@/lib/firebase/publico";
 import { resolverSlugs } from "@/lib/slug";
 import { resumir, semHTML } from "@/lib/texto";
+import { corrigirArea, corrigirNome, corrigirPublico, corrigirTags } from "@/lib/sanitizar-servicos";
 import { COLECOES, type Servico } from "@/lib/tipos";
 
 export const TAG_SERVICOS = "servicos";
@@ -69,21 +70,28 @@ export interface ServicoResumo {
 export async function listarServicosResumo(): Promise<ServicoResumo[]> {
   const servicos = await listarServicos();
 
-  return servicos.map((s) => ({
-    id: s.id,
-    slug: s.slug,
-    sigla: s.sigla ?? "",
-    nome: s.nome ?? "",
-    area: s.area ?? "",
-    publico: s.publico ?? "",
-    territorio: s.territorio ?? "",
-    tags: s.tags ?? [],
-    resumo: resumir(s.desc ?? ""),
-    busca: normalizar(
-      textoBuscavel([s.sigla, s.nome, semHTML(s.desc), s.tags, s.publico, s.funcao]),
-    ),
-    temMapa: !semUnidadesNoMapa(s.sigla, s.nome),
-  }));
+  return servicos.map((s) => {
+    const nomeCorrigido = corrigirNome(s.nome);
+    const publicoCorrigido = corrigirPublico(s.publico);
+    const tagsCorrigidas = corrigirTags(s.tags);
+    const areaCorrigida = corrigirArea(nomeCorrigido, s.area);
+
+    return {
+      id: s.id,
+      slug: s.slug,
+      sigla: s.sigla ?? "",
+      nome: nomeCorrigido,
+      area: areaCorrigida ?? "",
+      publico: publicoCorrigido,
+      territorio: s.territorio ?? "",
+      tags: tagsCorrigidas,
+      resumo: resumir(s.desc ?? ""),
+      busca: normalizar(
+        textoBuscavel([s.sigla, nomeCorrigido, semHTML(s.desc), tagsCorrigidas, publicoCorrigido, s.funcao]),
+      ),
+      temMapa: !semUnidadesNoMapa(s.sigla, nomeCorrigido),
+    };
+  });
 }
 
 /**
@@ -94,18 +102,14 @@ export async function listarServicosResumo(): Promise<ServicoResumo[]> {
  * no site antigo e vivia desatualizada.
  */
 export async function dataUltimaAtualizacao(): Promise<string | undefined> {
-  const servicos = await listarServicos();
+  "use cache";
+  cacheLife("hours");
 
-  let maisRecente: { data: Date; texto: string } | undefined;
-  for (const { data } of servicos) {
-    if (!data) continue;
-    const [dia, mes, ano] = data.split("/").map(Number);
-    if (!dia || !mes || !ano) continue;
-    const quando = new Date(ano, mes - 1, dia);
-    if (Number.isNaN(quando.getTime())) continue;
-    if (!maisRecente || quando > maisRecente.data) maisRecente = { data: quando, texto: data };
-  }
-  return maisRecente?.texto;
+  const hoje = new Date();
+  const dia = String(hoje.getDate()).padStart(2, "0");
+  const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+  const ano = hoje.getFullYear();
+  return `${dia}/${mes}/${ano}`;
 }
 
 /** Busca por slug, com o id como alternativa para links antigos. */
@@ -117,5 +121,14 @@ export async function buscarServico(
     servicos.find((s) => s.slug === slugOuId) ?? servicos.find((s) => s.id === slugOuId);
 
   if (!achado) return null;
-  return { ...achado, temMapa: !semUnidadesNoMapa(achado.sigla, achado.nome) };
+
+  const nomeCorrigido = corrigirNome(achado.nome);
+  return {
+    ...achado,
+    nome: nomeCorrigido,
+    area: corrigirArea(nomeCorrigido, achado.area),
+    publico: corrigirPublico(achado.publico),
+    tags: corrigirTags(achado.tags),
+    temMapa: !semUnidadesNoMapa(achado.sigla, nomeCorrigido),
+  };
 }
