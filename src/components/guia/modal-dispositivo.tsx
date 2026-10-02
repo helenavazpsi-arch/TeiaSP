@@ -1,10 +1,13 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { ModalContext } from "@/components/guia/modal-context";
+
+const MonitorRotaModal = dynamic(() => import("./monitor-rota-modal").then(m => ({ default: m.MonitorRotaModal })), { ssr: false });
 
 /**
  * Casca do dispositivo quando ele é aberto a partir da listagem: o conteúdo
@@ -23,6 +26,7 @@ export function ModalDispositivo({ children }: { children: ReactNode }) {
 
   return (
     <ModalContext.Provider value={{ fecharModal }}>
+      <MonitorRotaModal onSairDisositivo={() => setAberto(false)} />
       <Dialog.Root open={aberto} onOpenChange={(novoEstado) => {
         setAberto(novoEstado);
         if (!novoEstado) router.back();
