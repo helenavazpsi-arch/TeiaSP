@@ -6,8 +6,5 @@ export const ModalContext = createContext<{
 
 export function useFecharModal() {
   const context = useContext(ModalContext);
-  if (!context) {
-    throw new Error("useFecharModal deve ser usado dentro de ModalProvider");
-  }
-  return context.fecharModal;
+  return context?.fecharModal || (() => {});
 }
