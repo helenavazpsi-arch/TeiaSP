@@ -85,6 +85,8 @@ export function paragrafos(desc: string | undefined | null): string[] {
   texto = texto.replace(/<\/p>/gi, "\n");
   texto = texto.replace(/<\/div>/gi, "\n");
   texto = texto.replace(/<(p|div)(\s[^>]*)>/g, "");
+  // Garante que não há tags <div> restantes (podem estar escapadas ou em posições inesperadas)
+  texto = texto.replace(/<\/?div[^>]*>/gi, "");
 
   // Normaliza breaks em newlines
   texto = texto.replace(/<br\s*\/?>/gi, "\n");
