@@ -75,10 +75,13 @@ export function paragrafos(desc: string | undefined | null): string[] {
     texto = texto.replace(/<\/ul>/g, "");
   }
 
-  // Normaliza quebras de parágrafo/linha em newlines para detectar padrões de lista
+  // Remove tags <p> e <div> - converte fechamento em newline, depois remove abertura
   texto = texto.replace(/<\/p>/gi, "\n");
+  texto = texto.replace(/<\/div>/gi, "\n");
+  texto = texto.replace(/<(p|div)(\s[^>]*)>/g, "");
+
+  // Normaliza breaks em newlines
   texto = texto.replace(/<br\s*\/?>/gi, "\n");
-  texto = texto.replace(/<\/(div)>/gi, "\n");
 
   // Processa linhas para detectar padrão de lista (linhas com ":")
   const linhas = texto.split("\n");
