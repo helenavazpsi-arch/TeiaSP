@@ -64,6 +64,8 @@ export function sanitizar(html: string): string {
     .replace(/\s+(<(?:ul|ol|li)>)/g, "$1")
     .replace(/(<(?:ul|ol)>)\s+/g, "$1")
     .replace(/(<li>)\s+/g, "$1")
+    // Remove espaço após abertura de <li> para alinhamento perfeito
+    .replace(/(<li>)(&nbsp;|\s)+/g, "$1")
     .replace(/\s+(<\/li>)/g, "$1")
     .replace(/\s+(<\/(?:ul|ol)>)/g, "$1");
 }
