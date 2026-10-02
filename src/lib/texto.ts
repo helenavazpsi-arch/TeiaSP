@@ -57,7 +57,11 @@ export function sanitizar(html: string): string {
     // Restaura entidades HTML comuns escapadas
     .replace(/&amp;nbsp;/g, "&nbsp;")
     .replace(/&amp;quot;/g, "&quot;")
-    .replace(/&amp;#(\d+);/g, "&#$1;");
+    .replace(/&amp;#(\d+);/g, "&#$1;")
+    // Remove espaços em branco logo após abertura de <ul>/<ol>
+    .replace(/(<(?:ul|ol)>)\s+/g, "$1")
+    // Remove espaços em branco antes de </ul>/</ ol>
+    .replace(/\s+(<\/(?:ul|ol)>)/g, "$1");
 }
 
 /**
