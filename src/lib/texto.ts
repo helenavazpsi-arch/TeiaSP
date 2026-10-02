@@ -49,10 +49,15 @@ function escapar(texto: string): string {
  * navegador de quem estava no painel.
  */
 export function sanitizar(html: string): string {
-  return escapar(html).replace(
-    /&lt;(\/?)(b|strong|i|em|u|ul|ol|li)(?:\s[^&]*?)?\/?&gt;/gi,
-    (_, barra: string, tag: string) => `<${barra}${tag.toLowerCase()}>`,
-  );
+  return escapar(html)
+    .replace(
+      /&lt;(\/?)(b|strong|i|em|u|ul|ol|li)(?:\s[^&]*?)?\/?&gt;/gi,
+      (_, barra: string, tag: string) => `<${barra}${tag.toLowerCase()}>`,
+    )
+    // Restaura entidades HTML comuns escapadas
+    .replace(/&amp;nbsp;/g, "&nbsp;")
+    .replace(/&amp;quot;/g, "&quot;")
+    .replace(/&amp;#(\d+);/g, "&#$1;");
 }
 
 /**
