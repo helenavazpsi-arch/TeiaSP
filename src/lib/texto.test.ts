@@ -94,6 +94,17 @@ describe("paragrafos", () => {
       expect(saida).toContain("<li>");
     }
   });
+
+  it("agrupa itens com colons contíguos em lista quando há 3+", () => {
+    const texto = "Introdução:\nItem Um: descrição um.\nItem Dois: descrição dois.\nItem Três: descrição três.";
+    const resultado = paragrafos(texto);
+    const saida = resultado.join("");
+
+    // Deve conter lista com 3+ itens agrupados
+    expect(saida).toContain("<ul>");
+    const liCount = (saida.match(/<li>/g) || []).length;
+    expect(liCount).toBeGreaterThanOrEqual(3);
+  });
 });
 
 describe("semHTML", () => {

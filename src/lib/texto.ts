@@ -90,22 +90,19 @@ export function paragrafos(desc: string | undefined | null): string[] {
     const temColon = linha.includes(":");
     const linhaValida = linha.trim().length > 0;
 
-    // Detecta itens de lista: linhas que têm ":" e começam com palavra-chave comum
+    // Detecta itens de lista: linhas contíguas que têm ":"
     if (temColon && linhaValida && linha.trim().length > 2) {
-      // Extrai a primeira palavra antes do colon
-      const primeiraLinha = linhas[i];
-      const palavraChave = primeiraLinha.split(":")[0].trim();
-
       const itens: string[] = [];
-      // Coleta itens de lista contíguas que começam com a mesma palavra-chave
+
+      // Coleta todas as linhas contíguas com colons
       while (i < linhas.length &&
              linhas[i].includes(":") &&
-             linhas[i].trim().length > 2 &&
-             linhas[i].split(":")[0].trim().startsWith(palavraChave.split(" ")[0])) {
+             linhas[i].trim().length > 2) {
         itens.push(linhas[i]);
         i++;
       }
-      // Se temos 3+ itens do mesmo padrão, embrulha em <ul><li>
+
+      // Se temos 3+ itens contígues com colons, embrulha em <ul><li>
       // (Ignora se há 1-2 itens - provavelmente é introdução ou metadados isolados)
       if (itens.length >= 3) {
         resultado.push(`<ul>${itens.map((item) => `<li>${item}</li>`).join("")}</ul>`);
