@@ -2,7 +2,8 @@
 
 import { Search, SearchX, X } from "lucide-react";
 import Link from "next/link";
-import { useDeferredValue, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { CartaoDispositivo } from "@/components/guia/cartao-dispositivo";
 import { AREAS, PUBLICOS } from "@/lib/areas";
 import { normalizar } from "@/lib/busca";
@@ -18,9 +19,19 @@ import { cn } from "@/lib/utils";
  * limpeza por item a cada digitação.
  */
 export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
+  const pathname = usePathname();
   const [termo, setTermo] = useState("");
   const [areaSelecionada, setAreaSelecionada] = useState("");
   const [publico, setPublico] = useState("");
+
+  // limpa filtros quando entra na aba de busca
+  useEffect(() => {
+    if (pathname === "/") {
+      setTermo("");
+      setAreaSelecionada("");
+      setPublico("");
+    }
+  }, [pathname]);
 
   // mantém a digitação fluida quando a lista é longa
   const termoAdiado = useDeferredValue(termo);
