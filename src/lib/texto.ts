@@ -58,7 +58,10 @@ export function sanitizar(html: string): string {
     .replace(/&amp;nbsp;/g, "&nbsp;")
     .replace(/&amp;quot;/g, "&quot;")
     .replace(/&amp;#(\d+);/g, "&#$1;")
+    // Remove padrão malformado </div><div> que causa desalinhamento
+    .replace(/<\/div><div>/g, "")
     // Limpa espaços em branco em listas
+    .replace(/\s+(<(?:ul|ol|li)>)/g, "$1")
     .replace(/(<(?:ul|ol)>)\s+/g, "$1")
     .replace(/(<li>)\s+/g, "$1")
     .replace(/\s+(<\/li>)/g, "$1")
@@ -80,9 +83,14 @@ export function paragrafos(desc: string | undefined | null): string[] {
     texto = texto.replace(/<\/ul>/g, "");
   }
 
+  // Remove tags <div> e </div> dentro de listas (ficam malformadas e quebram a estrutura)
+  texto = texto.replace(/<\/?div[^>]*>/gi, (match) => {
+    // Se está dentro de uma lista, remove completamente
+    return "";
+  });
+
   // Remove tags <p> e <div> - converte fechamento em newline, depois remove abertura
   texto = texto.replace(/<\/p>/gi, "\n");
-  texto = texto.replace(/<\/div>/gi, "\n");
   texto = texto.replace(/<(p|div)(\s[^>]*)>/g, "");
 
   // Normaliza breaks em newlines

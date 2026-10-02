@@ -146,6 +146,9 @@ ul {
 li {
   margin-bottom: 0.5rem;
   margin-top: 0;
+  margin-left: 0;
+  padding-left: 0;
+  line-height: 1.6;
 }
 
 /* ==========================================================================
