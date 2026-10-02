@@ -140,13 +140,13 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
 
       {/* resultados */}
       {filtrados.length > 0 ? (
-        <ul className="mt-20 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full">
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full" style={{ marginTop: "6rem" }}>
           {filtrados.map((servico) => (
             <CartaoDispositivo key={servico.id} servico={servico} />
           ))}
         </ul>
       ) : (
-        <div className="mt-20 rounded-teia-lg border border-dashed border-black/15 bg-sur/80 px-6 py-12 text-center">
+        <div className="rounded-teia-lg border border-dashed border-black/15 bg-sur/80 px-6 py-12 text-center" style={{ marginTop: "6rem" }}>
           <SearchX size={32} className="mx-auto text-tx-3" aria-hidden />
           <p className="mt-3 font-display text-base font-semibold text-tx">
             Nenhum dispositivo encontrado
