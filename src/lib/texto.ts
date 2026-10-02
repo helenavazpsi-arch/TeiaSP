@@ -117,7 +117,13 @@ export function paragrafos(desc: string | undefined | null): string[] {
       // Se temos 3+ itens contígues com colons, embrulha em <ul><li>
       // (Ignora se há 1-2 itens - provavelmente é introdução ou metadados isolados)
       if (itens.length >= 3) {
-        resultado.push(`<ul>${itens.map((item) => `<li>${item}</li>`).join("")}</ul>`);
+        // Filtra itens vazios antes de agrupar
+        const itensValidos = itens.filter((item) => item.trim().length > 0);
+        if (itensValidos.length >= 3) {
+          resultado.push(`<ul>${itensValidos.map((item) => `<li>${item}</li>`).join("")}</ul>`);
+        } else {
+          resultado.push(...itensValidos);
+        }
       } else {
         resultado.push(...itens);
       }
