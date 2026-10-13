@@ -34,14 +34,15 @@ export async function generateMetadata({ params }: PageProps<"/dispositivo/[slug
       type: "article",
       title: `${titulo} · Teia SP`,
       description: descricao,
-      url: `/dispositivo/${servico.slug}`,
+      url: `https://teiasp.com.br/dispositivo/${servico.slug}`,
       images: [
         {
-          url: "/img/logo-teiasp.png",
+          url: "https://teiasp.com.br/img/logo-teiasp.png",
           width: 594,
           height: 385,
           alt: "Teia SP",
           type: "image/png",
+          secureUrl: "https://teiasp.com.br/img/logo-teiasp.png",
         },
       ],
       siteName: "Teia SP",
@@ -50,7 +51,9 @@ export async function generateMetadata({ params }: PageProps<"/dispositivo/[slug
       card: "summary_large_image",
       title: `${titulo} · Teia SP`,
       description: descricao,
-      images: ["/img/logo-teiasp.png"],
+      images: ["https://teiasp.com.br/img/logo-teiasp.png"],
+      creator: "@teiasp",
+      site: "@teiasp",
     },
   } satisfies Metadata;
 }

@@ -47,18 +47,19 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "/",
+    url: "https://teiasp.com.br",
     siteName: "Teia SP",
     title: "Teia SP — guia colaborativo de dispositivos de São Paulo",
     description:
       "Encontre dispositivos, equipamentos e iniciativas de saúde, assistência social e serviços públicos em São Paulo.",
     images: [
       {
-        url: "/img/logo-teiasp.png",
+        url: "https://teiasp.com.br/img/logo-teiasp.png",
         width: 594,
         height: 385,
-        alt: "Teia SP - Logo",
+        alt: "Teia SP - Guia colaborativo",
         type: "image/png",
+        secureUrl: "https://teiasp.com.br/img/logo-teiasp.png",
       },
     ],
   },
@@ -67,7 +68,9 @@ export const metadata: Metadata = {
     title: "Teia SP — guia colaborativo de dispositivos de São Paulo",
     description:
       "Encontre dispositivos, equipamentos e iniciativas de saúde, assistência social e serviços públicos em São Paulo.",
-    images: ["/img/logo-teiasp.png"],
+    images: ["https://teiasp.com.br/img/logo-teiasp.png"],
+    creator: "@teiasp",
+    site: "@teiasp",
   },
   robots: { index: true, follow: true },
 };
