@@ -195,7 +195,7 @@ export async function sugerirPonto(
 
     return {
       ok: true,
-      mensagem: "Endereço localizado enviado para aprovação!",
+      mensagem: "Endereço localizado e enviado para aprovação!",
     };
   } catch {
     return {
