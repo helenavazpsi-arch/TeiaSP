@@ -89,6 +89,11 @@ function desenharSemCluster(
 ) {
   camada.clearLayers();
 
+  if (marcadores.length === 0) {
+    mapa.setView(CENTRO_SP, ZOOM_INICIAL);
+    return;
+  }
+
   for (const marcador of marcadores) {
     L.circleMarker([marcador.lat, marcador.lng], {
       radius: 7,
@@ -100,6 +105,13 @@ function desenharSemCluster(
       .bindPopup(conteudoDoPopup(marcador), { minWidth: 210 })
       .addTo(camada);
   }
+
+  // zoom automático para os marcadores visíveis
+  const bounds = marcadores.reduce(
+    (acc, m) => acc.extend([m.lat, m.lng]),
+    L.latLngBounds([marcadores[0].lat, marcadores[0].lng], [marcadores[0].lat, marcadores[0].lng]),
+  );
+  mapa.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
 }
 
 /** Todo texto vindo do banco passa por aqui antes de virar HTML do popup. */
