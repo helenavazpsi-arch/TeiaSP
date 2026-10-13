@@ -13,7 +13,7 @@ import { avisarEquipe } from "@/lib/notificar";
  * dentro do município, a sugestão volta com erro em vez de virar um pino
  * perdido no mapa.
  */
-export function FormularioPonto() {
+export function FormularioPonto({ onSucesso }: { onSucesso?: () => void }) {
   const [resultado, enviar, enviando] = useActionState<Resultado | null, FormData>(
     sugerirPonto,
     null,
@@ -28,8 +28,9 @@ export function FormularioPonto() {
         `Novo endereço sugerido: ${enviado.current.sigla}`,
         enviado.current.endereco,
       );
+      onSucesso?.();
     }
-  }, [resultado]);
+  }, [resultado, onSucesso]);
 
   if (resultado?.ok) {
     return (
