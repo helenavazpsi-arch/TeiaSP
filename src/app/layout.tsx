@@ -52,7 +52,22 @@ export const metadata: Metadata = {
     title: "Teia SP — guia colaborativo de dispositivos de São Paulo",
     description:
       "Encontre dispositivos, equipamentos e iniciativas de saúde, assistência social e serviços públicos em São Paulo.",
-    images: [{ url: "/img/logo-teiasp.png", width: 594, height: 385, alt: "Teia SP" }],
+    images: [
+      {
+        url: "/img/logo-teiasp.png",
+        width: 594,
+        height: 385,
+        alt: "Teia SP - Logo",
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Teia SP — guia colaborativo de dispositivos de São Paulo",
+    description:
+      "Encontre dispositivos, equipamentos e iniciativas de saúde, assistência social e serviços públicos em São Paulo.",
+    images: ["/img/logo-teiasp.png"],
   },
   robots: { index: true, follow: true },
 };

@@ -35,6 +35,22 @@ export async function generateMetadata({ params }: PageProps<"/dispositivo/[slug
       title: `${titulo} · Teia SP`,
       description: descricao,
       url: `/dispositivo/${servico.slug}`,
+      images: [
+        {
+          url: "/img/logo-teiasp.png",
+          width: 594,
+          height: 385,
+          alt: "Teia SP",
+          type: "image/png",
+        },
+      ],
+      siteName: "Teia SP",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${titulo} · Teia SP`,
+      description: descricao,
+      images: ["/img/logo-teiasp.png"],
     },
   } satisfies Metadata;
 }
