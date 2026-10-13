@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { CartaoDispositivo } from "@/components/guia/cartao-dispositivo";
 import { AREAS, PUBLICOS } from "@/lib/areas";
-import { normalizar } from "@/lib/busca";
+import { normalizar, casaTexto } from "@/lib/busca";
 import type { ServicoResumo } from "@/lib/dados/servicos";
 import { cn } from "@/lib/utils";
 
@@ -55,7 +55,7 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
     return servicos.filter((s) => {
       if (areaSelecionada && s.area !== areaSelecionada) return false;
       if (alvoPublico && !normalizar(s.publico).includes(alvoPublico)) return false;
-      if (termos.length && !termos.every((termo) => s.busca.includes(termo))) return false;
+      if (termos.length && !termos.every((termo) => casaTexto(s.busca, termo))) return false;
       return true;
     });
   }, [servicos, termoAdiado, areaSelecionada, publico]);
