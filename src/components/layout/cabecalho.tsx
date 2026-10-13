@@ -39,7 +39,7 @@ export function Cabecalho() {
             <p className="font-display text-sm leading-tight font-bold text-marca-800 sm:text-xl">
               {CREDITOS.subtitulo}
             </p>
-            <p className="mt-4 text-xs leading-snug text-tx-2 sm:text-sm">
+            <p className="mt-4 text-sm leading-snug font-medium text-tx-2 sm:text-base">
               {CREDITOS.idealizacao} <BotoesEquipe />
             </p>
           </div>
