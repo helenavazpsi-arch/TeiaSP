@@ -8,8 +8,7 @@ import { MenuLateral } from "@/components/layout/menu-lateral";
  *
  * O original empilhava logo de 120px e três linhas de crédito, o que no
  * celular empurrava o conteúdo para bem abaixo da dobra. Aqui a logo encolhe
- * em telas pequenas e o crédito das artistas foi para o rodapé — continua
- * visível, sem custar a primeira tela de quem veio procurar um serviço.
+ * em telas pequenas e os créditos foram para a seção "Sobre o projeto".
  */
 export function Cabecalho() {
   return (
@@ -40,23 +39,9 @@ export function Cabecalho() {
             <p className="font-display text-sm leading-tight font-bold text-marca-800 sm:text-xl">
               {CREDITOS.subtitulo}
             </p>
-            <div className="mt-4 space-y-0.5 text-xs leading-snug text-tx-2 sm:text-base">
-              <p className="line-clamp-3 mb-2">
-                {CREDITOS.idealizacao} <BotoesEquipe />
-              </p>
-              <p className="line-clamp-1">{CREDITOS.logo}</p>
-              <p className="line-clamp-1">
-                {CREDITOS.arte.rotulo}{" "}
-                <a
-                  href={CREDITOS.arte.url}
-                  target="_blank"
-                  rel="noopener"
-                  className="underline hover:text-marca-700"
-                >
-                  {CREDITOS.arte.nome}
-                </a>
-              </p>
-            </div>
+            <p className="mt-4 text-xs leading-snug text-tx-2 sm:text-sm">
+              {CREDITOS.idealizacao} <BotoesEquipe />
+            </p>
           </div>
 
           <div className="hidden sm:block">

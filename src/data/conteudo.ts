@@ -9,12 +9,28 @@
 export const CREDITOS = {
   subtitulo: "Guia colaborativo de dispositivos de São Paulo",
   idealizacao: "Projeto idealizado e desenvolvido por:",
-  logo: "Logo e composição visual do cabeçalho: Lilla Cirenza Lescher",
-  arte: {
-    rotulo: "Arte - Corpo do site:",
-    nome: "@mun_dopurpura",
-    url: "https://www.instagram.com/mun_dopurpura?igsh=MTM4NTV5Y2wxOW50YQ==",
-  },
+  creditos: [
+    {
+      rotulo: "Logo e composição visual",
+      nome: "Lilla Cirenza Lescher",
+      url: undefined,
+    },
+    {
+      rotulo: "Arte - Corpo do site",
+      nome: "@mun_dopurpura",
+      url: "https://www.instagram.com/mun_dopurpura?igsh=MTM4NTV5Y2wxOW50YQ==",
+    },
+    {
+      rotulo: "Revisão da formatação",
+      nome: "Lucas Hashimoto",
+      url: undefined,
+    },
+    {
+      rotulo: "Revisão textual",
+      nome: "Rodrigo Saturnino",
+      url: undefined,
+    },
+  ],
   direitos: "© Direitos autorais reservados",
 } as const;
 

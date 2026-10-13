@@ -1,5 +1,5 @@
 import { ChevronDown, Info } from "lucide-react";
-import { SOBRE } from "@/data/conteudo";
+import { SOBRE, CREDITOS } from "@/data/conteudo";
 
 /**
  * "Sobre o projeto", recolhido por padrão.
@@ -31,6 +31,31 @@ export function SobreProjeto() {
             <p key={paragrafo.slice(0, 40)}>{paragrafo}</p>
           ))}
         </div>
+
+        <details className="mt-4">
+          <summary className="cursor-pointer text-xs font-medium text-marca-700 hover:text-marca-900">
+            Créditos
+          </summary>
+          <ul className="mt-2 space-y-1.5 text-[11px] leading-relaxed text-tx-3">
+            {CREDITOS.creditos.map((credito, i) => (
+              <li key={i}>
+                <strong>{credito.rotulo}:</strong>{" "}
+                {credito.url ? (
+                  <a
+                    href={credito.url}
+                    target="_blank"
+                    rel="noopener"
+                    className="underline hover:text-marca-700"
+                  >
+                    {credito.nome}
+                  </a>
+                ) : (
+                  credito.nome
+                )}
+              </li>
+            ))}
+          </ul>
+        </details>
 
         <details className="mt-4">
           <summary className="cursor-pointer text-xs font-medium text-marca-700 hover:text-marca-900">
