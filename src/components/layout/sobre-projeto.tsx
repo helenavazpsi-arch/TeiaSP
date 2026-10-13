@@ -33,10 +33,10 @@ export function SobreProjeto() {
         </div>
 
         <details className="mt-4">
-          <summary className="cursor-pointer text-xs font-medium text-marca-700 hover:text-marca-900">
+          <summary className="cursor-pointer text-sm font-medium text-marca-700 hover:text-marca-900">
             Créditos
           </summary>
-          <ul className="mt-2 space-y-1.5 text-[11px] leading-relaxed text-tx-3">
+          <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-tx-3">
             {CREDITOS.creditos.map((credito, i) => (
               <li key={i}>
                 <strong>{credito.rotulo}:</strong>{" "}
@@ -58,10 +58,10 @@ export function SobreProjeto() {
         </details>
 
         <details className="mt-4">
-          <summary className="cursor-pointer text-xs font-medium text-marca-700 hover:text-marca-900">
+          <summary className="cursor-pointer text-sm font-medium text-marca-700 hover:text-marca-900">
             Referências
           </summary>
-          <ul className="mt-2 space-y-1.5 text-[11px] leading-relaxed text-tx-3">
+          <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-tx-3">
             {SOBRE.referencias.map((ref) => (
               <li key={ref.texto.slice(0, 40)}>
                 {ref.texto}
