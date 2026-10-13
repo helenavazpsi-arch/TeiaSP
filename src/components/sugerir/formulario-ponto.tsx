@@ -39,9 +39,6 @@ export function FormularioPonto({ onSucesso }: { onSucesso?: () => void }) {
         <p className="mt-3 font-display text-base font-semibold text-ok">
           {resultado.mensagem}
         </p>
-        <p className="mt-1 text-sm text-tx-2">
-          A unidade aparece no mapa assim que a equipe aprovar.
-        </p>
         <button
           type="button"
           onClick={() => window.location.reload()}
