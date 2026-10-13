@@ -19,28 +19,31 @@ export function AbasSugestao({ siglasExistentes }: { siglasExistentes: string[] 
     if (param === "ponto") return param;
     return "dispositivo";
   });
+  const [sucessoPonto, setSucessoPonto] = useState(false);
 
   return (
     <>
-      <div className="mb-5 grid gap-2 sm:grid-cols-2" role="tablist">
-        <Opcao
-          ativo={tipo === "dispositivo"}
-          onClick={() => setTipo("dispositivo")}
-          titulo="Um dispositivo novo"
-          descricao="Um serviço, programa ou benefício que ainda não está no guia."
-        />
-        <Opcao
-          ativo={tipo === "ponto"}
-          onClick={() => setTipo("ponto")}
-          titulo="O endereço de uma unidade"
-          descricao="Uma unidade de algo que já existe no guia, para aparecer no mapa."
-        />
-      </div>
+      {!sucessoPonto && (
+        <div className="mb-5 grid gap-2 sm:grid-cols-2" role="tablist">
+          <Opcao
+            ativo={tipo === "dispositivo"}
+            onClick={() => setTipo("dispositivo")}
+            titulo="Um dispositivo novo"
+            descricao="Um serviço, programa ou benefício que ainda não está no guia."
+          />
+          <Opcao
+            ativo={tipo === "ponto"}
+            onClick={() => setTipo("ponto")}
+            titulo="O endereço de uma unidade"
+            descricao="Uma unidade de algo que já existe no guia, para aparecer no mapa."
+          />
+        </div>
+      )}
 
       {tipo === "dispositivo" ? (
         <FormularioDispositivo siglasExistentes={siglasExistentes} />
       ) : (
-        <FormularioPonto />
+        <FormularioPonto onSucesso={() => setSucessoPonto(true)} />
       )}
     </>
   );
