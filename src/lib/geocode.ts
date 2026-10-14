@@ -1,5 +1,4 @@
 import "server-only";
-import { cacheLife, cacheTag } from "next/cache";
 import { zonaDoPonto } from "@/lib/geo/poligonos";
 
 /**
@@ -70,10 +69,6 @@ interface RespostaNominatim {
 }
 
 export async function geocodificar(endereco: string): Promise<Coordenada | null> {
-  "use cache";
-  cacheTag(`geocode:${endereco}`);
-  cacheLife("max");
-
   for (const tentativa of variacoes(endereco)) {
     const comCidade = /s[ãa]o paulo/i.test(tentativa) ? tentativa : `${tentativa}, São Paulo`;
     const consulta = /brasil|brazil/i.test(comCidade) ? comCidade : `${comCidade}, Brasil`;
