@@ -3,6 +3,7 @@ import { listarServicos } from "@/lib/dados/servicos";
 
 const BASE = "https://teiasp.com.br";
 
+export const dynamic = "force-static";
 export const revalidate = 0;
 
 /**
