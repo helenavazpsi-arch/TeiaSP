@@ -3,6 +3,8 @@ import { listarServicos } from "@/lib/dados/servicos";
 
 const BASE = "https://teiasp.com.br";
 
+export const revalidate = 0;
+
 /**
  * Um endereço por dispositivo, além das seções.
  * O site antigo era uma página só: o Google não tinha o que indexar além da
