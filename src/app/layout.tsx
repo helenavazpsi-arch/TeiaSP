@@ -67,7 +67,7 @@ async function RodapeComData() {
   return <Rodape atualizadoEm={await dataUltimaAtualizacao()} />;
 }
 
-export default function RootLayout({ children, modal }: LayoutProps<"/">) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
@@ -106,8 +106,6 @@ export default function RootLayout({ children, modal }: LayoutProps<"/">) {
         <Suspense fallback={null}>
           <RodapeComData />
         </Suspense>
-
-        {modal}
 
         <ModalFeedback />
       </body>
