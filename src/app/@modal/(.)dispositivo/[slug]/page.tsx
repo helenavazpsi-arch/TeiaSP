@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { DetalheDispositivo } from "@/components/guia/detalhe-dispositivo";
 import { ModalDispositivo } from "@/components/guia/modal-dispositivo";
-import { buscarServico } from "@/lib/dados/servicos";
+import { buscarServico, listarServicos } from "@/lib/dados/servicos";
 
 /**
  * Mesma rota de /dispositivo/[slug], interceptada quando a navegação parte da
@@ -11,6 +11,11 @@ import { buscarServico } from "@/lib/dados/servicos";
  * A casca do modal é estática e aparece no mesmo instante do clique; o
  * conteúdo entra por streaming logo atrás, já quente no cache do servidor.
  */
+export async function generateStaticParams() {
+  const servicos = await listarServicos();
+  return servicos.map((s) => ({ slug: s.slug }));
+}
+
 export default async function ModalRota({ params }: PageProps<"/dispositivo/[slug]">) {
   return (
     <ModalDispositivo>
