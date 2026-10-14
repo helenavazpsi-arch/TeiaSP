@@ -49,6 +49,14 @@ describe("casaTexto", () => {
   it("não quebra com caractere especial de regex no termo", () => {
     expect(() => casaTexto("CAPS (adulto)", "(adulto")).not.toThrow();
   });
+
+  it("cei não casa com Atendimento Psicológico", () => {
+    expect(casaTexto("atendimento psicologico gratuito", "cei")).toBe(false);
+  });
+
+  it("cen casa com Centro", () => {
+    expect(casaTexto("centro educacao infantil", "cen")).toBe(true);
+  });
 });
 
 describe("textoBuscavel", () => {
