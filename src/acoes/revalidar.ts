@@ -1,4 +1,3 @@
-"use server";
 
 import { updateTag } from "next/cache";
 import { TAG_PONTOS } from "@/lib/dados/pontos";
