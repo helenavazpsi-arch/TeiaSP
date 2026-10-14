@@ -23,7 +23,8 @@ export function normalizar(texto: string | null | undefined): string {
 /** Casa o termo no início de qualquer palavra do texto. */
 export function casaTexto(texto: string | null | undefined, termo: string): boolean {
   if (!termo) return true;
-  const escapado = termo.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const normalizado = normalizar(termo);
+  const escapado = normalizado.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   return new RegExp(`\\b${escapado}`).test(normalizar(texto));
 }
 
