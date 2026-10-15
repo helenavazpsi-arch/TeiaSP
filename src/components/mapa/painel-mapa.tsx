@@ -129,21 +129,19 @@ export function PainelMapa({
       });
 
       if (comEndereco.length > 0) {
-        const bounds = comEndereco.reduce(
-          (acc, m) => ({
-            latMin: Math.min(acc.latMin, m.lat),
-            latMax: Math.max(acc.latMax, m.lat),
-            lngMin: Math.min(acc.lngMin, m.lng),
-            lngMax: Math.max(acc.lngMax, m.lng),
-          }),
-          {
-            latMin: comEndereco[0].lat,
-            latMax: comEndereco[0].lat,
-            lngMin: comEndereco[0].lng,
-            lngMax: comEndereco[0].lng,
-          },
-        );
-        setBoundsZoom(bounds);
+        let latMin = comEndereco[0].lat;
+        let latMax = comEndereco[0].lat;
+        let lngMin = comEndereco[0].lng;
+        let lngMax = comEndereco[0].lng;
+
+        for (const m of comEndereco) {
+          latMin = Math.min(latMin, m.lat);
+          latMax = Math.max(latMax, m.lat);
+          lngMin = Math.min(lngMin, m.lng);
+          lngMax = Math.max(lngMax, m.lng);
+        }
+
+        setBoundsZoom({ latMin, latMax, lngMin, lngMax });
       } else {
         setBoundsZoom(null);
       }
