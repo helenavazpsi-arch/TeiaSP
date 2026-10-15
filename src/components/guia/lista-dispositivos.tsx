@@ -40,7 +40,7 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
 
     const resultado = servicos.filter((s) => {
       if (areaSelecionada && s.area !== areaSelecionada) return false;
-      if (alvoPublico && !normalizar(s.publico).includes(alvoPublico)) return false;
+      if (alvoPublico && !casaTexto(s.publico, alvoPublico)) return false;
       if (termos.length) {
         const match = termos.every((termo) => casaTexto(s.busca, termo));
         if (!match) return false;
