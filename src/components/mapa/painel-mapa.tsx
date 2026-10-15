@@ -91,41 +91,44 @@ export function PainelMapa({
 
   return (
     <>
-      <div className="mb-4 flex flex-wrap gap-2">
-        <button
-          onClick={() => setTipoBusca("nome")}
-          className={`rounded-teia px-3 py-1.5 text-sm font-medium transition-colors ${
-            tipoBusca === "nome"
-              ? "bg-marca-600 text-white"
-              : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
-          }`}
-        >
-          Nome/Sigla
-        </button>
-        <button
-          onClick={() => setTipoBusca("bairro")}
-          className={`rounded-teia px-3 py-1.5 text-sm font-medium transition-colors ${
-            tipoBusca === "bairro"
-              ? "bg-marca-600 text-white"
-              : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
-          }`}
-        >
-          Bairro
-        </button>
-        <button
-          onClick={() => setTipoBusca("rua")}
-          className={`rounded-teia px-3 py-1.5 text-sm font-medium transition-colors ${
-            tipoBusca === "rua"
-              ? "bg-marca-600 text-white"
-              : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
-          }`}
-        >
-          Rua/Endereço
-        </button>
-      </div>
+      <div className="mb-4 rounded-teia-lg border-2 border-marca-400 bg-sur-2 p-4">
+        <p className="mb-3 text-xs font-semibold text-tx-2 uppercase tracking-wide">
+          O que você quer buscar?
+        </p>
+        <div className="flex flex-wrap gap-2 sm:gap-3">
+          <button
+            onClick={() => setTipoBusca("nome")}
+            className={`flex-1 sm:flex-initial rounded-teia px-3 py-2 text-sm font-medium transition-all ${
+              tipoBusca === "nome"
+                ? "bg-marca-600 text-white shadow-sm"
+                : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
+            }`}
+          >
+            Nome/Sigla
+          </button>
+          <button
+            onClick={() => setTipoBusca("bairro")}
+            className={`flex-1 sm:flex-initial rounded-teia px-3 py-2 text-sm font-medium transition-all ${
+              tipoBusca === "bairro"
+                ? "bg-marca-600 text-white shadow-sm"
+                : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
+            }`}
+          >
+            Bairro
+          </button>
+          <button
+            onClick={() => setTipoBusca("rua")}
+            className={`flex-1 sm:flex-initial rounded-teia px-3 py-2 text-sm font-medium transition-all ${
+              tipoBusca === "rua"
+                ? "bg-marca-600 text-white shadow-sm"
+                : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
+            }`}
+          >
+            Rua/Endereço
+          </button>
+        </div>
 
-      <div className="mb-3 flex flex-wrap items-center gap-2">
-        <div className="relative min-w-[200px] flex-1">
+        <div className="relative mt-4">
           <Search
             size={16}
             className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-tx-3"
@@ -137,15 +140,18 @@ export function PainelMapa({
             onChange={(e) => setBusca(e.target.value)}
             placeholder={
               tipoBusca === "nome"
-                ? "Nome ou sigla da unidade..."
+                ? "Digite o nome ou sigla..."
                 : tipoBusca === "bairro"
-                  ? "Nome do bairro..."
-                  : "Nome da rua ou endereço..."
+                  ? "Digite o nome do bairro..."
+                  : "Digite o nome da rua..."
             }
             aria-label="Buscar no mapa"
-            className="w-full rounded-teia border border-black/10 bg-sur py-2 pr-3 pl-9 text-sm placeholder:text-tx-3 focus:border-marca-400 focus:outline-none"
+            className="w-full rounded-teia border-2 border-marca-400 bg-white py-2.5 pr-3 pl-9 text-sm placeholder:text-tx-3 focus:outline-none"
           />
         </div>
+      </div>
+
+      <div className="mb-3 flex flex-wrap items-center gap-2">
 
         <select
           value={areaSelecionada}
