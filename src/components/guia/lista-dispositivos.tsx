@@ -38,18 +38,25 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
       .filter((palavra) => palavra.length > 2);
     const alvoPublico = normalizar(publico);
 
-    return servicos.filter((s) => {
+    const resultado = servicos.filter((s) => {
       if (areaSelecionada && s.area !== areaSelecionada) return false;
       if (alvoPublico && !normalizar(s.publico).includes(alvoPublico)) return false;
       if (termos.length) {
         const match = termos.every((termo) => casaTexto(s.busca, termo));
-        if (termoAdiado && s.nome.includes("Atendimento Psicológico")) {
-          console.log(`[DEBUG] "${s.nome}" - busca: "${s.busca.substring(0, 100)}" - match: ${match}`);
-        }
         if (!match) return false;
       }
       return true;
     });
+
+    // Debug: mostra todos os serviços retornados
+    if (termoAdiado && resultado.length > 0) {
+      console.log(`[BUSCA] Termo: "${termoAdiado}"`);
+      resultado.forEach(s => {
+        console.log(`  ✓ ${s.nome} | busca: ${s.busca.substring(0, 80)}`);
+      });
+    }
+
+    return resultado;
   }, [servicos, termoAdiado, areaSelecionada, publico]);
 
   const temFiltro = Boolean(termo || areaSelecionada || publico);
