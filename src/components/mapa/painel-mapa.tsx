@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useMemo, useState } from "react";
 import { AREAS } from "@/lib/areas";
-import { normalizar } from "@/lib/busca";
+import { casaTexto, normalizar } from "@/lib/busca";
 import type { Marcador } from "@/lib/dados/mapa";
 
 /** Leaflet mexe em `window` na importação: só carrega no navegador. */
@@ -56,7 +56,7 @@ export function PainelMapa({
       if (zona && m.zona !== zona) return false;
       if (termos.length) {
         const alvo = normalizar(`${m.sigla} ${m.nome} ${m.endereco}`);
-        if (!termos.every((termo) => alvo.includes(termo))) return false;
+        if (!termos.every((termo) => casaTexto(alvo, termo))) return false;
       }
       return true;
     });

@@ -41,7 +41,10 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
     return servicos.filter((s) => {
       if (areaSelecionada && s.area !== areaSelecionada) return false;
       if (alvoPublico && !normalizar(s.publico).includes(alvoPublico)) return false;
-      if (termos.length && !termos.every((termo) => casaTexto(s.busca, termo))) return false;
+      if (termos.length) {
+        const match = termos.every((termo) => casaTexto(s.busca, termo));
+        if (!match) return false;
+      }
       return true;
     });
   }, [servicos, termoAdiado, areaSelecionada, publico]);
