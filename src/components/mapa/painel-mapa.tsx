@@ -120,12 +120,33 @@ export function PainelMapa({
       .filter((palavra) => palavra.length > 2);
 
     if (tipoBusca === "bairro" && termos.length > 0) {
-      const distritos = distritosNoTexto(buscaAdiada);
+      // Primeiro tenta encontrar por nome de distrito
+      let distritos = distritosNoTexto(buscaAdiada);
+
+      // Se não encontrou distrito, tenta encontrar o bairro nos marcadores
+      if (distritos.length === 0) {
+        const distritosComBairro = new Set<string>();
+
+        for (const m of marcadores) {
+          const alvo = normalizar(m.endereco);
+          if (termos.every((termo) => casaTexto(alvo, termo))) {
+            const distrito = distritoDoPonto(m.lat, m.lng);
+            if (distrito) {
+              distritosComBairro.add(distrito);
+            }
+          }
+        }
+
+        if (distritosComBairro.size > 0) {
+          distritos = Array.from(distritosComBairro);
+        }
+      }
+
       setBoundsZoom(obterBoundsDistrito(distritos));
     } else {
       setBoundsZoom(null);
     }
-  }, [buscaAdiada, tipoBusca]);
+  }, [buscaAdiada, tipoBusca, marcadores]);
 
   const temFiltro = Boolean(busca || areaSelecionada || zona);
 
