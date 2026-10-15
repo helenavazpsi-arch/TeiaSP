@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { CartaoDispositivo } from "@/components/guia/cartao-dispositivo";
 import { AREAS, PUBLICOS } from "@/lib/areas";
-import { normalizar, casaTexto } from "@/lib/busca";
+import { casaTexto, normalizar } from "@/lib/busca";
 import type { ServicoResumo } from "@/lib/dados/servicos";
 import { cn } from "@/lib/utils";
 
@@ -52,12 +52,25 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
       .filter((palavra) => palavra.length > 2);
     const alvoPublico = normalizar(publico);
 
-    return servicos.filter((s) => {
+    const resultado = servicos.filter((s) => {
       if (areaSelecionada && s.area !== areaSelecionada) return false;
-      if (alvoPublico && !normalizar(s.publico).includes(alvoPublico)) return false;
-      if (termos.length && !termos.every((termo) => casaTexto(s.busca, termo))) return false;
+      if (alvoPublico && !casaTexto(s.publico, alvoPublico)) return false;
+      if (termos.length) {
+        const match = termos.every((termo) => casaTexto(s.busca, termo));
+        if (!match) return false;
+      }
       return true;
     });
+
+    // Debug: mostra todos os serviços retornados
+    if (termoAdiado && resultado.length > 0) {
+      console.log(`[BUSCA] Termo: "${termoAdiado}"`);
+      resultado.forEach(s => {
+        console.log(`  ✓ ${s.nome} | busca: ${s.busca.substring(0, 80)}`);
+      });
+    }
+
+    return resultado;
   }, [servicos, termoAdiado, areaSelecionada, publico]);
 
   const temFiltro = Boolean(termo || areaSelecionada || publico);

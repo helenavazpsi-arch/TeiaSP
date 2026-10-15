@@ -1,5 +1,4 @@
 import { collection, getDocs } from "firebase/firestore";
-import { cacheLife, cacheTag } from "next/cache";
 import { db } from "@/lib/firebase/publico";
 import { zonaDoPonto } from "@/lib/geo/poligonos";
 import { COLECOES, type Ponto, type PontoNoMapa } from "@/lib/tipos";
@@ -18,10 +17,6 @@ export const TAG_PONTOS = "pontos";
  * desenhar no mapa nem como afirmar a zona.
  */
 export async function listarPontos(): Promise<PontoNoMapa[]> {
-  "use cache";
-  cacheTag(TAG_PONTOS);
-  cacheLife("hours");
-
   const snap = await getDocs(collection(db(), COLECOES.pontos));
 
   return snap.docs

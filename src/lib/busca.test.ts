@@ -50,6 +50,13 @@ describe("casaTexto", () => {
     expect(() => casaTexto("CAPS (adulto)", "(adulto")).not.toThrow();
   });
 
+  it("cei não casa com Atendimento Psicológico", () => {
+    expect(casaTexto("atendimento psicologico gratuito", "cei")).toBe(false);
+  });
+
+  it("cen casa com Centro", () => {
+    expect(casaTexto("centro educacao infantil", "cen")).toBe(true);
+  });
   it("não casa CEI em Atendimento Psicológico Gratuito", () => {
     // Busca pode incluir sigla, nome, desc, tags, publico, funcao
     expect(casaTexto("atendimento psicologico gratuito", "cei")).toBe(false);

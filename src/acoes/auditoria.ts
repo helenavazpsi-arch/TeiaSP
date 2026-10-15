@@ -1,4 +1,3 @@
-"use server";
 
 import { geocodificar } from "@/lib/geocode";
 import { distritoDoPonto } from "@/lib/geo/poligonos";

@@ -1,5 +1,4 @@
 import { collection, getDocs } from "firebase/firestore";
-import { cacheLife, cacheTag } from "next/cache";
 import { SEM_UNIDADES_NO_MAPA } from "@/data/sem-unidades-no-mapa";
 import { normalizar, textoBuscavel } from "@/lib/busca";
 import { db } from "@/lib/firebase/publico";
@@ -30,10 +29,6 @@ export type ServicoComSlug = Servico & { slug: string };
  * `updateTag(TAG_SERVICOS)`; o prazo de horas é só a rede de segurança.
  */
 export async function listarServicos(): Promise<ServicoComSlug[]> {
-  "use cache";
-  cacheTag(TAG_SERVICOS);
-  cacheLife("hours");
-
   const snap = await getDocs(collection(db(), COLECOES.servicos));
   const servicos = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }) as Servico);
 
@@ -87,7 +82,7 @@ export async function listarServicosResumo(): Promise<ServicoResumo[]> {
       tags: tagsCorrigidas,
       resumo: resumir(s.desc ?? ""),
       busca: normalizar(
-        textoBuscavel([s.sigla, nomeCorrigido, semHTML(s.desc), tagsCorrigidas, publicoCorrigido, s.funcao]),
+        textoBuscavel([s.sigla, nomeCorrigido, publicoCorrigido, tagsCorrigidas]),
       ),
       temMapa: !semUnidadesNoMapa(s.sigla, nomeCorrigido),
     };
@@ -102,9 +97,6 @@ export async function listarServicosResumo(): Promise<ServicoResumo[]> {
  * no site antigo e vivia desatualizada.
  */
 export async function dataUltimaAtualizacao(): Promise<string | undefined> {
-  "use cache";
-  cacheLife("hours");
-
   const hoje = new Date();
   const dia = String(hoje.getDate()).padStart(2, "0");
   const mes = String(hoje.getMonth() + 1).padStart(2, "0");
