@@ -22,6 +22,8 @@ const MapaView = dynamic(
   },
 );
 
+type TipoBusca = "nome" | "bairro" | "rua";
+
 export function PainelMapa({
   marcadores,
   zonas,
@@ -40,6 +42,7 @@ export function PainelMapa({
   const [busca, setBusca] = useState(() => parametros.get("busca") ?? "");
   const [areaSelecionada, setAreaSelecionada] = useState("");
   const [zona, setZona] = useState("");
+  const [tipoBusca, setTipoBusca] = useState<TipoBusca>("nome");
 
   // atualiza busca quando o query param muda
   useEffect(() => {
@@ -65,24 +68,62 @@ export function PainelMapa({
 
     return marcadores.filter((m) => {
       if (areaSelecionada && m.area !== areaSelecionada) return false;
-      /**
-       * A zona sai da coordenada, nunca do texto do endereço. Foi assim que o
-       * site atual resolveu o caso "Rua Sant'Ana" (Zona Sul) casando com o
-       * bairro Santana (Zona Norte).
-       */
       if (zona && m.zona !== zona) return false;
+
       if (termos.length) {
-        const alvo = normalizar(`${m.sigla} ${m.nome} ${m.endereco}`);
+        let alvo = "";
+
+        if (tipoBusca === "nome") {
+          alvo = normalizar(`${m.sigla} ${m.nome}`);
+        } else if (tipoBusca === "bairro") {
+          alvo = normalizar(m.zona ?? "");
+        } else if (tipoBusca === "rua") {
+          alvo = normalizar(m.endereco);
+        }
+
         if (!termos.every((termo) => casaTexto(alvo, termo))) return false;
       }
       return true;
     });
-  }, [marcadores, buscaAdiada, areaSelecionada, zona]);
+  }, [marcadores, buscaAdiada, areaSelecionada, zona, tipoBusca]);
 
   const temFiltro = Boolean(busca || areaSelecionada || zona);
 
   return (
     <>
+      <div className="mb-4 flex flex-wrap gap-2">
+        <button
+          onClick={() => setTipoBusca("nome")}
+          className={`rounded-teia px-3 py-1.5 text-sm font-medium transition-colors ${
+            tipoBusca === "nome"
+              ? "bg-marca-600 text-white"
+              : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
+          }`}
+        >
+          Nome/Sigla
+        </button>
+        <button
+          onClick={() => setTipoBusca("bairro")}
+          className={`rounded-teia px-3 py-1.5 text-sm font-medium transition-colors ${
+            tipoBusca === "bairro"
+              ? "bg-marca-600 text-white"
+              : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
+          }`}
+        >
+          Bairro
+        </button>
+        <button
+          onClick={() => setTipoBusca("rua")}
+          className={`rounded-teia px-3 py-1.5 text-sm font-medium transition-colors ${
+            tipoBusca === "rua"
+              ? "bg-marca-600 text-white"
+              : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
+          }`}
+        >
+          Rua/Endereço
+        </button>
+      </div>
+
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <div className="relative min-w-[200px] flex-1">
           <Search
@@ -94,7 +135,13 @@ export function PainelMapa({
             type="search"
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
-            placeholder="Buscar por bairro, rua ou nome da unidade..."
+            placeholder={
+              tipoBusca === "nome"
+                ? "Nome ou sigla da unidade..."
+                : tipoBusca === "bairro"
+                  ? "Nome do bairro..."
+                  : "Nome da rua ou endereço..."
+            }
             aria-label="Buscar no mapa"
             className="w-full rounded-teia border border-black/10 bg-sur py-2 pr-3 pl-9 text-sm placeholder:text-tx-3 focus:border-marca-400 focus:outline-none"
           />
