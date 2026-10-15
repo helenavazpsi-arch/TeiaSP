@@ -8,6 +8,7 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { AREAS } from "@/lib/areas";
 import { casaTexto, normalizar } from "@/lib/busca";
 import type { Marcador } from "@/lib/dados/mapa";
+import { distritoDoPonto, distritosNoTexto, DISTRITOS } from "@/lib/geo/poligonos";
 
 /** Leaflet mexe em `window` na importação: só carrega no navegador. */
 const MapaView = dynamic(
@@ -23,6 +24,29 @@ const MapaView = dynamic(
 );
 
 type TipoBusca = "nome" | "bairro" | "rua";
+type BoundsZoom = { latMin: number; latMax: number; lngMin: number; lngMax: number } | null;
+
+function obterBoundsDistrito(nomesDistritos: string[]): BoundsZoom {
+  if (nomesDistritos.length === 0) return null;
+
+  let latMin = Infinity, latMax = -Infinity, lngMin = Infinity, lngMax = -Infinity;
+
+  for (const nome of nomesDistritos) {
+    const aneis = DISTRITOS[nome as keyof typeof DISTRITOS];
+    if (!aneis) continue;
+
+    for (const anel of aneis) {
+      for (const [lng, lat] of anel) {
+        latMin = Math.min(latMin, lat);
+        latMax = Math.max(latMax, lat);
+        lngMin = Math.min(lngMin, lng);
+        lngMax = Math.max(lngMax, lng);
+      }
+    }
+  }
+
+  return latMin === Infinity ? null : { latMin, latMax, lngMin, lngMax };
+}
 
 export function PainelMapa({
   marcadores,
@@ -60,31 +84,72 @@ export function PainelMapa({
   }, [pathname]);
 
   const buscaAdiada = useDeferredValue(busca);
+  const [boundsZoom, setBoundsZoom] = useState<BoundsZoom>(null);
 
   const filtrados = useMemo(() => {
     const termos = normalizar(buscaAdiada)
       .split(" ")
       .filter((palavra) => palavra.length > 2);
 
-    return marcadores.filter((m) => {
+    // Por bairro e rua, não filtra — apenas calcula o zoom
+    if (tipoBusca === "bairro" || tipoBusca === "rua") {
+      if (termos.length > 0) {
+        if (tipoBusca === "bairro") {
+          const distritos = distritosNoTexto(buscaAdiada);
+          setBoundsZoom(obterBoundsDistrito(distritos));
+        } else if (tipoBusca === "rua") {
+          // Calcula bounds de todos os endereços que contenham a palavra-chave
+          const comEndereco = marcadores.filter((m) => {
+            const alvo = normalizar(m.endereco);
+            return termos.every((termo) => casaTexto(alvo, termo));
+          });
+
+          if (comEndereco.length > 0) {
+            const bounds = comEndereco.reduce(
+              (acc, m) => ({
+                latMin: Math.min(acc.latMin, m.lat),
+                latMax: Math.max(acc.latMax, m.lat),
+                lngMin: Math.min(acc.lngMin, m.lng),
+                lngMax: Math.max(acc.lngMax, m.lng),
+              }),
+              {
+                latMin: comEndereco[0].lat,
+                latMax: comEndereco[0].lat,
+                lngMin: comEndereco[0].lng,
+                lngMax: comEndereco[0].lng,
+              },
+            );
+            setBoundsZoom(bounds);
+          } else {
+            setBoundsZoom(null);
+          }
+        }
+      } else {
+        setBoundsZoom(null);
+      }
+
+      // Retorna todos os marcadores, sem filtrar
+      return marcadores.filter((m) => {
+        if (areaSelecionada && m.area !== areaSelecionada) return false;
+        if (zona && m.zona !== zona) return false;
+        return true;
+      });
+    }
+
+    // Por nome: filtra normalmente
+    const resultado = marcadores.filter((m) => {
       if (areaSelecionada && m.area !== areaSelecionada) return false;
       if (zona && m.zona !== zona) return false;
 
       if (termos.length) {
-        let alvo = "";
-
-        if (tipoBusca === "nome") {
-          alvo = normalizar(`${m.sigla} ${m.nome}`);
-        } else if (tipoBusca === "bairro") {
-          alvo = normalizar(m.zona ?? "");
-        } else if (tipoBusca === "rua") {
-          alvo = normalizar(m.endereco);
-        }
-
+        const alvo = normalizar(`${m.sigla} ${m.nome}`);
         if (!termos.every((termo) => casaTexto(alvo, termo))) return false;
       }
       return true;
     });
+
+    setBoundsZoom(null);
+    return resultado;
   }, [marcadores, buscaAdiada, areaSelecionada, zona, tipoBusca]);
 
   const temFiltro = Boolean(busca || areaSelecionada || zona);
@@ -215,7 +280,7 @@ export function PainelMapa({
       </div>
 
       <div className="h-[68vh] min-h-[420px] overflow-hidden rounded-teia-lg border border-black/10">
-        <MapaView marcadores={filtrados} />
+        <MapaView marcadores={filtrados} boundsZoom={boundsZoom} />
       </div>
 
       <div className="mt-4 rounded-teia bg-marca-50 p-4">
