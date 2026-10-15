@@ -120,12 +120,58 @@ export function PainelMapa({
       .filter((palavra) => palavra.length > 2);
 
     if (tipoBusca === "bairro" && termos.length > 0) {
-      const distritos = distritosNoTexto(buscaAdiada);
-      setBoundsZoom(obterBoundsDistrito(distritos));
+      // Primeiro tenta encontrar por nome de distrito
+      let distritos = distritosNoTexto(buscaAdiada);
+      let boundsZoomLocal: BoundsZoom = null;
+
+      // Se encontrou um distrito, usa seus bounds
+      if (distritos.length > 0) {
+        boundsZoomLocal = obterBoundsDistrito(distritos);
+      } else {
+        // Se não encontrou distrito, tenta encontrar o bairro nos marcadores
+        const marcadoresComBairro: Marcador[] = [];
+
+        // Tenta encontrar com todos os termos
+        for (const m of marcadores) {
+          const alvo = normalizar(m.endereco);
+          if (termos.every((termo) => casaTexto(alvo, termo))) {
+            marcadoresComBairro.push(m);
+          }
+        }
+
+        // Se não encontrou com todos os termos, tenta com pelo menos um termo
+        if (marcadoresComBairro.length === 0 && termos.length > 0) {
+          for (const m of marcadores) {
+            const alvo = normalizar(m.endereco);
+            if (termos.some((termo) => casaTexto(alvo, termo))) {
+              marcadoresComBairro.push(m);
+            }
+          }
+        }
+
+        // Calcula bounds dos marcadores encontrados
+        if (marcadoresComBairro.length > 0) {
+          let latMin = marcadoresComBairro[0].lat;
+          let latMax = marcadoresComBairro[0].lat;
+          let lngMin = marcadoresComBairro[0].lng;
+          let lngMax = marcadoresComBairro[0].lng;
+
+          for (const m of marcadoresComBairro) {
+            latMin = Math.min(latMin, m.lat);
+            latMax = Math.max(latMax, m.lat);
+            lngMin = Math.min(lngMin, m.lng);
+            lngMax = Math.max(lngMax, m.lng);
+          }
+
+          boundsZoomLocal = { latMin, latMax, lngMin, lngMax };
+        }
+      }
+
+      setBoundsZoom(boundsZoomLocal);
     } else {
       setBoundsZoom(null);
     }
-  }, [buscaAdiada, tipoBusca]);
+  }, [buscaAdiada, tipoBusca, marcadores]);
 
   const temFiltro = Boolean(busca || areaSelecionada || zona);
 
