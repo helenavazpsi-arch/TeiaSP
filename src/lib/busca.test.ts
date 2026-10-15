@@ -57,6 +57,16 @@ describe("casaTexto", () => {
   it("cen casa com Centro", () => {
     expect(casaTexto("centro educacao infantil", "cen")).toBe(true);
   });
+  it("não casa CEI em Atendimento Psicológico Gratuito", () => {
+    // Busca pode incluir sigla, nome, desc, tags, publico, funcao
+    expect(casaTexto("atendimento psicologico gratuito", "cei")).toBe(false);
+    expect(casaTexto("apg atendimento psicologico gratuito", "cei")).toBe(false);
+  });
+
+  it("casa CEI em CEI ou texto que começa com CEI", () => {
+    expect(casaTexto("CEI Centro de Educação Infantil", "cei")).toBe(true);
+    expect(casaTexto("acessivel cei", "cei")).toBe(true);
+  });
 });
 
 describe("textoBuscavel", () => {
