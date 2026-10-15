@@ -91,44 +91,8 @@ export function PainelMapa({
       .split(" ")
       .filter((palavra) => palavra.length > 2);
 
-    // Por bairro e rua, não filtra — apenas calcula o zoom
+    // Por bairro e rua, não filtra — apenas retorna todos os marcadores
     if (tipoBusca === "bairro" || tipoBusca === "rua") {
-      if (termos.length > 0) {
-        if (tipoBusca === "bairro") {
-          const distritos = distritosNoTexto(buscaAdiada);
-          setBoundsZoom(obterBoundsDistrito(distritos));
-        } else if (tipoBusca === "rua") {
-          // Calcula bounds de todos os endereços que contenham a palavra-chave
-          const comEndereco = marcadores.filter((m) => {
-            const alvo = normalizar(m.endereco);
-            return termos.every((termo) => casaTexto(alvo, termo));
-          });
-
-          if (comEndereco.length > 0) {
-            const bounds = comEndereco.reduce(
-              (acc, m) => ({
-                latMin: Math.min(acc.latMin, m.lat),
-                latMax: Math.max(acc.latMax, m.lat),
-                lngMin: Math.min(acc.lngMin, m.lng),
-                lngMax: Math.max(acc.lngMax, m.lng),
-              }),
-              {
-                latMin: comEndereco[0].lat,
-                latMax: comEndereco[0].lat,
-                lngMin: comEndereco[0].lng,
-                lngMax: comEndereco[0].lng,
-              },
-            );
-            setBoundsZoom(bounds);
-          } else {
-            setBoundsZoom(null);
-          }
-        }
-      } else {
-        setBoundsZoom(null);
-      }
-
-      // Retorna todos os marcadores, sem filtrar
       return marcadores.filter((m) => {
         if (areaSelecionada && m.area !== areaSelecionada) return false;
         if (zona && m.zona !== zona) return false;
@@ -137,7 +101,7 @@ export function PainelMapa({
     }
 
     // Por nome: filtra normalmente
-    const resultado = marcadores.filter((m) => {
+    return marcadores.filter((m) => {
       if (areaSelecionada && m.area !== areaSelecionada) return false;
       if (zona && m.zona !== zona) return false;
 
@@ -147,10 +111,46 @@ export function PainelMapa({
       }
       return true;
     });
-
-    setBoundsZoom(null);
-    return resultado;
   }, [marcadores, buscaAdiada, areaSelecionada, zona, tipoBusca]);
+
+  // Calcula o zoom bounds em um efeito separado
+  useEffect(() => {
+    const termos = normalizar(buscaAdiada)
+      .split(" ")
+      .filter((palavra) => palavra.length > 2);
+
+    if (tipoBusca === "bairro" && termos.length > 0) {
+      const distritos = distritosNoTexto(buscaAdiada);
+      setBoundsZoom(obterBoundsDistrito(distritos));
+    } else if (tipoBusca === "rua" && termos.length > 0) {
+      const comEndereco = marcadores.filter((m) => {
+        const alvo = normalizar(m.endereco);
+        return termos.every((termo) => casaTexto(alvo, termo));
+      });
+
+      if (comEndereco.length > 0) {
+        const bounds = comEndereco.reduce(
+          (acc, m) => ({
+            latMin: Math.min(acc.latMin, m.lat),
+            latMax: Math.max(acc.latMax, m.lat),
+            lngMin: Math.min(acc.lngMin, m.lng),
+            lngMax: Math.max(acc.lngMax, m.lng),
+          }),
+          {
+            latMin: comEndereco[0].lat,
+            latMax: comEndereco[0].lat,
+            lngMin: comEndereco[0].lng,
+            lngMax: comEndereco[0].lng,
+          },
+        );
+        setBoundsZoom(bounds);
+      } else {
+        setBoundsZoom(null);
+      }
+    } else {
+      setBoundsZoom(null);
+    }
+  }, [buscaAdiada, tipoBusca, marcadores]);
 
   const temFiltro = Boolean(busca || areaSelecionada || zona);
 
