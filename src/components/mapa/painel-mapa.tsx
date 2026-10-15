@@ -23,7 +23,7 @@ const MapaView = dynamic(
   },
 );
 
-type TipoBusca = "nome" | "bairro" | "rua";
+type TipoBusca = "nome" | "bairro";
 type BoundsZoom = { latMin: number; latMax: number; lngMin: number; lngMax: number } | null;
 
 function obterBoundsDistrito(nomesDistritos: string[]): BoundsZoom {
@@ -91,8 +91,8 @@ export function PainelMapa({
       .split(" ")
       .filter((palavra) => palavra.length > 2);
 
-    // Por bairro e rua, não filtra — apenas retorna todos os marcadores
-    if (tipoBusca === "bairro" || tipoBusca === "rua") {
+    // Por bairro, não filtra — apenas retorna todos os marcadores
+    if (tipoBusca === "bairro") {
       return marcadores.filter((m) => {
         if (areaSelecionada && m.area !== areaSelecionada) return false;
         if (zona && m.zona !== zona) return false;
@@ -113,7 +113,7 @@ export function PainelMapa({
     });
   }, [marcadores, buscaAdiada, areaSelecionada, zona, tipoBusca]);
 
-  // Calcula o zoom bounds em um efeito separado
+  // Calcula o zoom bounds para bairro em um efeito separado
   useEffect(() => {
     const termos = normalizar(buscaAdiada)
       .split(" ")
@@ -122,54 +122,10 @@ export function PainelMapa({
     if (tipoBusca === "bairro" && termos.length > 0) {
       const distritos = distritosNoTexto(buscaAdiada);
       setBoundsZoom(obterBoundsDistrito(distritos));
-    } else if (tipoBusca === "rua" && termos.length > 0) {
-      // Primeiro, tenta encontrar unidades na rua
-      const comEndereco = marcadores.filter((m) => {
-        const alvo = normalizar(m.endereco);
-        return termos.every((termo) => casaTexto(alvo, termo));
-      });
-
-      if (comEndereco.length > 0) {
-        // Se encontrou unidades, faz zoom nelas
-        let latMin = comEndereco[0].lat;
-        let latMax = comEndereco[0].lat;
-        let lngMin = comEndereco[0].lng;
-        let lngMax = comEndereco[0].lng;
-
-        for (const m of comEndereco) {
-          latMin = Math.min(latMin, m.lat);
-          latMax = Math.max(latMax, m.lat);
-          lngMin = Math.min(lngMin, m.lng);
-          lngMax = Math.max(lngMax, m.lng);
-        }
-
-        setBoundsZoom({ latMin, latMax, lngMin, lngMax });
-      } else {
-        // Se não encontrou unidades, tenta encontrar os distritos onde a rua está
-        const distritosComRua = new Set<string>();
-
-        for (const m of marcadores) {
-          const alvo = normalizar(m.endereco);
-          if (termos.every((termo) => casaTexto(alvo, termo))) {
-            const distrito = distritoDoPonto(m.lat, m.lng);
-            if (distrito) {
-              distritosComRua.add(distrito);
-            }
-          }
-        }
-
-        if (distritosComRua.size > 0) {
-          // Encontrou distritos com a rua, faz zoom neles
-          const distritos = Array.from(distritosComRua);
-          setBoundsZoom(obterBoundsDistrito(distritos));
-        } else {
-          setBoundsZoom(null);
-        }
-      }
     } else {
       setBoundsZoom(null);
     }
-  }, [buscaAdiada, tipoBusca, marcadores]);
+  }, [buscaAdiada, tipoBusca]);
 
   const temFiltro = Boolean(busca || areaSelecionada || zona);
 
@@ -199,16 +155,6 @@ export function PainelMapa({
             }`}
           >
             Bairro
-          </button>
-          <button
-            onClick={() => setTipoBusca("rua")}
-            className={`flex-1 sm:flex-initial rounded-teia px-3 py-2 text-sm font-medium transition-all ${
-              tipoBusca === "rua"
-                ? "bg-marca-600 text-white shadow-sm"
-                : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
-            }`}
-          >
-            Rua/Endereço
           </button>
         </div>
 
