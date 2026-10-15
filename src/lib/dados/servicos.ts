@@ -82,7 +82,7 @@ export async function listarServicosResumo(): Promise<ServicoResumo[]> {
       tags: tagsCorrigidas,
       resumo: resumir(s.desc ?? ""),
       busca: normalizar(
-        textoBuscavel([nomeCorrigido, semHTML(s.desc)]),
+        textoBuscavel([s.sigla, nomeCorrigido, semHTML(s.desc)]),
       ),
       temMapa: !semUnidadesNoMapa(s.sigla, nomeCorrigido),
     };
