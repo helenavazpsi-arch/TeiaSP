@@ -124,6 +124,8 @@ export function PainelMapa({
       let distritos = distritosNoTexto(buscaAdiada);
       let boundsZoomLocal: BoundsZoom = null;
 
+      console.log(`[MAPA BAIRRO] Buscando: "${buscaAdiada}" | Distritos encontrados: ${distritos.length}`, distritos);
+
       // Se encontrou um distrito, usa seus bounds
       if (distritos.length > 0) {
         boundsZoomLocal = obterBoundsDistrito(distritos);
