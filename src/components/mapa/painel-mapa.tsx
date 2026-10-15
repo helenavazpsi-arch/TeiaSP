@@ -128,6 +128,15 @@ export function PainelMapa({
         return termos.every((termo) => casaTexto(alvo, termo));
       });
 
+      if (termos.length > 0) {
+        console.log(`[MAPA] Buscando rua: "${buscaAdiada}"\n  Termos: ${JSON.stringify(termos)}\n  Encontrados: ${comEndereco.length}`);
+        if (comEndereco.length > 0) {
+          comEndereco.slice(0, 3).forEach(m => {
+            console.log(`    ✓ ${m.nome} | ${m.endereco}`);
+          });
+        }
+      }
+
       if (comEndereco.length > 0) {
         let latMin = comEndereco[0].lat;
         let latMax = comEndereco[0].lat;
@@ -141,6 +150,7 @@ export function PainelMapa({
           lngMax = Math.max(lngMax, m.lng);
         }
 
+        console.log(`  Bounds: lat[${latMin},${latMax}] lng[${lngMin},${lngMax}]`);
         setBoundsZoom({ latMin, latMax, lngMin, lngMax });
       } else {
         setBoundsZoom(null);
