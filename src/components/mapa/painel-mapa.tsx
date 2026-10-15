@@ -169,7 +169,7 @@ export function PainelMapa({
                 : "border border-black/15 bg-sur text-tx-2 hover:border-marca-300 hover:text-tx"
             }`}
           >
-            Nome/Sigla
+            Nome/Sigla do dispositivo
           </button>
           <button
             onClick={() => setTipoBusca("bairro")}
