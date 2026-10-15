@@ -127,12 +127,26 @@ export function PainelMapa({
       if (distritos.length === 0) {
         const distritosComBairro = new Set<string>();
 
+        // Tenta encontrar com todos os termos
         for (const m of marcadores) {
           const alvo = normalizar(m.endereco);
           if (termos.every((termo) => casaTexto(alvo, termo))) {
             const distrito = distritoDoPonto(m.lat, m.lng);
             if (distrito) {
               distritosComBairro.add(distrito);
+            }
+          }
+        }
+
+        // Se não encontrou com todos os termos, tenta com pelo menos um termo
+        if (distritosComBairro.size === 0 && termos.length > 0) {
+          for (const m of marcadores) {
+            const alvo = normalizar(m.endereco);
+            if (termos.some((termo) => casaTexto(alvo, termo))) {
+              const distrito = distritoDoPonto(m.lat, m.lng);
+              if (distrito) {
+                distritosComBairro.add(distrito);
+              }
             }
           }
         }
