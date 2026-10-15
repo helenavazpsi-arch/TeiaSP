@@ -24,7 +24,15 @@ import type { Marcador } from "@/lib/dados/mapa";
 const CENTRO_SP: [number, number] = [-23.5505, -46.6333];
 const ZOOM_INICIAL = 11;
 
-export function MapaView({ marcadores }: { marcadores: Marcador[] }) {
+type BoundsZoom = { latMin: number; latMax: number; lngMin: number; lngMax: number } | null;
+
+export function MapaView({
+  marcadores,
+  boundsZoom,
+}: {
+  marcadores: Marcador[];
+  boundsZoom?: BoundsZoom;
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapaRef = useRef<L.Map | null>(null);
   const camadaRef = useRef<L.LayerGroup | null>(null);
@@ -74,9 +82,9 @@ export function MapaView({ marcadores }: { marcadores: Marcador[] }) {
   // redesenha quando os filtros mudam a lista
   useEffect(() => {
     if (mapaRef.current && camadaRef.current) {
-      desenharSemCluster(mapaRef.current, camadaRef.current, marcadores);
+      desenharSemCluster(mapaRef.current, camadaRef.current, marcadores, boundsZoom);
     }
-  }, [marcadores]);
+  }, [marcadores, boundsZoom]);
 
   return <div ref={containerRef} className="h-full w-full" />;
 }
@@ -86,6 +94,7 @@ function desenharSemCluster(
   mapa: L.Map,
   camada: L.LayerGroup,
   marcadores: Marcador[],
+  boundsZoom?: BoundsZoom,
 ) {
   camada.clearLayers();
 
@@ -106,12 +115,20 @@ function desenharSemCluster(
       .addTo(camada);
   }
 
-  // zoom automático para os marcadores visíveis
-  const bounds = marcadores.reduce(
-    (acc, m) => acc.extend([m.lat, m.lng]),
-    L.latLngBounds([marcadores[0].lat, marcadores[0].lng], [marcadores[0].lat, marcadores[0].lng]),
-  );
-  mapa.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+  // zoom automático para os marcadores visíveis ou para o bairro/endereço buscado
+  if (boundsZoom) {
+    const bounds = L.latLngBounds(
+      [boundsZoom.latMin, boundsZoom.lngMin],
+      [boundsZoom.latMax, boundsZoom.lngMax],
+    );
+    mapa.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+  } else {
+    const bounds = marcadores.reduce(
+      (acc, m) => acc.extend([m.lat, m.lng]),
+      L.latLngBounds([marcadores[0].lat, marcadores[0].lng], [marcadores[0].lat, marcadores[0].lng]),
+    );
+    mapa.fitBounds(bounds, { padding: [50, 50], maxZoom: 16 });
+  }
 }
 
 /** Todo texto vindo do banco passa por aqui antes de virar HTML do popup. */
