@@ -126,6 +126,7 @@ export function PainelMapa({
 
       // Se encontrou um distrito, usa seus bounds
       if (distritos.length > 0) {
+        console.log(`[MAPA BAIRRO] Distrito encontrado: ${distritos.join(", ")}`);
         boundsZoomLocal = obterBoundsDistrito(distritos);
       } else {
         // Se não encontrou distrito, tenta encontrar o bairro nos marcadores
@@ -139,6 +140,8 @@ export function PainelMapa({
           }
         }
 
+        console.log(`[MAPA BAIRRO] Buscando: "${buscaAdiada}" | Termos: ${JSON.stringify(termos)} | Encontrados (todos): ${marcadoresComBairro.length}`);
+
         // Se não encontrou com todos os termos, tenta com pelo menos um termo
         if (marcadoresComBairro.length === 0 && termos.length > 0) {
           for (const m of marcadores) {
@@ -147,6 +150,7 @@ export function PainelMapa({
               marcadoresComBairro.push(m);
             }
           }
+          console.log(`[MAPA BAIRRO] Encontrados (parcial): ${marcadoresComBairro.length}`);
         }
 
         // Calcula bounds dos marcadores encontrados
@@ -163,7 +167,10 @@ export function PainelMapa({
             lngMax = Math.max(lngMax, m.lng);
           }
 
+          console.log(`[MAPA BAIRRO] Bounds calculados para ${marcadoresComBairro.length} marcadores`);
           boundsZoomLocal = { latMin, latMax, lngMin, lngMax };
+        } else {
+          console.log(`[MAPA BAIRRO] Nenhum marcador encontrado para "${buscaAdiada}"`);
         }
       }
 
