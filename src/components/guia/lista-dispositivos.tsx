@@ -43,6 +43,9 @@ export function ListaDispositivos({ servicos }: { servicos: ServicoResumo[] }) {
       if (alvoPublico && !normalizar(s.publico).includes(alvoPublico)) return false;
       if (termos.length) {
         const match = termos.every((termo) => casaTexto(s.busca, termo));
+        if (termoAdiado && s.nome.includes("Atendimento Psicológico")) {
+          console.log(`[DEBUG] "${s.nome}" - busca: "${s.busca.substring(0, 100)}" - match: ${match}`);
+        }
         if (!match) return false;
       }
       return true;
