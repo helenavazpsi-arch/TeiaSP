@@ -123,21 +123,14 @@ export function PainelMapa({
       const distritos = distritosNoTexto(buscaAdiada);
       setBoundsZoom(obterBoundsDistrito(distritos));
     } else if (tipoBusca === "rua" && termos.length > 0) {
+      // Primeiro, tenta encontrar unidades na rua
       const comEndereco = marcadores.filter((m) => {
         const alvo = normalizar(m.endereco);
         return termos.every((termo) => casaTexto(alvo, termo));
       });
 
-      if (termos.length > 0) {
-        console.log(`[MAPA] Buscando rua: "${buscaAdiada}"\n  Termos: ${JSON.stringify(termos)}\n  Encontrados: ${comEndereco.length}`);
-        if (comEndereco.length > 0) {
-          comEndereco.slice(0, 3).forEach(m => {
-            console.log(`    ✓ ${m.nome} | ${m.endereco}`);
-          });
-        }
-      }
-
       if (comEndereco.length > 0) {
+        // Se encontrou unidades, faz zoom nelas
         let latMin = comEndereco[0].lat;
         let latMax = comEndereco[0].lat;
         let lngMin = comEndereco[0].lng;
@@ -150,10 +143,28 @@ export function PainelMapa({
           lngMax = Math.max(lngMax, m.lng);
         }
 
-        console.log(`  Bounds: lat[${latMin},${latMax}] lng[${lngMin},${lngMax}]`);
         setBoundsZoom({ latMin, latMax, lngMin, lngMax });
       } else {
-        setBoundsZoom(null);
+        // Se não encontrou unidades, tenta encontrar os distritos onde a rua está
+        const distritosComRua = new Set<string>();
+
+        for (const m of marcadores) {
+          const alvo = normalizar(m.endereco);
+          if (termos.every((termo) => casaTexto(alvo, termo))) {
+            const distrito = distritoDoPonto(m.lat, m.lng);
+            if (distrito) {
+              distritosComRua.add(distrito);
+            }
+          }
+        }
+
+        if (distritosComRua.size > 0) {
+          // Encontrou distritos com a rua, faz zoom neles
+          const distritos = Array.from(distritosComRua);
+          setBoundsZoom(obterBoundsDistrito(distritos));
+        } else {
+          setBoundsZoom(null);
+        }
       }
     } else {
       setBoundsZoom(null);
