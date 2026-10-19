@@ -1,3 +1,4 @@
+"use server";
 
 import { addDoc, collection } from "firebase/firestore";
 import { headers } from "next/headers";
